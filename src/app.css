@@ -1,0 +1,157 @@
+.calculator {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: var(--shadow-lg);
+}
+
+.calculator h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0 0 4px;
+  letter-spacing: -0.5px;
+}
+
+.calculator .subtitle {
+  font-size: 14px;
+  color: var(--text-light);
+  margin: 0 0 28px;
+}
+
+.field {
+  margin-bottom: 20px;
+}
+
+.field label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin-bottom: 6px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 16px;
+  font-family: var(--sans);
+  color: var(--text-heading);
+  background: var(--card-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.field input:focus,
+.field select:focus {
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.field input::placeholder {
+  color: var(--text-light);
+}
+
+.field .unit {
+  font-size: 13px;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.result {
+  margin-top: 28px;
+  padding: 20px;
+  background: var(--result-bg);
+  border: 1px solid var(--result-border);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.result .label {
+  font-size: 14px;
+  color: var(--text-light);
+  margin: 0 0 4px;
+}
+
+.result .amount {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0;
+  letter-spacing: -1px;
+  font-family: var(--mono);
+}
+
+.result .amount .currency {
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: 4px;
+  font-family: var(--sans);
+}
+
+.result .total-info {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--result-border);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.result .total-info .info-item {
+  text-align: center;
+}
+
+.result .total-info .info-label {
+  font-size: 12px;
+  color: var(--text-light);
+  margin: 0;
+}
+
+.result .total-info .info-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin: 2px 0 0;
+  font-family: var(--mono);
+}
+
+.notice {
+  margin-top: 16px;
+  padding: 12px 14px;
+  font-size: 13px;
+  color: var(--text-light);
+  background: var(--primary-light);
+  border-radius: 8px;
+  line-height: 1.5;
+}
+
+.notice::before {
+  content: 'ℹ️ ';
+}
+
+@media (max-width: 480px) {
+  .calculator {
+    padding: 24px 20px;
+    border-radius: 12px;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .result .amount {
+    font-size: 28px;
+  }
+}
