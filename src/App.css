@@ -499,3 +499,109 @@
 .repayment-help-item p {
   margin: 0;
 }
+
+.repayment-method-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.repayment-method-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 10px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.repayment-method-option input {
+  display: none;
+}
+
+.repayment-method-option.active {
+  border-color: rgba(120, 220, 255, 0.9);
+  background: rgba(120, 220, 255, 0.12);
+  box-shadow: 0 0 0 1px rgba(120, 220, 255, 0.15);
+}
+
+.repayment-method-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.tooltip-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.tooltip-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.tooltip-box {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%);
+  min-width: 240px;
+  max-width: 280px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(15, 22, 40, 0.96);
+  color: #fff;
+  font-size: 13px;
+  line-height: 1.5;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+  z-index: 20;
+}
+
+.tooltip-wrap:hover .tooltip-box {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (max-width: 640px) {
+  .repayment-method-row {
+    flex-direction: column;
+  }
+
+  .repayment-method-option {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .tooltip-box {
+    left: auto;
+    right: 0;
+    transform: none;
+    min-width: 220px;
+    max-width: 240px;
+  }
+}
