@@ -389,16 +389,9 @@ trackCalculateEvent({
   };
 
   const handleReset = () => {
-  setBank("직접입력");
-  setPrincipal("");
-  setRate("");
-  setMonths("");
-  setGraceMonths("");
-  setRepaymentType("equal_payment");
   setSubmittedInput(null);
   setError("");
   setShowComparison(false);
-  localStorage.removeItem("loanCalculatorInputs");
 };
 
   return (
