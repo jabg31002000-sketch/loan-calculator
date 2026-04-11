@@ -45,6 +45,17 @@ function formatCurrency(value) {
   return `${formatNumber(value)}원`;
 }
 
+function getResultDescription(result, repaymentType, months, graceMonths) {
+  const repaymentLabel =
+    REPAYMENT_OPTIONS.find((option) => option.value === repaymentType)?.label ?? "";
+
+  return `선택한 조건은 ${repaymentLabel} 방식이며, 총 ${months}개월 동안 상환합니다. ${
+    graceMonths > 0 ? `처음 ${graceMonths}개월은 거치기간으로 이자만 납부합니다. ` : ""
+  }총 이자는 ${formatCurrency(result.totalInterest)}이고, 총 상환액은 ${formatCurrency(
+    result.totalPayment
+  )}입니다.`;
+}
+
 function calcEqualPayment(principal, annualRate, months, graceMonths) {
   const monthlyRate = annualRate / 100 / 12;
   const rows = [];
@@ -247,6 +258,7 @@ const [repaymentType, setRepaymentType] = useState("equal_payment");
 const [submittedInput, setSubmittedInput] = useState(null);
 const [error, setError] = useState("");
 const [isLoaded, setIsLoaded] = useState(false);
+const [showComparison, setShowComparison] = useState(false);
 
   useEffect(() => {
   const saved = localStorage.getItem("loanCalculatorInputs");
@@ -288,6 +300,34 @@ useEffect(() => {
     if (!submittedInput) return null;
     return calculateLoan(submittedInput);
   }, [submittedInput]);
+
+  const comparisonResults = useMemo(() => {
+  if (!submittedInput) return null;
+
+  return [
+    {
+      title: "원리금균등상환",
+      data: calculateLoan({
+        ...submittedInput,
+        repaymentType: "equal_payment",
+      }),
+    },
+    {
+      title: "원금균등상환",
+      data: calculateLoan({
+        ...submittedInput,
+        repaymentType: "equal_principal",
+      }),
+    },
+    {
+      title: "만기일시상환",
+      data: calculateLoan({
+        ...submittedInput,
+        repaymentType: "bullet",
+      }),
+    },
+  ];
+}, [submittedInput]);
 
   const handleBankChange = (event) => {
     const selected = event.target.value;
@@ -347,6 +387,19 @@ trackCalculateEvent({
       repaymentType,
     });
   };
+
+  const handleReset = () => {
+  setBank("직접입력");
+  setPrincipal("");
+  setRate("");
+  setMonths("");
+  setGraceMonths("");
+  setRepaymentType("equal_payment");
+  setSubmittedInput(null);
+  setError("");
+  setShowComparison(false);
+  localStorage.removeItem("loanCalculatorInputs");
+};
 
   return (
     <div className="page-shell">
@@ -456,7 +509,50 @@ trackCalculateEvent({
                   <p className="info-value">{formatCurrency(result.totalPayment)}</p>
                 </div>
               </div>
+              <div className="result-description">
+  {getResultDescription(
+    result,
+    submittedInput.repaymentType,
+    submittedInput.months,
+    submittedInput.graceMonths
+  )}
+</div>
             </div>
+
+            <div className="action-row">
+  <button
+    className="secondary-button"
+    type="button"
+    onClick={() => setShowComparison((prev) => !prev)}
+  >
+    {showComparison ? "비교 숨기기" : "상환방식 비교하기"}
+  </button>
+
+  <button
+    className="secondary-button"
+    type="button"
+    onClick={handleReset}
+  >
+    다시 계산하기
+  </button>
+</div>
+
+{showComparison && comparisonResults && (
+  <div className="compare-box">
+    <div className="compare-title">상환방식 비교</div>
+
+    <div className="compare-grid">
+      {comparisonResults.map((item) => (
+        <div className="compare-card" key={item.title}>
+          <h3>{item.title}</h3>
+          <p>월 상환금: {formatCurrency(item.data?.monthlyPayment ?? 0)}</p>
+          <p>총 이자: {formatCurrency(item.data?.totalInterest ?? 0)}</p>
+          <p>총 상환액: {formatCurrency(item.data?.totalPayment ?? 0)}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
 
             <div className="schedule">
               <h2>상환 스케줄표</h2>
