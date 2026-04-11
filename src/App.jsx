@@ -221,9 +221,9 @@ function calculateLoan({ principal, annualRate, months, graceMonths, repaymentTy
 export default function App() {
   const [bank, setBank] = useState("직접입력");
   const [principal, setPrincipal] = useState("");
-  const [rate, setRate] = useState("4.4");
-  const [months, setMonths] = useState("12");
-  const [graceMonths, setGraceMonths] = useState("0");
+  const [rate, setRate] = useState("");
+  const [months, setMonths] = useState("");
+  const [graceMonths, setGraceMonths] = useState("");
   const [repaymentType, setRepaymentType] = useState("equal_payment");
   const [submittedInput, setSubmittedInput] = useState(null);
   const [error, setError] = useState("");
@@ -318,6 +318,7 @@ export default function App() {
               step="0.1"
               value={rate}
               onChange={(e) => setRate(e.target.value)}
+              placeholder="금리를 입력하세요"
             />
           </div>
 
@@ -327,6 +328,7 @@ export default function App() {
               type="number"
               value={months}
               onChange={(e) => setMonths(e.target.value)}
+              placeholder="대출기간을 입력하세요"
             />
           </div>
         </div>
@@ -337,7 +339,7 @@ export default function App() {
             type="number"
             value={graceMonths}
             onChange={(e) => setGraceMonths(e.target.value)}
-            placeholder="0"
+            placeholder="거치기간을 입력하세요"
           />
           <div className="unit">거치기간 동안은 이자만 납부합니다.</div>
         </div>
