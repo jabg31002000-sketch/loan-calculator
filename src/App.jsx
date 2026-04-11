@@ -313,9 +313,17 @@ export default function App() {
           <input
             type="text"
             value={principal}
-            onChange={(e) => setPrincipal(formatInputNumber(e.target.value))}
-            placeholder="대출금액을 입력하세요"
-          />
+            onChange={(e) => {
+    const raw = e.target.value.replace(/,/g, "");
+
+    if (!/^\d*$/.test(raw)) {
+      return;
+    }
+
+    setPrincipal(formatInputNumber(raw));
+  }}
+  placeholder="대출금액을 입력하세요"
+/>
         </div>
 
         <div className="row">
