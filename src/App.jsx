@@ -56,6 +56,22 @@ function getResultDescription(result, repaymentType, months, graceMonths) {
   )}입니다.`;
 }
 
+function getAllRepaymentDescriptions() {
+  return `
+[원리금균등상환]
+매달 같은 금액을 납부하는 방식으로 자금 계획을 세우기 쉽습니다.
+초반에는 이자 비중이 크고, 후반으로 갈수록 원금 비중이 커집니다.
+
+[원금균등상환]
+매달 동일한 원금을 상환하고, 남은 잔액에 따라 이자가 줄어드는 방식입니다.
+초반 부담은 크지만 총 이자는 가장 적습니다.
+
+[만기일시상환]
+대출 기간 동안 이자만 납부하다가 만기 시 원금을 한 번에 상환하는 방식입니다.
+매달 부담은 적지만 마지막에 큰 금액이 필요합니다.
+`;
+}
+
 function calcEqualPayment(principal, annualRate, months, graceMonths) {
   const monthlyRate = annualRate / 100 / 12;
   const rows = [];
@@ -259,6 +275,7 @@ const [submittedInput, setSubmittedInput] = useState(null);
 const [error, setError] = useState("");
 const [isLoaded, setIsLoaded] = useState(false);
 const [showComparison, setShowComparison] = useState(false);
+const [showRepaymentHelp, setShowRepaymentHelp] = useState(false);
 
   useEffect(() => {
   const saved = localStorage.getItem("loanCalculatorInputs");
@@ -475,8 +492,31 @@ trackCalculateEvent({
               </option>
             ))}
           </select>
-        </div>
 
+  <button
+    type="button"
+    className="help-toggle-button"
+    onClick={() => setShowRepaymentHelp((prev) => !prev)}
+  >
+    {showRepaymentHelp ? "설명 숨기기" : "상환방식 설명 보기"}
+  </button>
+
+  {showRepaymentHelp && (
+  <div className="repayment-help-box">
+    <div className="repayment-help-item">
+      <p><strong>[원리금균등상환]</strong> : 매달 같은 금액을 납부하는 방식으로 자금 계획을 세우기 쉽습니다. 초반에는 이자 비중이 크고, 후반으로 갈수록 원금 비중이 커집니다.</p>
+    </div>
+
+    <div className="repayment-help-item">
+      <p><strong>[원금균등상환]</strong> : 매달 동일한 원금을 상환하고, 남은 잔액에 따라 이자가 줄어드는 방식입니다. 초반 부담은 크지만 총 이자는 가장 적습니다.</p>
+    </div>
+
+    <div className="repayment-help-item">
+      <p><strong>[만기일시상환]</strong> : 대출 기간 동안 이자만 납부하다가 만기 시 원금을 한 번에 상환하는 방식입니다. 매달 부담은 적지만 마지막에 큰 금액이 필요합니다.</p>
+    </div>
+  </div>
+)}
+</div>
         <button className="calc-button" type="button" onClick={handleCalculate}>
           계산하기
         </button>

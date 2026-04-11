@@ -440,3 +440,62 @@
   margin: 4px 0;
   font-size: 14px;
 }
+
+.help-toggle-button {
+  margin-top: 10px;
+  border: none;
+  background: transparent;
+  color: #9fd0ff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.help-toggle-button:hover {
+  text-decoration: underline;
+}
+
+.repayment-help-box {
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.repayment-help-box p {
+  margin: 0 0 12px 0;
+}
+
+.repayment-help-box p:last-child {
+  margin-bottom: 0;
+}
+
+.repayment-help-item {
+  position: relative;
+  padding-left: 16px;
+  margin-bottom: 12px;
+}
+
+.repayment-help-item:last-child {
+  margin-bottom: 0;
+}
+
+.repayment-help-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #9fd0ff;
+}
+
+.repayment-help-item p {
+  margin: 0;
+}
