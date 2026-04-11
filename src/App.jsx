@@ -243,10 +243,12 @@ export default function App() {
     const selected = event.target.value;
     setBank(selected);
 
-    if (selected !== "직접입력" && BANK_RATES[selected] !== "") {
-      setRate(String(BANK_RATES[selected]));
-    }
-  };
+     if (selected === "직접입력") {
+    setRate(""); // ← 여기 핵심 (비워버림)
+  } else {
+    setRate(String(BANK_RATES[selected]));
+  }
+};
 
   const handleCalculate = () => {
     const parsedPrincipal = Number(principal.replace(/,/g, ""));
