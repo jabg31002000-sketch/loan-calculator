@@ -276,6 +276,7 @@ const [error, setError] = useState("");
 const [isLoaded, setIsLoaded] = useState(false);
 const [showComparison, setShowComparison] = useState(false);
 const [showRepaymentHelp, setShowRepaymentHelp] = useState(false);
+const [hasGracePeriod, setHasGracePeriod] = useState("no");
 
   useEffect(() => {
   const saved = localStorage.getItem("loanCalculatorInputs");
@@ -288,6 +289,7 @@ const [showRepaymentHelp, setShowRepaymentHelp] = useState(false);
       setRate(parsed.rate ?? "");
       setMonths(parsed.months ?? "");
       setGraceMonths(parsed.graceMonths ?? "");
+      setHasGracePeriod((parsed.graceMonths ?? 0) > 0 ? "yes" : "no");
       setRepaymentType(parsed.repaymentType ?? "equal_payment");
     } catch (error) {
       console.error("불러오기 실패", error);
@@ -308,6 +310,7 @@ useEffect(() => {
       rate,
       months,
       graceMonths,
+      hasGracePeriod,
       repaymentType,
     })
   );
@@ -361,7 +364,7 @@ useEffect(() => {
     const parsedPrincipal = Number(principal.replace(/,/g, ""));
     const parsedRate = Number(rate);
     const parsedMonths = Number(months);
-    const parsedGraceMonths = Number(graceMonths);
+    const parsedGraceMonths = hasGracePeriod === "yes" ? Number(graceMonths) : 0;
 
     if (!parsedPrincipal || parsedPrincipal <= 0) {
       setError("대출금액을 입력해주세요.");
@@ -378,10 +381,13 @@ useEffect(() => {
       return;
     }
 
-    if (!Number.isFinite(parsedGraceMonths) || parsedGraceMonths < 0) {
-      setError("거치기간을 올바르게 입력해주세요.");
-      return;
-    }
+    if (
+  hasGracePeriod === "yes" &&
+  (!Number.isFinite(parsedGraceMonths) || parsedGraceMonths < 0)
+) {
+  setError("거치기간을 올바르게 입력해주세요.");
+  return;
+}
 
     if (parsedGraceMonths > parsedMonths) {
       setError("거치기간은 전체 대출기간보다 클 수 없습니다.");
@@ -409,6 +415,8 @@ trackCalculateEvent({
   setSubmittedInput(null);
   setError("");
   setShowComparison(false);
+  setHasGracePeriod("no");
+setGraceMonths("");
 };
 
   return (
@@ -470,15 +478,52 @@ trackCalculateEvent({
         </div>
 
         <div className="field">
-          <label>거치기간 (개월)</label>
-          <input
-            type="number"
-            value={graceMonths}
-            onChange={(e) => setGraceMonths(e.target.value)}
-            placeholder="거치기간을 입력하세요"
-          />
-          <div className="unit">거치기간 동안은 이자만 납부합니다.</div>
-        </div>
+  <label>거치기간 선택</label>
+
+  <div className="repayment-method-row">
+    <label
+      className={`repayment-method-option ${hasGracePeriod === "no" ? "active" : ""}`}
+    >
+      <input
+        type="radio"
+        name="hasGracePeriod"
+        value="no"
+        checked={hasGracePeriod === "no"}
+        onChange={() => {
+          setHasGracePeriod("no");
+          setGraceMonths("");
+        }}
+      />
+      <span className="repayment-method-label">없음</span>
+    </label>
+
+    <label
+      className={`repayment-method-option ${hasGracePeriod === "yes" ? "active" : ""}`}
+    >
+      <input
+        type="radio"
+        name="hasGracePeriod"
+        value="yes"
+        checked={hasGracePeriod === "yes"}
+        onChange={() => setHasGracePeriod("yes")}
+      />
+      <span className="repayment-method-label">있음</span>
+    </label>
+  </div>
+
+  {hasGracePeriod === "yes" && (
+    <>
+      <input
+        type="number"
+        value={graceMonths}
+        onChange={(e) => setGraceMonths(e.target.value)}
+        placeholder="거치기간(개월)을 입력하세요"
+        style={{ marginTop: "10px" }}
+      />
+      <p className="hint">거치기간 동안은 이자만 납부합니다.</p>
+    </>
+  )}
+</div>
 
         <div className="field">
   <label>상환방식</label>
@@ -612,8 +657,8 @@ trackCalculateEvent({
                   대출기간 {submittedInput.months}개월
                 </span>
                 <span className="summary-chip">
-                  거치기간 {submittedInput.graceMonths}개월
-                </span>
+  | {submittedInput.graceMonths > 0 ? `거치기간 ${submittedInput.graceMonths}개월` : "거치기간 없음"}
+</span>
               </div>
 
               <div className="schedule-table-wrap">
