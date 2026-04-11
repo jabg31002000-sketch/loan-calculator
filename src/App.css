@@ -502,108 +502,113 @@
   margin: 0;
 }
 
+.repayment-method-option input {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .repayment-method-label {
+    font-size: 13px;
+  }
+
+  .repayment-method-option {
+    padding: 14px 8px;
+  }
+}
+
+.repayment-method-option:focus,
+.repayment-method-option:focus-visible {
+  outline: none;
+}
+
+.repayment-method-option input:focus,
+.repayment-method-option input:focus-visible {
+  outline: none;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.repayment-method-option:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.12);
+}
+
 .repayment-method-row {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 6px;
+  gap: 0;
+  width: 100%;
   margin-top: 8px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.repayment-method-row--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.repayment-method-row--2 {
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .repayment-method-option {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-  padding: 10px 10px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.04);
-  cursor: pointer;
-  transition: all 0.2s ease;
+  justify-content: center;
   min-width: 0;
+  width: 100%;
+  padding: 10px 14px;
+  background: transparent;
+  cursor: pointer;
   white-space: nowrap;
-}
-
-.repayment-method-option input {
-  display: none;
+  border: none;
 }
 
 .repayment-method-option.active {
-  border-color: rgba(120, 220, 255, 0.9);
-  background: rgba(120, 220, 255, 0.12);
-  box-shadow: 0 0 0 1px rgba(120, 220, 255, 0.15);
+  background: rgba(120, 220, 255, 0.18);
+}
+
+.repayment-method-option:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .repayment-method-label {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   color: #fff;
-  white-space: nowrap;
-}
-
-.tooltip-wrap {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-}
-
-.tooltip-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.18);
-  color: #fff;
-  font-size: 12px;
-  font-weight: 700;
   line-height: 1;
 }
 
-.tooltip-box {
-  position: absolute;
-  left: 50%;
-  bottom: calc(100% + 10px);
-  transform: translateX(-50%);
-  min-width: 240px;
-  max-width: 280px;
-  padding: 10px 12px;
-  border-radius: 10px;
-  background: rgba(15, 22, 40, 0.96);
-  color: #fff;
-  font-size: 13px;
-  line-height: 1.5;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.18s ease;
-  z-index: 20;
+/* segmented button 보정 */
+.field .repayment-method-row .repayment-method-option {
+  margin-bottom: 0;
+  padding: 0;
 }
 
-.tooltip-wrap:hover .tooltip-box {
-  opacity: 1;
-  visibility: visible;
-}
-
-@media (max-width: 640px) {
-  .repayment-method-row {
-    flex-direction: column;
-  }
-
-  .repayment-method-option {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .tooltip-box {
-    left: auto;
-    right: 0;
-    transform: none;
-    min-width: 220px;
-    max-width: 240px;
-  }
+.field .repayment-method-row .repayment-method-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 14px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
 }

@@ -480,7 +480,7 @@ setGraceMonths("");
         <div className="field">
   <label>거치기간 선택</label>
 
-  <div className="repayment-method-row">
+  <div className="repayment-method-row repayment-method-row--2">
     <label
       className={`repayment-method-option ${hasGracePeriod === "no" ? "active" : ""}`}
     >
@@ -528,7 +528,7 @@ setGraceMonths("");
         <div className="field">
   <label>상환방식</label>
 
-  <div className="repayment-method-row">
+  <div className="repayment-method-row repayment-method-row--3">
     {REPAYMENT_OPTIONS.map((option) => (
       <label
         key={option.value}
