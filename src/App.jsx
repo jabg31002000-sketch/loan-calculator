@@ -1,6 +1,19 @@
 import { useMemo, useState } from "react";
 import "./App.css";
 
+function trackCalculateEvent({ repaymentType, months, graceMonths }) {
+  if (typeof window === "undefined" || typeof window.gtag !== "function") {
+    return;
+  }
+
+  window.gtag("event", "loan_calculate", {
+    event_category: "calculator",
+    event_label: repaymentType,
+    months,
+    grace_months: graceMonths,
+  });
+}
+
 function formatInputNumber(value) {
   const number = value.replace(/,/g, "");
   if (number === "") return "";
@@ -282,6 +295,13 @@ export default function App() {
     }
 
     setError("");
+
+trackCalculateEvent({
+  repaymentType,
+  months: parsedMonths,
+  graceMonths: parsedGraceMonths,
+});
+
     setSubmittedInput({
       principal: parsedPrincipal,
       annualRate: parsedRate,
