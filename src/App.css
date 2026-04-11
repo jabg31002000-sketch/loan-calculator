@@ -155,3 +155,119 @@
     font-size: 28px;
   }
 }
+.page-shell {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 48px 16px;
+}
+
+.calc-button {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 10px;
+  background: var(--primary);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  box-shadow: var(--shadow-lg);
+}
+
+.calc-button:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+
+.error-box {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #fff1f1;
+  border: 1px solid #f3b6b6;
+  color: #c63d3d;
+  font-size: 13px;
+}
+
+.schedule {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.schedule h2 {
+  margin: 0 0 14px;
+  font-size: 20px;
+  color: var(--text-heading);
+}
+
+.summary-chip-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.summary-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: var(--primary-light);
+  color: var(--text-heading);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.schedule-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card-bg);
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+}
+
+.schedule-table thead th {
+  padding: 12px 14px;
+  background: var(--result-bg);
+  color: var(--text-heading);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.schedule-table tbody td {
+  padding: 12px 14px;
+  font-size: 13px;
+  color: var(--text-heading);
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--mono);
+}
+
+.schedule-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.schedule-table tbody tr:nth-child(even) {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+@media (max-width: 480px) {
+  .page-shell {
+    padding: 24px 12px;
+  }
+
+  .schedule h2 {
+    font-size: 18px;
+  }
+}
