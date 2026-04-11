@@ -442,7 +442,9 @@
 }
 
 .help-toggle-button {
-  margin-top: 10px;
+  display: inline-block;
+  margin-top: 6px;
+  margin-bottom: 14px;
   border: none;
   background: transparent;
   color: #9fd0ff;
