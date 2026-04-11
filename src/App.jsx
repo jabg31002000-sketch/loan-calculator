@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 
 function trackCalculateEvent({ repaymentType, months, graceMonths }) {
@@ -239,13 +239,50 @@ function calculateLoan({ principal, annualRate, months, graceMonths, repaymentTy
 
 export default function App() {
   const [bank, setBank] = useState("직접입력");
-  const [principal, setPrincipal] = useState("");
-  const [rate, setRate] = useState("");
-  const [months, setMonths] = useState("");
-  const [graceMonths, setGraceMonths] = useState("");
-  const [repaymentType, setRepaymentType] = useState("equal_payment");
-  const [submittedInput, setSubmittedInput] = useState(null);
-  const [error, setError] = useState("");
+const [principal, setPrincipal] = useState("");
+const [rate, setRate] = useState("");
+const [months, setMonths] = useState("");
+const [graceMonths, setGraceMonths] = useState("");
+const [repaymentType, setRepaymentType] = useState("equal_payment");
+const [submittedInput, setSubmittedInput] = useState(null);
+const [error, setError] = useState("");
+const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+  const saved = localStorage.getItem("loanCalculatorInputs");
+
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved);
+      setBank(parsed.bank ?? "직접입력");
+      setPrincipal(parsed.principal ?? "");
+      setRate(parsed.rate ?? "");
+      setMonths(parsed.months ?? "");
+      setGraceMonths(parsed.graceMonths ?? "");
+      setRepaymentType(parsed.repaymentType ?? "equal_payment");
+    } catch (error) {
+      console.error("불러오기 실패", error);
+    }
+  }
+
+  setIsLoaded(true);
+}, []);
+
+useEffect(() => {
+  if (!isLoaded) return;
+
+  localStorage.setItem(
+    "loanCalculatorInputs",
+    JSON.stringify({
+      bank,
+      principal,
+      rate,
+      months,
+      graceMonths,
+      repaymentType,
+    })
+  );
+}, [isLoaded, bank, principal, rate, months, graceMonths, repaymentType]);
 
   const result = useMemo(() => {
     if (!submittedInput) return null;
