@@ -1,6 +1,12 @@
 import { useMemo, useState } from "react";
 import "./App.css";
 
+function formatInputNumber(value) {
+  const number = value.replace(/,/g, "");
+  if (number === "") return "";
+  return Number(number).toLocaleString("ko-KR");
+}
+
 const BANK_RATES = {
   직접입력: "",
   국민은행: 4.5,
@@ -243,7 +249,7 @@ export default function App() {
   };
 
   const handleCalculate = () => {
-    const parsedPrincipal = Number(principal);
+    const parsedPrincipal = Number(principal.replace(/,/g, ""));
     const parsedRate = Number(rate);
     const parsedMonths = Number(months);
     const parsedGraceMonths = Number(graceMonths);
@@ -303,9 +309,9 @@ export default function App() {
         <div className="field">
           <label>대출금액</label>
           <input
-            type="number"
+            type="text"
             value={principal}
-            onChange={(e) => setPrincipal(e.target.value)}
+            onChange={(e) => setPrincipal(formatInputNumber(e.target.value))}
             placeholder="대출금액을 입력하세요"
           />
         </div>
