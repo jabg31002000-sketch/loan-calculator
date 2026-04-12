@@ -68,22 +68,6 @@ function getResultDescription(result, repaymentType, months, graceMonths) {
   )}입니다.`;
 }
 
-function getRepaymentTypeDescription(repaymentType) {
-  if (repaymentType === "equal_payment") {
-    return "매달 같은 금액을 납부하는 방식입니다. 자금 계획을 세우기 쉽지만, 초반에는 이자 비중이 더 큽니다.";
-  }
-
-  if (repaymentType === "equal_principal") {
-    return "매달 같은 원금을 갚고, 남은 잔액이 줄수록 이자가 감소하는 방식입니다. 초반 부담은 크지만 총 이자는 적은 편입니다.";
-  }
-
-  if (repaymentType === "bullet") {
-    return "대출 기간 동안 이자만 내고, 만기에 원금을 한 번에 상환하는 방식입니다. 매달 부담은 작지만 만기 상환 부담이 큽니다.";
-  }
-
-  return "";
-}
-
 function calcEqualPayment(principal, annualRate, months, graceMonths) {
   const monthlyRate = annualRate / 100 / 12;
   const rows = [];
@@ -215,7 +199,7 @@ function calcEqualPrincipal(principal, annualRate, months, graceMonths) {
   };
 }
 
-function calcBullet(principal, annualRate, months, graceMonths) {
+function calcBullet(principal, annualRate, months) {
   const monthlyRate = annualRate / 100 / 12;
   const rows = [];
   let balance = principal;
@@ -270,7 +254,7 @@ function calculateLoan({ principal, annualRate, months, graceMonths, repaymentTy
   }
 
   if (repaymentType === "bullet") {
-    return calcBullet(principal, annualRate, months, graceMonths);
+    return calcBullet(principal, annualRate, months);
   }
 
   return calcEqualPayment(principal, annualRate, months, graceMonths);
@@ -304,6 +288,21 @@ const getPeakInterestMonth = (rows) => {
   return rows.reduce((max, row) => (row.interest > max.interest ? row : max), rows[0]);
 };
 
+const getBestRepaymentOption = (comparisonResults) => {
+  if (!comparisonResults?.length) return null;
+
+  return comparisonResults.reduce((best, current) => {
+    const bestInterest = best?.data?.totalInterest ?? Infinity;
+    const currentInterest = current?.data?.totalInterest ?? Infinity;
+    return currentInterest < bestInterest ? current : best;
+  }, comparisonResults[0]);
+};
+
+const getMaxInterestValue = (comparisonResults) => {
+  if (!comparisonResults?.length) return 0;
+  return Math.max(...comparisonResults.map((item) => item.data?.totalInterest ?? 0));
+};
+
 function CustomChartTooltip({ active, payload, label }) {
   if (!active || !payload || !payload.length) return null;
 
@@ -332,55 +331,55 @@ function CustomChartTooltip({ active, payload, label }) {
 
 export default function App() {
   const [bank, setBank] = useState("직접입력");
-const [principal, setPrincipal] = useState("");
-const [rate, setRate] = useState("");
-const [months, setMonths] = useState("");
-const [graceMonths, setGraceMonths] = useState("");
-const [repaymentType, setRepaymentType] = useState("equal_payment");
-const [submittedInput, setSubmittedInput] = useState(null);
-const [error, setError] = useState("");
-const [isLoaded, setIsLoaded] = useState(false);
-const [showComparison, setShowComparison] = useState(false);
-const [showRepaymentHelp, setShowRepaymentHelp] = useState(false);
-const [hasGracePeriod, setHasGracePeriod] = useState("no");
+  const [principal, setPrincipal] = useState("");
+  const [rate, setRate] = useState("");
+  const [months, setMonths] = useState("");
+  const [graceMonths, setGraceMonths] = useState("");
+  const [repaymentType, setRepaymentType] = useState("equal_payment");
+  const [submittedInput, setSubmittedInput] = useState(null);
+  const [error, setError] = useState("");
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [showComparison, setShowComparison] = useState(false);
+  const [showRepaymentHelp, setShowRepaymentHelp] = useState(false);
+  const [hasGracePeriod, setHasGracePeriod] = useState("no");
 
   useEffect(() => {
-  const saved = localStorage.getItem("loanCalculatorInputs");
+    const saved = localStorage.getItem("loanCalculatorInputs");
 
-  if (saved) {
-    try {
-      const parsed = JSON.parse(saved);
-      setBank(parsed.bank ?? "직접입력");
-      setPrincipal(parsed.principal ?? "");
-      setRate(parsed.rate ?? "");
-      setMonths(parsed.months ?? "");
-      setGraceMonths(parsed.graceMonths ?? "");
-      setHasGracePeriod((parsed.graceMonths ?? 0) > 0 ? "yes" : "no");
-      setRepaymentType(parsed.repaymentType ?? "equal_payment");
-    } catch (error) {
-      console.error("불러오기 실패", error);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        setBank(parsed.bank ?? "직접입력");
+        setPrincipal(parsed.principal ?? "");
+        setRate(parsed.rate ?? "");
+        setMonths(parsed.months ?? "");
+        setGraceMonths(parsed.graceMonths ?? "");
+        setHasGracePeriod((parsed.graceMonths ?? 0) > 0 ? "yes" : "no");
+        setRepaymentType(parsed.repaymentType ?? "equal_payment");
+      } catch (err) {
+        console.error("불러오기 실패", err);
+      }
     }
-  }
 
-  setIsLoaded(true);
-}, []);
+    setIsLoaded(true);
+  }, []);
 
-useEffect(() => {
-  if (!isLoaded) return;
+  useEffect(() => {
+    if (!isLoaded) return;
 
-  localStorage.setItem(
-    "loanCalculatorInputs",
-    JSON.stringify({
-      bank,
-      principal,
-      rate,
-      months,
-      graceMonths,
-      hasGracePeriod,
-      repaymentType,
-    })
-  );
-}, [isLoaded, bank, principal, rate, months, graceMonths, repaymentType]);
+    localStorage.setItem(
+      "loanCalculatorInputs",
+      JSON.stringify({
+        bank,
+        principal,
+        rate,
+        months,
+        graceMonths,
+        hasGracePeriod,
+        repaymentType,
+      })
+    );
+  }, [isLoaded, bank, principal, rate, months, graceMonths, hasGracePeriod, repaymentType]);
 
   const result = useMemo(() => {
     if (!submittedInput) return null;
@@ -388,43 +387,43 @@ useEffect(() => {
   }, [submittedInput]);
 
   const comparisonResults = useMemo(() => {
-  if (!submittedInput) return null;
+    if (!submittedInput) return null;
 
-  return [
-    {
-      title: "원리금균등상환",
-      data: calculateLoan({
-        ...submittedInput,
-        repaymentType: "equal_payment",
-      }),
-    },
-    {
-      title: "원금균등상환",
-      data: calculateLoan({
-        ...submittedInput,
-        repaymentType: "equal_principal",
-      }),
-    },
-    {
-      title: "만기일시상환",
-      data: calculateLoan({
-        ...submittedInput,
-        repaymentType: "bullet",
-      }),
-    },
-  ];
-}, [submittedInput]);
+    return [
+      {
+        title: "원리금균등상환",
+        data: calculateLoan({
+          ...submittedInput,
+          repaymentType: "equal_payment",
+        }),
+      },
+      {
+        title: "원금균등상환",
+        data: calculateLoan({
+          ...submittedInput,
+          repaymentType: "equal_principal",
+        }),
+      },
+      {
+        title: "만기일시상환",
+        data: calculateLoan({
+          ...submittedInput,
+          repaymentType: "bullet",
+        }),
+      },
+    ];
+  }, [submittedInput]);
 
   const handleBankChange = (event) => {
     const selected = event.target.value;
     setBank(selected);
 
-     if (selected === "직접입력") {
-    setRate(""); // ← 여기 핵심 (비워버림)
-  } else {
-    setRate(String(BANK_RATES[selected]));
-  }
-};
+    if (selected === "직접입력") {
+      setRate("");
+    } else {
+      setRate(String(BANK_RATES[selected]));
+    }
+  };
 
   const handleCalculate = () => {
     const parsedPrincipal = Number(principal.replace(/,/g, ""));
@@ -448,12 +447,12 @@ useEffect(() => {
     }
 
     if (
-  hasGracePeriod === "yes" &&
-  (!Number.isFinite(parsedGraceMonths) || parsedGraceMonths < 0)
-) {
-  setError("거치기간을 올바르게 입력해주세요.");
-  return;
-}
+      hasGracePeriod === "yes" &&
+      (!Number.isFinite(parsedGraceMonths) || parsedGraceMonths < 0)
+    ) {
+      setError("거치기간을 올바르게 입력해주세요.");
+      return;
+    }
 
     if (parsedGraceMonths > parsedMonths) {
       setError("거치기간은 전체 대출기간보다 클 수 없습니다.");
@@ -462,11 +461,11 @@ useEffect(() => {
 
     setError("");
 
-trackCalculateEvent({
-  repaymentType,
-  months: parsedMonths,
-  graceMonths: parsedGraceMonths,
-});
+    trackCalculateEvent({
+      repaymentType,
+      months: parsedMonths,
+      graceMonths: parsedGraceMonths,
+    });
 
     setSubmittedInput({
       principal: parsedPrincipal,
@@ -478,12 +477,12 @@ trackCalculateEvent({
   };
 
   const handleReset = () => {
-  setSubmittedInput(null);
-  setError("");
-  setShowComparison(false);
-  setHasGracePeriod("no");
-setGraceMonths("");
-};
+    setSubmittedInput(null);
+    setError("");
+    setShowComparison(false);
+    setHasGracePeriod("no");
+    setGraceMonths("");
+  };
 
   return (
     <div className="page-shell">
@@ -508,16 +507,16 @@ setGraceMonths("");
             type="text"
             value={principal}
             onChange={(e) => {
-    const raw = e.target.value.replace(/,/g, "");
+              const raw = e.target.value.replace(/,/g, "");
 
-    if (!/^\d*$/.test(raw)) {
-      return;
-    }
+              if (!/^\d*$/.test(raw)) {
+                return;
+              }
 
-    setPrincipal(formatInputNumber(raw));
-  }}
-  placeholder="대출금액을 입력하세요"
-/>
+              setPrincipal(formatInputNumber(raw));
+            }}
+            placeholder="대출금액을 입력하세요"
+          />
         </div>
 
         <div className="row">
@@ -544,103 +543,110 @@ setGraceMonths("");
         </div>
 
         <div className="field">
-  <label>거치기간 선택</label>
+          <label>거치기간 선택</label>
 
-  <div className="repayment-method-row repayment-method-row--2">
-    <label
-      className={`repayment-method-option ${hasGracePeriod === "no" ? "active" : ""}`}
-    >
-      <input
-        type="radio"
-        name="hasGracePeriod"
-        value="no"
-        checked={hasGracePeriod === "no"}
-        onChange={() => {
-          setHasGracePeriod("no");
-          setGraceMonths("");
-        }}
-      />
-      <span className="repayment-method-label">없음</span>
-    </label>
+          <div className="repayment-method-row repayment-method-row--2">
+            <label
+              className={`repayment-method-option ${hasGracePeriod === "no" ? "active" : ""}`}
+            >
+              <input
+                type="radio"
+                name="hasGracePeriod"
+                value="no"
+                checked={hasGracePeriod === "no"}
+                onChange={() => {
+                  setHasGracePeriod("no");
+                  setGraceMonths("");
+                }}
+              />
+              <span className="repayment-method-label">없음</span>
+            </label>
 
-    <label
-      className={`repayment-method-option ${hasGracePeriod === "yes" ? "active" : ""}`}
-    >
-      <input
-        type="radio"
-        name="hasGracePeriod"
-        value="yes"
-        checked={hasGracePeriod === "yes"}
-        onChange={() => setHasGracePeriod("yes")}
-      />
-      <span className="repayment-method-label">있음</span>
-    </label>
-  </div>
+            <label
+              className={`repayment-method-option ${hasGracePeriod === "yes" ? "active" : ""}`}
+            >
+              <input
+                type="radio"
+                name="hasGracePeriod"
+                value="yes"
+                checked={hasGracePeriod === "yes"}
+                onChange={() => setHasGracePeriod("yes")}
+              />
+              <span className="repayment-method-label">있음</span>
+            </label>
+          </div>
 
-  {hasGracePeriod === "yes" && (
-    <>
-      <input
-        type="number"
-        value={graceMonths}
-        onChange={(e) => setGraceMonths(e.target.value)}
-        placeholder="거치기간(개월)을 입력하세요"
-        style={{ marginTop: "10px" }}
-      />
-      <p className="hint">거치기간 동안은 이자만 납부합니다.</p>
-    </>
-  )}
-</div>
+          {hasGracePeriod === "yes" && (
+            <>
+              <input
+                type="number"
+                value={graceMonths}
+                onChange={(e) => setGraceMonths(e.target.value)}
+                placeholder="거치기간(개월)을 입력하세요"
+                style={{ marginTop: "10px" }}
+              />
+              <p className="hint">거치기간 동안은 이자만 납부합니다.</p>
+            </>
+          )}
+        </div>
 
         <div className="field">
-  <label>상환방식</label>
+          <label>상환방식</label>
 
-  <div className="repayment-method-row repayment-method-row--3">
-    {REPAYMENT_OPTIONS.map((option) => (
-      <label
-        key={option.value}
-        className={`repayment-method-option ${
-          repaymentType === option.value ? "active" : ""
-        }`}
-      >
-        <input
-          type="radio"
-          name="repaymentType"
-          value={option.value}
-          checked={repaymentType === option.value}
-          onChange={(e) => setRepaymentType(e.target.value)}
-        />
+          <div className="repayment-method-row repayment-method-row--3">
+            {REPAYMENT_OPTIONS.map((option) => (
+              <label
+                key={option.value}
+                className={`repayment-method-option ${
+                  repaymentType === option.value ? "active" : ""
+                }`}
+              >
+                <input
+                  type="radio"
+                  name="repaymentType"
+                  value={option.value}
+                  checked={repaymentType === option.value}
+                  onChange={(e) => setRepaymentType(e.target.value)}
+                />
+                <span className="repayment-method-label">{option.label}</span>
+              </label>
+            ))}
+          </div>
 
-        <span className="repayment-method-label">
-          {option.label}
-        </span>
-      </label>
-    ))}
-  </div>
+          <button
+            type="button"
+            className="help-toggle-button"
+            onClick={() => setShowRepaymentHelp((prev) => !prev)}
+          >
+            {showRepaymentHelp ? "상환방식 설명 숨기기" : "상환방식 설명 보기"}
+          </button>
 
-  <button
-    type="button"
-    className="help-toggle-button"
-    onClick={() => setShowRepaymentHelp((prev) => !prev)}
-  >
-    {showRepaymentHelp ? "상환방식 설명 숨기기" : "상환방식 설명 보기"}
-  </button>
+          {showRepaymentHelp && (
+            <div className="repayment-help-box">
+              <div className="repayment-help-item">
+                <p>
+                  <strong>[원리금균등상환]</strong> : 매달 같은 금액을 납부하는 방식입니다.
+                  초반에는 이자 비중이 크고, 후반으로 갈수록 원금 비중이 커집니다.
+                </p>
+              </div>
 
-  {showRepaymentHelp && (
-    <div className="repayment-help-box">
-      <div className="repayment-help-item">
-        <p><strong>[원리금균등상환]</strong> : 매달 같은 금액을 납부하는 방식입니다. 초반에는 이자 비중이 크고, 후반으로 갈수록 원금 비중이 커집니다.</p>
-      </div>
+              <div className="repayment-help-item">
+                <p>
+                  <strong>[원금균등상환]</strong> : 매달 동일한 원금을 상환하고, 남은 잔액에
+                  따라 이자가 줄어드는 방식입니다. 초반 부담은 크지만 총 이자는 가장 적습니다.
+                </p>
+              </div>
 
-      <div className="repayment-help-item">
-        <p><strong>[원금균등상환]</strong> : 매달 동일한 원금을 상환하고, 남은 잔액에 따라 이자가 줄어드는 방식입니다. 초반 부담은 크지만 총 이자는 가장 적습니다.</p>
-      </div>
-
-      <div className="repayment-help-item">
-        <p><strong>[만기일시상환]</strong> : 대출 기간 동안 이자만 납부하다가 만기 시 원금을 한 번에 상환하는 방식입니다. 매달 부담은 적지만 마지막에 큰 금액이 필요합니다.</p>
-      </div>
-    </div>
-  )}
-</div>
+              <div className="repayment-help-item">
+                <p>
+                  <strong>[만기일시상환]</strong> : 대출 기간 동안 이자만 납부하다가 만기 시
+                  원금을 한 번에 상환하는 방식입니다. 매달 부담은 적지만 마지막에 큰 금액이
+                  필요합니다.
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
 
         <button className="calc-button" type="button" onClick={handleCalculate}>
           계산하기
@@ -667,143 +673,175 @@ setGraceMonths("");
                   <p className="info-value">{formatCurrency(result.totalPayment)}</p>
                 </div>
               </div>
+
               <div className="result-description">
-  {getResultDescription(
-    result,
-    submittedInput.repaymentType,
-    submittedInput.months,
-    submittedInput.graceMonths
-  )}
-</div>
+                {getResultDescription(
+                  result,
+                  submittedInput.repaymentType,
+                  submittedInput.months,
+                  submittedInput.graceMonths
+                )}
+              </div>
             </div>
 
-<div className="chart-box">
-  <div className="chart-header">
-    <h3 className="chart-title">월별 상환 흐름</h3>
-    <p className="chart-subtitle">
-      남은 원금은 얼마나 줄고, 이자는 언제 가장 많이 나가는지 한눈에 볼 수 있어요.
-    </p>
-  </div>
+            <div className="chart-box">
+              <div className="chart-header">
+                <h3 className="chart-title">월별 상환 흐름</h3>
+                <p className="chart-subtitle">
+                  남은 원금은 얼마나 줄고, 이자는 언제 가장 많이 나가는지 한눈에 볼 수 있어요.
+                </p>
+              </div>
 
-  <div className="chart-summary">
-    <div className="chart-summary-card">
-      <div className="chart-summary-label">총 이자</div>
-      <div className="chart-summary-value">{formatCurrency(result.totalInterest)}</div>
-    </div>
+              <div className="chart-summary">
+                <div className="chart-summary-card">
+                  <div className="chart-summary-label">총 이자</div>
+                  <div className="chart-summary-value">{formatCurrency(result.totalInterest)}</div>
+                </div>
 
-    <div className="chart-summary-card">
-      <div className="chart-summary-label">이자 최고 시점</div>
-      <div className="chart-summary-value">
-        {getPeakInterestMonth(result.rows)?.round ?? "-"}개월차
-      </div>
-    </div>
+                <div className="chart-summary-card">
+                  <div className="chart-summary-label">이자 최고 시점</div>
+                  <div className="chart-summary-value">
+                    {getPeakInterestMonth(result.rows)?.round ?? "-"}개월차
+                  </div>
+                </div>
 
-    <div className="chart-summary-card">
-      <div className="chart-summary-label">원금 절반 이하</div>
-      <div className="chart-summary-value">
-        {getHalfPaidMonth(result.rows, submittedInput.principal) ?? "-"}개월차
-      </div>
-    </div>
-  </div>
+                <div className="chart-summary-card">
+                  <div className="chart-summary-label">원금 절반 이하</div>
+                  <div className="chart-summary-value">
+                    {getHalfPaidMonth(result.rows, submittedInput.principal) ?? "-"}개월차
+                  </div>
+                </div>
+              </div>
 
-  <div className="chart-canvas">
-    <ResponsiveContainer width="100%" height="100%">
-      <AreaChart data={generateChartData(result.rows)}>
-        <defs>
-          <linearGradient id="balanceFill" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#67e8f9" stopOpacity={0.35} />
-            <stop offset="100%" stopColor="#67e8f9" stopOpacity={0.02} />
-          </linearGradient>
-        </defs>
+              <div className="chart-canvas">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={generateChartData(result.rows)}>
+                    <defs>
+                      <linearGradient id="balanceFill" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#67e8f9" stopOpacity={0.35} />
+                        <stop offset="100%" stopColor="#67e8f9" stopOpacity={0.02} />
+                      </linearGradient>
+                    </defs>
 
-        <CartesianGrid strokeDasharray="3 3" opacity={0.12} />
-        <XAxis
-          dataKey="month"
-          tick={{ fontSize: 12, fill: "rgba(255,255,255,0.72)" }}
-          tickLine={false}
-          axisLine={false}
-        />
-        <YAxis
-          tickFormatter={formatChartMoney}
-          tick={{ fontSize: 12, fill: "rgba(255,255,255,0.72)" }}
-          tickLine={false}
-          axisLine={false}
-          width={56}
-        />
-        <Tooltip content={<CustomChartTooltip />} />
+                    <CartesianGrid strokeDasharray="3 3" opacity={0.12} />
+                    <XAxis
+                      dataKey="month"
+                      tick={{ fontSize: 12, fill: "rgba(255,255,255,0.72)" }}
+                      tickLine={false}
+                      axisLine={false}
+                    />
+                    <YAxis
+                      tickFormatter={formatChartMoney}
+                      tick={{ fontSize: 12, fill: "rgba(255,255,255,0.72)" }}
+                      tickLine={false}
+                      axisLine={false}
+                      width={56}
+                    />
+                    <Tooltip content={<CustomChartTooltip />} />
 
-        {getHalfPaidMonth(result.rows, submittedInput.principal) && (
-          <ReferenceLine
-            x={getHalfPaidMonth(result.rows, submittedInput.principal)}
-            stroke="rgba(255,255,255,0.35)"
-            strokeDasharray="4 4"
-          />
-        )}
+                    {getHalfPaidMonth(result.rows, submittedInput.principal) && (
+                      <ReferenceLine
+                        x={getHalfPaidMonth(result.rows, submittedInput.principal)}
+                        stroke="rgba(255,255,255,0.35)"
+                        strokeDasharray="4 4"
+                      />
+                    )}
 
-        <Area
-          type="monotone"
-          dataKey="balance"
-          name="남은 원금"
-          stroke="#67e8f9"
-          fill="url(#balanceFill)"
-          strokeWidth={2.5}
-        />
+                    <Area
+                      type="monotone"
+                      dataKey="balance"
+                      name="남은 원금"
+                      stroke="#67e8f9"
+                      fill="url(#balanceFill)"
+                      strokeWidth={2.5}
+                    />
 
-        <Line
-          type="monotone"
-          dataKey="interest"
-          name="월 이자"
-          stroke="#ffffff"
-          strokeWidth={2}
-          dot={false}
-        />
-      </AreaChart>
-    </ResponsiveContainer>
-  </div>
+                    <Line
+                      type="monotone"
+                      dataKey="interest"
+                      name="월 이자"
+                      stroke="#ffffff"
+                      strokeWidth={2}
+                      dot={false}
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
 
-  <div className="chart-note">
-    {submittedInput.repaymentType === "equal_principal"
-      ? "원금균등상환은 초반 부담이 크지만 시간이 지날수록 이자와 납입 부담이 줄어드는 흐름이 뚜렷하게 보입니다."
-      : submittedInput.repaymentType === "bullet"
-      ? "만기일시상환은 대출 기간 동안 원금이 줄지 않다가 마지막에 한 번에 상환되는 구조입니다."
-      : "원리금균등상환은 월 납입액이 비교적 일정하지만, 초반에는 이자 비중이 더 큽니다."}
-  </div>
-</div>
+              <div className="chart-note">
+                {submittedInput.repaymentType === "equal_principal"
+                  ? "원금균등상환은 초반 부담이 크지만 시간이 지날수록 이자와 납입 부담이 줄어드는 흐름이 뚜렷하게 보입니다."
+                  : submittedInput.repaymentType === "bullet"
+                  ? "만기일시상환은 대출 기간 동안 원금이 줄지 않다가 마지막에 한 번에 상환되는 구조입니다."
+                  : "원리금균등상환은 월 납입액이 비교적 일정하지만, 초반에는 이자 비중이 더 큽니다."}
+              </div>
+            </div>
 
             <div className="action-row">
-  <button
-    className="secondary-button"
-    type="button"
-    onClick={() => setShowComparison((prev) => !prev)}
-  >
-    {showComparison ? "비교 숨기기" : "상환방식 비교하기"}
-  </button>
+              <button
+                className="secondary-button"
+                type="button"
+                onClick={() => setShowComparison((prev) => !prev)}
+              >
+                {showComparison ? "비교 숨기기" : "상환방식 비교하기"}
+              </button>
 
-  <button
-    className="secondary-button"
-    type="button"
-    onClick={handleReset}
-  >
-    다시 계산하기
-  </button>
-</div>
+              <button
+                className="secondary-button"
+                type="button"
+                onClick={handleReset}
+              >
+                다시 계산하기
+              </button>
+            </div>
 
-{showComparison && comparisonResults && (
-  <div className="compare-box">
-    <div className="compare-title">상환방식 비교</div>
+            {showComparison && comparisonResults && (
+              <div className="compare-box">
+                <div className="compare-title">상환방식 비교</div>
 
-    <div className="compare-grid">
-      {comparisonResults.map((item) => (
-        <div className="compare-card" key={item.title}>
-          <h3>{item.title}</h3>
-          <p>월 상환금: {formatCurrency(item.data?.monthlyPayment ?? 0)}</p>
-          <p>총 이자: {formatCurrency(item.data?.totalInterest ?? 0)}</p>
-          <p>총 상환액: {formatCurrency(item.data?.totalPayment ?? 0)}</p>
-        </div>
-      ))}
-    </div>
-  </div>
-)}
+                <div className="compare-grid">
+                  <div className="compare-insight-box">
+                    <div className="compare-insight-title">
+                      추천 상환방식: {getBestRepaymentOption(comparisonResults)?.title ?? "-"}
+                    </div>
+                    <div className="compare-insight-text">
+                      총 이자가 가장 적은 방식 기준으로 보면{" "}
+                      <strong>{getBestRepaymentOption(comparisonResults)?.title ?? "-"}</strong>
+                      이 가장 유리합니다.
+                    </div>
+                  </div>
+
+                  <div className="compare-visual-list">
+                    {comparisonResults.map((item, index) => {
+                      const maxInterest = getMaxInterestValue(comparisonResults);
+                      const interest = item.data?.totalInterest ?? 0;
+                      const widthPercent = maxInterest > 0 ? (interest / maxInterest) * 100 : 0;
+
+                      return (
+                        <div className="compare-visual-card" key={item.title}>
+                          <div className="compare-visual-header">
+                            <div className="compare-visual-name">{item.title}</div>
+                            <div className="compare-visual-value">{formatCurrency(interest)}</div>
+                          </div>
+
+                          <div className="compare-visual-bar-track">
+                            <div
+                              className={`compare-visual-bar compare-visual-bar-${index + 1}`}
+                              style={{ width: `${widthPercent}%` }}
+                            />
+                          </div>
+
+                          <div className="compare-visual-meta">
+                            <span>월 상환금 {formatCurrency(item.data?.monthlyPayment ?? 0)}</span>
+                            <span>총 상환액 {formatCurrency(item.data?.totalPayment ?? 0)}</span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            )}
 
             <div className="schedule">
               <h2>상환 스케줄표</h2>
@@ -816,8 +854,11 @@ setGraceMonths("");
                   대출기간 {submittedInput.months}개월
                 </span>
                 <span className="summary-chip">
-  | {submittedInput.graceMonths > 0 ? `거치기간 ${submittedInput.graceMonths}개월` : "거치기간 없음"}
-</span>
+                  |{" "}
+                  {submittedInput.graceMonths > 0
+                    ? `거치기간 ${submittedInput.graceMonths}개월`
+                    : "거치기간 없음"}
+                </span>
               </div>
 
               <div className="schedule-table-wrap">
