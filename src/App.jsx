@@ -1,6 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  Legend
+} from "recharts";
+
 function trackCalculateEvent({ repaymentType, months, graceMonths }) {
   if (typeof window === "undefined" || typeof window.gtag !== "function") {
     return;
@@ -263,6 +273,16 @@ function calculateLoan({ principal, annualRate, months, graceMonths, repaymentTy
 
   return calcEqualPayment(principal, annualRate, months, graceMonths);
 }
+
+const generateChartData = (rows) => {
+  if (!rows) return [];
+
+  return rows.map((item, index) => ({
+    month: index + 1,
+    balance: item.balance,
+    interest: item.interest,
+  }));
+};
 
 export default function App() {
   const [bank, setBank] = useState("직접입력");
@@ -610,6 +630,30 @@ setGraceMonths("");
   )}
 </div>
             </div>
+
+<div className="chart-box">
+  <ResponsiveContainer width="100%" height="100%">
+    <LineChart data={generateChartData(result.rows)}>
+      <XAxis dataKey="month" />
+      <YAxis tickFormatter={(value) => formatNumber(value)} />
+      <Tooltip formatter={(value) => `${formatNumber(value)}원`} />
+      <Legend />
+
+      <Line
+        type="monotone"
+        dataKey="balance"
+        name="남은 원금"
+        strokeWidth={2}
+      />
+      <Line
+        type="monotone"
+        dataKey="interest"
+        name="이자"
+        strokeWidth={2}
+      />
+    </LineChart>
+  </ResponsiveContainer>
+</div>
 
             <div className="action-row">
   <button
