@@ -680,19 +680,26 @@ setGraceMonths("");
 <div className="chart-box">
   <div className="chart-header">
     <h3 className="chart-title">월별 상환 흐름</h3>
-    <p className="chart-subtitle">남은 원금이 어떻게 줄고, 이자가 어떻게 변하는지 한눈에 볼 수 있어요.</p>
+    <p className="chart-subtitle">
+      남은 원금은 얼마나 줄고, 이자는 언제 가장 많이 나가는지 한눈에 볼 수 있어요.
+    </p>
   </div>
 
   <div className="chart-summary">
     <div className="chart-summary-card">
-      <div className="chart-summary-label">이자가 가장 큰 시점</div>
+      <div className="chart-summary-label">총 이자</div>
+      <div className="chart-summary-value">{formatCurrency(result.totalInterest)}</div>
+    </div>
+
+    <div className="chart-summary-card">
+      <div className="chart-summary-label">이자 최고 시점</div>
       <div className="chart-summary-value">
         {getPeakInterestMonth(result.rows)?.round ?? "-"}개월차
       </div>
     </div>
 
     <div className="chart-summary-card">
-      <div className="chart-summary-label">원금 절반 이하 시점</div>
+      <div className="chart-summary-label">원금 절반 이하</div>
       <div className="chart-summary-value">
         {getHalfPaidMonth(result.rows, submittedInput.principal) ?? "-"}개월차
       </div>
@@ -702,25 +709,33 @@ setGraceMonths("");
   <div className="chart-canvas">
     <ResponsiveContainer width="100%" height="100%">
       <AreaChart data={generateChartData(result.rows)}>
-        <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
+        <defs>
+          <linearGradient id="balanceFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#67e8f9" stopOpacity={0.35} />
+            <stop offset="100%" stopColor="#67e8f9" stopOpacity={0.02} />
+          </linearGradient>
+        </defs>
+
+        <CartesianGrid strokeDasharray="3 3" opacity={0.12} />
         <XAxis
           dataKey="month"
-          tick={{ fontSize: 12 }}
+          tick={{ fontSize: 12, fill: "rgba(255,255,255,0.72)" }}
           tickLine={false}
           axisLine={false}
         />
         <YAxis
           tickFormatter={formatChartMoney}
-          tick={{ fontSize: 12 }}
+          tick={{ fontSize: 12, fill: "rgba(255,255,255,0.72)" }}
           tickLine={false}
           axisLine={false}
-          width={50}
+          width={56}
         />
         <Tooltip content={<CustomChartTooltip />} />
 
         {getHalfPaidMonth(result.rows, submittedInput.principal) && (
           <ReferenceLine
             x={getHalfPaidMonth(result.rows, submittedInput.principal)}
+            stroke="rgba(255,255,255,0.35)"
             strokeDasharray="4 4"
           />
         )}
@@ -729,19 +744,29 @@ setGraceMonths("");
           type="monotone"
           dataKey="balance"
           name="남은 원금"
-          strokeWidth={2}
-          fillOpacity={0.18}
+          stroke="#67e8f9"
+          fill="url(#balanceFill)"
+          strokeWidth={2.5}
         />
 
         <Line
           type="monotone"
           dataKey="interest"
-          name="이자"
+          name="월 이자"
+          stroke="#ffffff"
           strokeWidth={2}
           dot={false}
         />
       </AreaChart>
     </ResponsiveContainer>
+  </div>
+
+  <div className="chart-note">
+    {submittedInput.repaymentType === "equal_principal"
+      ? "원금균등상환은 초반 부담이 크지만 시간이 지날수록 이자와 납입 부담이 줄어드는 흐름이 뚜렷하게 보입니다."
+      : submittedInput.repaymentType === "bullet"
+      ? "만기일시상환은 대출 기간 동안 원금이 줄지 않다가 마지막에 한 번에 상환되는 구조입니다."
+      : "원리금균등상환은 월 납입액이 비교적 일정하지만, 초반에는 이자 비중이 더 큽니다."}
   </div>
 </div>
 
