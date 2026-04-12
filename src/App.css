@@ -621,3 +621,68 @@
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
+
+.chart-box {
+  margin-top: 24px;
+  padding: 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.chart-header {
+  margin-bottom: 14px;
+}
+
+.chart-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.chart-subtitle {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.5;
+}
+
+.chart-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.chart-summary-card {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.chart-summary-label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.68);
+  margin-bottom: 6px;
+}
+
+.chart-summary-value {
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.chart-canvas {
+  height: 280px;
+}
+
+@media (max-width: 640px) {
+  .chart-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-canvas {
+    height: 240px;
+  }
+}

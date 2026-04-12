@@ -2,13 +2,15 @@ import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 
 import {
-  LineChart,
+  ResponsiveContainer,
+  AreaChart,
+  Area,
   Line,
   XAxis,
   YAxis,
+  CartesianGrid,
   Tooltip,
-  ResponsiveContainer,
-  Legend
+  ReferenceLine,
 } from "recharts";
 
 function trackCalculateEvent({ repaymentType, months, graceMonths }) {
@@ -279,10 +281,54 @@ const generateChartData = (rows) => {
 
   return rows.map((item, index) => ({
     month: index + 1,
-    balance: item.balance,
+    balance: Math.max(0, item.balance),
     interest: item.interest,
+    paymentAmount: item.paymentAmount,
   }));
 };
+
+const formatChartMoney = (value) => {
+  if (!Number.isFinite(value)) return "0원";
+  if (value >= 100000000) return `${(value / 100000000).toFixed(1)}억`;
+  if (value >= 10000) return `${Math.round(value / 10000)}만`;
+  return `${Math.round(value).toLocaleString("ko-KR")}원`;
+};
+
+const getHalfPaidMonth = (rows, principal) => {
+  if (!rows?.length || !principal) return null;
+  return rows.find((row) => row.balance <= principal / 2)?.round ?? null;
+};
+
+const getPeakInterestMonth = (rows) => {
+  if (!rows?.length) return null;
+  return rows.reduce((max, row) => (row.interest > max.interest ? row : max), rows[0]);
+};
+
+function CustomChartTooltip({ active, payload, label }) {
+  if (!active || !payload || !payload.length) return null;
+
+  const balance = payload.find((item) => item.dataKey === "balance")?.value ?? 0;
+  const interest = payload.find((item) => item.dataKey === "interest")?.value ?? 0;
+
+  return (
+    <div
+      style={{
+        background: "rgba(20, 24, 32, 0.96)",
+        border: "1px solid rgba(255,255,255,0.08)",
+        borderRadius: "12px",
+        padding: "10px 12px",
+        color: "#fff",
+        fontSize: "13px",
+        lineHeight: 1.5,
+        boxShadow: "0 10px 24px rgba(0,0,0,0.25)",
+      }}
+    >
+      <div style={{ fontWeight: 700, marginBottom: "6px" }}>{label}개월차</div>
+      <div>남은 원금: {formatChartMoney(balance)}</div>
+      <div>이자: {formatChartMoney(interest)}</div>
+    </div>
+  );
+}
 
 export default function App() {
   const [bank, setBank] = useState("직접입력");
@@ -632,27 +678,71 @@ setGraceMonths("");
             </div>
 
 <div className="chart-box">
-  <ResponsiveContainer width="100%" height="100%">
-    <LineChart data={generateChartData(result.rows)}>
-      <XAxis dataKey="month" />
-      <YAxis tickFormatter={(value) => formatNumber(value)} />
-      <Tooltip formatter={(value) => `${formatNumber(value)}원`} />
-      <Legend />
+  <div className="chart-header">
+    <h3 className="chart-title">월별 상환 흐름</h3>
+    <p className="chart-subtitle">남은 원금이 어떻게 줄고, 이자가 어떻게 변하는지 한눈에 볼 수 있어요.</p>
+  </div>
 
-      <Line
-        type="monotone"
-        dataKey="balance"
-        name="남은 원금"
-        strokeWidth={2}
-      />
-      <Line
-        type="monotone"
-        dataKey="interest"
-        name="이자"
-        strokeWidth={2}
-      />
-    </LineChart>
-  </ResponsiveContainer>
+  <div className="chart-summary">
+    <div className="chart-summary-card">
+      <div className="chart-summary-label">이자가 가장 큰 시점</div>
+      <div className="chart-summary-value">
+        {getPeakInterestMonth(result.rows)?.round ?? "-"}개월차
+      </div>
+    </div>
+
+    <div className="chart-summary-card">
+      <div className="chart-summary-label">원금 절반 이하 시점</div>
+      <div className="chart-summary-value">
+        {getHalfPaidMonth(result.rows, submittedInput.principal) ?? "-"}개월차
+      </div>
+    </div>
+  </div>
+
+  <div className="chart-canvas">
+    <ResponsiveContainer width="100%" height="100%">
+      <AreaChart data={generateChartData(result.rows)}>
+        <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
+        <XAxis
+          dataKey="month"
+          tick={{ fontSize: 12 }}
+          tickLine={false}
+          axisLine={false}
+        />
+        <YAxis
+          tickFormatter={formatChartMoney}
+          tick={{ fontSize: 12 }}
+          tickLine={false}
+          axisLine={false}
+          width={50}
+        />
+        <Tooltip content={<CustomChartTooltip />} />
+
+        {getHalfPaidMonth(result.rows, submittedInput.principal) && (
+          <ReferenceLine
+            x={getHalfPaidMonth(result.rows, submittedInput.principal)}
+            strokeDasharray="4 4"
+          />
+        )}
+
+        <Area
+          type="monotone"
+          dataKey="balance"
+          name="남은 원금"
+          strokeWidth={2}
+          fillOpacity={0.18}
+        />
+
+        <Line
+          type="monotone"
+          dataKey="interest"
+          name="이자"
+          strokeWidth={2}
+          dot={false}
+        />
+      </AreaChart>
+    </ResponsiveContainer>
+  </div>
 </div>
 
             <div className="action-row">
