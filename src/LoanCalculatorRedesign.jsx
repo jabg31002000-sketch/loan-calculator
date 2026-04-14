@@ -1107,7 +1107,7 @@ export default function LoanCalculatorRedesign() {
             onClick={() => trackCtaClick("rate_compare_precalc")}
             className="flex h-12 items-center justify-center rounded-2xl bg-slate-900 text-sm font-bold text-white"
           >
-            금리 낮은 상품 먼저 확인하기
+            💰💰 🔥 지금 가장 낮은 금리 확인하기 🔥🚀🚀
           </a>
 
           <a
@@ -1115,7 +1115,7 @@ export default function LoanCalculatorRedesign() {
             onClick={() => trackCtaClick("refinance_precalc")}
             className="flex h-12 items-center justify-center rounded-2xl border border-slate-300 bg-white text-sm font-bold text-slate-700"
           >
-            대환하면 얼마나 줄어드는지 보기
+            📉📉 대환하면 얼마나 줄어드는지 보기 📉📉
           </a>
         </div>
       </div>
@@ -1708,14 +1708,14 @@ export default function LoanCalculatorRedesign() {
   onClick={() => trackCtaClick("rate_compare_precalc")}
   className="flex h-12 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 text-sm font-bold text-white shadow-md hover:shadow-lg active:scale-[0.98]"
 >
-  💰💰 🔥지금 가장 낮은 금리 확인하기 🔥🚀🚀
+  지금 가장 낮은 금리 확인하기
 </a>
                       <a
   href="/refinance-guide"
   onClick={() => trackCtaClick("refinance_precalc")}
   className="flex h-12 items-center justify-center gap-2 rounded-2xl border border-slate-300 bg-white text-sm font-bold text-slate-700 hover:bg-slate-50 active:scale-[0.98]"
 >
-  🔥📉📉 대환하면 얼마나 줄어드는지 보기 📉📉🔥
+  대환하면 얼마나 줄어드는지 보기
 </a>
                     </div>
                   </div>
