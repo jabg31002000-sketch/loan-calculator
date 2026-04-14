@@ -1705,17 +1705,17 @@ export default function LoanCalculatorRedesign() {
                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:min-w-[360px]">
                       <a
   href="/loan-compare"
-  onClick={() => trackCtaClick("rate_compare_result")}
-  className="inline-flex items-center justify-center rounded-2xl bg-sky-500 px-4 py-3 text-sm font-bold text-white transition duration-150 hover:bg-sky-400 hover:shadow-md active:scale-[0.98] active:translate-y-[1px]"
+  onClick={() => trackCtaClick("rate_compare_precalc")}
+  className="flex h-12 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 text-sm font-bold text-white shadow-md hover:shadow-lg active:scale-[0.98]"
 >
-  내 조건에 맞는 금리 비교하기
+  💰💰 🔥지금 가장 낮은 금리 확인하기 🔥🚀🚀
 </a>
                       <a
   href="/refinance-guide"
-  onClick={() => trackCtaClick("refinance_result")}
-  className="inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/5 px-4 py-3 text-sm font-bold text-white transition duration-150 hover:bg-white/10 hover:shadow-md active:scale-[0.98] active:translate-y-[1px]"
+  onClick={() => trackCtaClick("refinance_precalc")}
+  className="flex h-12 items-center justify-center gap-2 rounded-2xl border border-slate-300 bg-white text-sm font-bold text-slate-700 hover:bg-slate-50 active:scale-[0.98]"
 >
-  대환 시 절약 금액 확인하기
+  🔥📉📉 대환하면 얼마나 줄어드는지 보기 📉📉🔥
 </a>
                     </div>
                   </div>
