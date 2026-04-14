@@ -53,6 +53,17 @@ function trackSaveScenarioEvent() {
   });
 }
 
+function trackCtaClick(label) {
+  if (typeof window === "undefined" || typeof window.gtag !== "function") {
+    return;
+  }
+
+  window.gtag("event", "cta_click", {
+    event_category: "engagement",
+    event_label: label,
+  });
+}
+
 function formatInputNumber(value) {
   const number = value.replace(/,/g, "");
   if (number === "") return "";
@@ -1420,6 +1431,34 @@ export default function LoanCalculatorRedesign() {
                   )}
                 </section>
 
+<section className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm">
+  <h3 className="text-xl font-bold text-slate-900 mb-4">
+    원리금균등 vs 원금균등, 뭐가 더 유리할까?
+  </h3>
+
+  <div className="grid gap-4 md:grid-cols-2">
+    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+      <h4 className="text-base font-bold text-slate-900 mb-2">원리금균등상환</h4>
+      <p className="text-sm leading-6 text-slate-600">
+        매달 같은 금액을 납부해서 월 상환 계획을 세우기 쉽습니다.
+        대신 초반에는 이자 비중이 높아 총 이자가 더 커질 수 있습니다.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+      <h4 className="text-base font-bold text-slate-900 mb-2">원금균등상환</h4>
+      <p className="text-sm leading-6 text-slate-600">
+        초반 월 납입금은 더 크지만, 시간이 갈수록 부담이 줄고
+        전체적으로 총 이자가 더 적은 경우가 많습니다.
+      </p>
+    </div>
+  </div>
+
+  <div className="mt-4 rounded-2xl bg-sky-50 p-4 text-sm leading-6 text-slate-700">
+    👉 월 부담을 낮추고 싶다면 원리금균등, 총 이자를 줄이고 싶다면 원금균등을 먼저 비교해보세요.
+  </div>
+</section>
+
                 <section className="rounded-[28px] border border-slate-300 bg-slate-50 p-5 shadow-sm lg:p-6 transition duration-200 ease-out hover:shadow-xl hover:-translate-y-[4px]">
                   <div className="mb-4 flex items-center justify-between gap-3">
                     <div>
@@ -1625,24 +1664,26 @@ export default function LoanCalculatorRedesign() {
                         다음 단계까지 이어지는 구조로 바꿨습니다
                       </h3>
                       <p className="mt-2 text-sm leading-6 text-slate-300">
-                        이 영역에는 실제 운영 시 대환대출 안내, 금리 비교 페이지 이동, 상담 연결,
-                        제휴 링크, 광고 배너 등을 넣으면 됩니다.
+                        계산 결과를 확인했다면, 이제 실제 금리 비교와 대환 가능 여부를 확인해보세요.
+  조건에 따라 월 납입금과 총 이자를 더 줄일 수 있습니다.
                       </p>
                     </div>
 
                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:min-w-[360px]">
-                      <button
-                        type="button"
-                        className="rounded-2xl bg-sky-500 px-4 py-3 text-sm font-bold text-white transition duration-150 hover:bg-sky-400 hover:shadow-md active:scale-[0.98] active:translate-y-[1px]"
-                      >
-                        최저 금리 상품 보러가기
-                      </button>
-                      <button
-                        type="button"
-                        className="rounded-2xl border border-white/20 bg-white/5 px-4 py-3 text-sm font-bold text-white transition duration-150 hover:bg-white/10 hover:shadow-md active:scale-[0.98] active:translate-y-[1px]"
-                      >
-                        대환 가능 여부 확인하기
-                      </button>
+                      <a
+  href="/loan-compare"
+  onClick={() => trackCtaClick("rate_compare")}
+  className="inline-flex items-center justify-center rounded-2xl bg-sky-500 px-4 py-3 text-sm font-bold text-white transition duration-150 hover:bg-sky-400 hover:shadow-md active:scale-[0.98] active:translate-y-[1px]"
+>
+  내 조건에 맞는 금리 비교하기
+</a>
+                      <a
+  href="/refinance-guide"
+  onClick={() => trackCtaClick("refinance_check")}
+  className="inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/5 px-4 py-3 text-sm font-bold text-white transition duration-150 hover:bg-white/10 hover:shadow-md active:scale-[0.98] active:translate-y-[1px]"
+>
+  대환 시 절약 금액 확인하기
+</a>
                     </div>
                   </div>
                 </section>
