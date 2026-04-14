@@ -1030,22 +1030,37 @@ export default function LoanCalculatorRedesign() {
                     </button>
                   </div>
 
-<div className="grid grid-cols-1 gap-3">
-  <a
-    href="/loan-compare"
-    onClick={() => trackCtaClick("rate_compare_precalc")}
-    className="inline-flex items-center justify-center rounded-2xl bg-slate-900 px-4 py-3 text-sm font-bold text-white transition duration-150 hover:bg-slate-800 hover:shadow-md active:scale-[0.98] active:translate-y-[1px]"
-  >
-    금리 낮은 상품 먼저 확인하기
-  </a>
+<div className="rounded-3xl border border-sky-200 bg-gradient-to-br from-sky-50 to-white p-4 shadow-sm">
+  <div className="mb-3 flex items-center gap-2">
+    <span className="inline-flex rounded-full bg-sky-600 px-2.5 py-1 text-[11px] font-bold text-white">
+      추천
+    </span>
+    <p className="text-sm font-semibold text-slate-900">
+      계산 전에도 바로 확인할 수 있어요
+    </p>
+  </div>
 
-  <a
-    href="/refinance-guide"
-    onClick={() => trackCtaClick("refinance_saving_precalc")}
-    className="inline-flex items-center justify-center rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm font-bold text-slate-700 transition duration-150 hover:bg-slate-50 hover:shadow-md active:scale-[0.98] active:translate-y-[1px]"
-  >
-    대환하면 얼마나 줄어드는지 보기
-  </a>
+  <p className="mb-4 text-xs leading-5 text-slate-600">
+    금리 비교나 대환 가능 여부가 궁금하다면 계산 전에 먼저 확인해보세요.
+  </p>
+
+  <div className="grid grid-cols-1 gap-3">
+    <a
+      href="/loan-compare"
+      onClick={() => trackCtaClick("rate_compare_precalc")}
+      className="inline-flex min-h-[52px] items-center justify-center rounded-2xl bg-slate-900 px-4 py-3 text-sm font-bold text-white transition duration-150 hover:bg-slate-800 hover:shadow-md active:scale-[0.98] active:translate-y-[1px]"
+    >
+      금리 낮은 상품 먼저 확인하기
+    </a>
+
+    <a
+      href="/refinance-guide"
+      onClick={() => trackCtaClick("refinance_saving_precalc")}
+      className="inline-flex min-h-[52px] items-center justify-center rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm font-bold text-slate-700 transition duration-150 hover:bg-slate-50 hover:shadow-md active:scale-[0.98] active:translate-y-[1px]"
+    >
+      대환하면 얼마나 줄어드는지 보기
+    </a>
+  </div>
 </div>
 
                   {error && (
