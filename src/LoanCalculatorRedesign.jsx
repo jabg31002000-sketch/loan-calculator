@@ -1115,7 +1115,7 @@ export default function LoanCalculatorRedesign() {
             onClick={() => trackCtaClick("refinance_precalc")}
             className="flex h-12 items-center justify-center rounded-2xl border border-slate-300 bg-white text-sm font-bold text-slate-700"
           >
-            📉📉 대환하면 얼마나 줄어드는지 보기 📉📉
+            📉📉 대환 시 최대 절약 금액 확인하기 📉📉
           </a>
         </div>
       </div>
@@ -1694,11 +1694,10 @@ export default function LoanCalculatorRedesign() {
                         맞춤 안내 영역
                       </div>
                       <h3 className="mt-3 text-2xl font-bold tracking-tight">
-                        다음 단계까지 이어지는 구조로 바꿨습니다
+                        지금 가능한 최저 금리 바로 확인하기
                       </h3>
                       <p className="mt-2 text-sm leading-6 text-slate-300">
-                        계산 결과를 확인했다면, 이제 실제 금리 비교와 대환 가능 여부를 확인해보세요.
-  조건에 따라 월 납입금과 총 이자를 더 줄일 수 있습니다.
+                        현재 조건 기준으로 가능한 최저 금리를 확인하고, 대환 시 절약 금액까지 비교해보세요.
                       </p>
                     </div>
 
@@ -1715,7 +1714,7 @@ export default function LoanCalculatorRedesign() {
   onClick={() => trackCtaClick("refinance_precalc")}
   className="flex h-12 items-center justify-center gap-2 rounded-2xl border border-slate-300 bg-white text-sm font-bold text-slate-700 hover:bg-slate-50 active:scale-[0.98]"
 >
-  대환하면 얼마나 줄어드는지 보기
+  대환 시 최대 절약 금액 확인하기
 </a>
                     </div>
                   </div>
