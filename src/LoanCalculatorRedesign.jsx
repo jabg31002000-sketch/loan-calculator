@@ -1030,39 +1030,6 @@ export default function LoanCalculatorRedesign() {
                     </button>
                   </div>
 
-<div className="rounded-3xl border border-sky-200 bg-gradient-to-br from-sky-50 to-white p-4 shadow-sm">
-  <div className="mb-3 flex items-center gap-2">
-    <span className="inline-flex rounded-full bg-sky-600 px-2.5 py-1 text-[11px] font-bold text-white">
-      추천
-    </span>
-    <p className="text-sm font-semibold text-slate-900">
-      계산 전에도 바로 확인할 수 있어요
-    </p>
-  </div>
-
-  <p className="mb-4 text-xs leading-5 text-slate-600">
-    금리 비교나 대환 가능 여부가 궁금하다면 계산 전에 먼저 확인해보세요.
-  </p>
-
-  <div className="grid grid-cols-1 gap-3">
-    <a
-      href="/loan-compare"
-      onClick={() => trackCtaClick("rate_compare_precalc")}
-      className="inline-flex min-h-[52px] items-center justify-center rounded-2xl bg-slate-900 px-4 py-3 text-sm font-bold text-white transition duration-150 hover:bg-slate-800 hover:shadow-md active:scale-[0.98] active:translate-y-[1px]"
-    >
-      금리 낮은 상품 먼저 확인하기
-    </a>
-
-    <a
-      href="/refinance-guide"
-      onClick={() => trackCtaClick("refinance_saving_precalc")}
-      className="inline-flex min-h-[52px] items-center justify-center rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm font-bold text-slate-700 transition duration-150 hover:bg-slate-50 hover:shadow-md active:scale-[0.98] active:translate-y-[1px]"
-    >
-      대환하면 얼마나 줄어드는지 보기
-    </a>
-  </div>
-</div>
-
                   {error && (
                     <div className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700">
                       {error}
@@ -1110,19 +1077,52 @@ export default function LoanCalculatorRedesign() {
 
           <main className="space-y-6 xl:col-span-8">
             {!result || !submittedInput ? (
-              <div className="flex min-h-[420px] items-center justify-center rounded-[28px] border border-dashed border-slate-300 bg-white/70 p-10 text-center shadow-sm">
-                <div>
-                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-sky-50">
-                    <Calculator className="h-8 w-8 text-sky-600" />
-                  </div>
-                  <h3 className="text-xl font-bold text-slate-900">계산 결과가 여기에 표시됩니다</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-500">
-                    왼쪽에서 대출 조건을 입력한 뒤 <strong>계산하기</strong> 버튼을 눌러주세요.
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <>
+  <>
+    <div className="flex min-h-[420px] items-center justify-center rounded-[28px] border border-dashed border-slate-300 bg-white/70 p-10 text-center shadow-sm">
+      <div>
+        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-sky-50">
+          <Calculator className="h-8 w-8 text-sky-600" />
+        </div>
+        <h3 className="text-xl font-bold text-slate-900">계산 결과가 여기에 표시됩니다</h3>
+        <p className="mt-2 text-sm leading-6 text-slate-500">
+          왼쪽에서 대출 조건을 입력한 뒤 <strong>계산하기</strong> 버튼을 눌러주세요.
+        </p>
+      </div>
+    </div>
+
+    <div className="mt-6">
+  <div className="w-full rounded-3xl border border-sky-200 bg-gradient-to-br from-sky-50 to-white p-5 shadow-sm">
+        <div className="mb-3 flex items-center justify-center gap-2">
+          <span className="inline-flex rounded-full bg-sky-600 px-2.5 py-1 text-[11px] font-bold text-white">
+            추천
+          </span>
+          <p className="text-sm font-semibold text-slate-900">
+            계산 전에 먼저 확인해보세요
+          </p>
+        </div>
+
+        <div className="grid gap-3">
+          <a
+            href="/loan-compare"
+            onClick={() => trackCtaClick("rate_compare_precalc")}
+            className="flex h-12 items-center justify-center rounded-2xl bg-slate-900 text-sm font-bold text-white"
+          >
+            금리 낮은 상품 먼저 확인하기
+          </a>
+
+          <a
+            href="/refinance-guide"
+            onClick={() => trackCtaClick("refinance_precalc")}
+            className="flex h-12 items-center justify-center rounded-2xl border border-slate-300 bg-white text-sm font-bold text-slate-700"
+          >
+            대환하면 얼마나 줄어드는지 보기
+          </a>
+        </div>
+      </div>
+    </div>
+  </>
+) : (
+  <>
                 {recommendation && (
                   <section className="rounded-[28px] border border-emerald-300 bg-gradient-to-br from-emerald-100 to-white p-5 shadow-sm lg:p-6">
                     <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
