@@ -1651,6 +1651,43 @@ export default function LoanCalculatorRedesign() {
                   본 계산기는 참고용 평균값이며, 실제 대출 조건은 상품별 우대금리, 수수료,
                   계산 기준에 따라 달라질 수 있습니다.
                 </div>
+
+                <div className="mt-24 max-w-3xl mx-auto rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+  <h1 className="text-2xl font-bold text-slate-900 mb-6">
+    대출 이자 계산기 | 원리금·원금균등 비교
+  </h1>
+
+  <p className="mb-6 text-slate-600">
+    대출 이자 계산기는 대출 금액, 금리, 기간을 입력하면 월 상환금과 총 이자를 자동으로 계산해주는 도구입니다.
+    특히 상환 방식에 따라 이자 부담이 크게 달라질 수 있기 때문에 사전에 비교하는 것이 매우 중요합니다.
+  </p>
+
+  <h2 className="text-lg font-bold text-slate-900 mb-2">
+    대출 이자 계산 방법
+  </h2>
+  <p className="mb-6 text-slate-600">
+    대출 이자는 기본적으로 대출 금액 × 금리 × 기간을 기준으로 계산됩니다.
+    하지만 실제 부담은 상환 방식에 따라 크게 달라집니다.
+  </p>
+
+  <ul className="mb-6 space-y-2 text-slate-600">
+    <li>✔ 원리금균등상환: 매달 같은 금액 납부</li>
+    <li>✔ 원금균등상환: 초기 부담 ↑ 총 이자 ↓</li>
+    <li>✔ 만기일시상환: 이자만 내다가 마지막에 원금 상환</li>
+  </ul>
+
+  <h2 className="text-lg font-bold text-slate-900 mb-2">
+    어떤 방식이 유리할까?
+  </h2>
+  <p className="mb-6 text-slate-600">
+    총 이자 기준으로는 원금균등상환이 가장 유리하지만,
+    월 납입 부담을 줄이고 싶다면 원리금균등상환이 더 적합합니다.
+  </p>
+
+  <div className="rounded-2xl bg-sky-50 p-4 text-sm text-slate-700">
+    👉 팁: 여러 조건을 저장해서 비교하면 가장 유리한 대출을 쉽게 찾을 수 있어요.
+  </div>
+</div>
               </>
             )}
           </main>
