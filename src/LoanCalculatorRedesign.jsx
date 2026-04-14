@@ -1030,6 +1030,24 @@ export default function LoanCalculatorRedesign() {
                     </button>
                   </div>
 
+<div className="grid grid-cols-1 gap-3">
+  <a
+    href="/loan-compare"
+    onClick={() => trackCtaClick("rate_compare_precalc")}
+    className="inline-flex items-center justify-center rounded-2xl bg-slate-900 px-4 py-3 text-sm font-bold text-white transition duration-150 hover:bg-slate-800 hover:shadow-md active:scale-[0.98] active:translate-y-[1px]"
+  >
+    금리 낮은 상품 먼저 확인하기
+  </a>
+
+  <a
+    href="/refinance-guide"
+    onClick={() => trackCtaClick("refinance_saving_precalc")}
+    className="inline-flex items-center justify-center rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm font-bold text-slate-700 transition duration-150 hover:bg-slate-50 hover:shadow-md active:scale-[0.98] active:translate-y-[1px]"
+  >
+    대환하면 얼마나 줄어드는지 보기
+  </a>
+</div>
+
                   {error && (
                     <div className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700">
                       {error}
@@ -1672,14 +1690,14 @@ export default function LoanCalculatorRedesign() {
                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:min-w-[360px]">
                       <a
   href="/loan-compare"
-  onClick={() => trackCtaClick("rate_compare")}
+  onClick={() => trackCtaClick("rate_compare_result")}
   className="inline-flex items-center justify-center rounded-2xl bg-sky-500 px-4 py-3 text-sm font-bold text-white transition duration-150 hover:bg-sky-400 hover:shadow-md active:scale-[0.98] active:translate-y-[1px]"
 >
   내 조건에 맞는 금리 비교하기
 </a>
                       <a
   href="/refinance-guide"
-  onClick={() => trackCtaClick("refinance_check")}
+  onClick={() => trackCtaClick("refinance_result")}
   className="inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/5 px-4 py-3 text-sm font-bold text-white transition duration-150 hover:bg-white/10 hover:shadow-md active:scale-[0.98] active:translate-y-[1px]"
 >
   대환 시 절약 금액 확인하기
