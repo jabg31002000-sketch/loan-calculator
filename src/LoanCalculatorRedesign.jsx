@@ -447,23 +447,9 @@ function ScenarioCompareTooltip({ active, payload, label }) {
   );
 }
 
-// 원본 파일 (실제 사용)
-export default function LoanCalculatorRedesign() {
-  const [bank, setBank] = useState("직접입력");
-  const [principal, setPrincipal] = useState("");
-  const [rate, setRate] = useState("");
-  const [months, setMonths] = useState("");
-  const [graceMonths, setGraceMonths] = useState("");
-  const [repaymentType, setRepaymentType] = useState("equal_payment");
-  const [submittedInput, setSubmittedInput] = useState(null);
-  const [error, setError] = useState("");
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [showComparison, setShowComparison] = useState(false);
-  const [showRepaymentHelp, setShowRepaymentHelp] = useState(false);
-  const [hasGracePeriod, setHasGracePeriod] = useState("no");
-  const [savedScenarios, setSavedScenarios] = useState([]);
-  const repaymentColors = ["#0f172a", "#334155", "#64748b"];
-  const scenarioCardThemes = [
+const REPAYMENT_COLORS = ["#0f172a", "#334155", "#64748b"];
+
+const SCENARIO_CARD_THEMES = [
   {
     accent: "#334155",
     ring: "border-slate-300",
@@ -507,6 +493,21 @@ export default function LoanCalculatorRedesign() {
     link: "text-slate-800 hover:text-slate-950",
   },
 ];
+
+export default function LoanCalculatorRedesign() {
+  const [bank, setBank] = useState("직접입력");
+  const [principal, setPrincipal] = useState("");
+  const [rate, setRate] = useState("");
+  const [months, setMonths] = useState("");
+  const [graceMonths, setGraceMonths] = useState("");
+  const [repaymentType, setRepaymentType] = useState("equal_payment");
+  const [submittedInput, setSubmittedInput] = useState(null);
+  const [error, setError] = useState("");
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [showComparison, setShowComparison] = useState(false);
+  const [showRepaymentHelp, setShowRepaymentHelp] = useState(false);
+  const [hasGracePeriod, setHasGracePeriod] = useState("no");
+  const [savedScenarios, setSavedScenarios] = useState([]);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -1415,7 +1416,7 @@ export default function LoanCalculatorRedesign() {
 >
 
                                   {comparisonChartData.map((_, index) => (
-  <Cell key={index} fill={repaymentColors[index % repaymentColors.length]} />
+  <Cell key={index} fill={REPAYMENT_COLORS[index % REPAYMENT_COLORS.length]} />
 ))}
                                 </Bar>
                               </BarChart>
@@ -1446,7 +1447,7 @@ export default function LoanCalculatorRedesign() {
   className="h-full rounded-full"
   style={{
     width: `${widthPercent}%`,
-    backgroundColor: repaymentColors[index % repaymentColors.length],
+    backgroundColor: REPAYMENT_COLORS[index % REPAYMENT_COLORS.length],
   }}
 />
                                 </div>
@@ -1538,7 +1539,7 @@ export default function LoanCalculatorRedesign() {
   {savedScenarioChartData.map((_, index) => (
   <Cell
     key={index}
-    fill={scenarioCardThemes[index % scenarioCardThemes.length].accent}
+    fill={SCENARIO_CARD_THEMES[index % SCENARIO_CARD_THEMES.length].accent}
   />
 ))}
 </Bar>
@@ -1548,7 +1549,7 @@ export default function LoanCalculatorRedesign() {
 
                       <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
                         {displaySavedScenarios.map((item, index) => {
-  const theme = scenarioCardThemes[index % scenarioCardThemes.length];
+  const theme = SCENARIO_CARD_THEMES[index % SCENARIO_CARD_THEMES.length];
 
   return (
     <div
@@ -1694,8 +1695,8 @@ export default function LoanCalculatorRedesign() {
                         맞춤 안내 영역
                       </div>
                       <h3 className="mt-3 text-2xl font-bold tracking-tight">
-                        🔥지금 가능한 최저 금리 바로 확인하기🔥
-                      </h3>
+  {"🔥 지금 가능한 최저 금리 바로 확인하기 🔥"}
+</h3>
                       <p className="mt-2 text-sm leading-6 text-slate-300">
                         현재 조건 기준으로 가능한 최저 금리를 확인하고, 대환 시 절약 금액까지 비교해보세요.
                       </p>
@@ -1704,14 +1705,14 @@ export default function LoanCalculatorRedesign() {
                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:min-w-[360px]">
                       <a
   href="/loan-compare"
-  onClick={() => trackCtaClick("rate_compare_precalc")}
+  onClick={() => trackCtaClick("rate_compare_postcalc")}
   className="flex h-12 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 text-sm font-bold text-white shadow-md hover:shadow-lg active:scale-[0.98]"
 >
   지금 가장 낮은 금리 확인하기
 </a>
                       <a
   href="/refinance-guide"
-  onClick={() => trackCtaClick("refinance_precalc")}
+  onClick={() => trackCtaClick("refinance_postcalc")}
   className="flex h-12 items-center justify-center gap-2 rounded-2xl border border-slate-300 bg-white text-sm font-bold text-slate-700 hover:bg-slate-50 active:scale-[0.98]"
 >
   대환 시 최대 절약 금액 확인하기
