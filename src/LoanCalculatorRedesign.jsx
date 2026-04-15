@@ -625,6 +625,14 @@ export default function LoanCalculatorRedesign() {
     };
   }, [comparisonResults, submittedInput, result]);
 
+  const savingsAtLowerRate = useMemo(() => {
+    if (!submittedInput || !result) return null;
+    const lowerRate = Math.max(0, submittedInput.annualRate - 1);
+    const lowerResult = calculateLoan({ ...submittedInput, annualRate: lowerRate });
+    if (!lowerResult) return null;
+    return Math.max(0, result.totalInterest - lowerResult.totalInterest);
+  }, [submittedInput, result]);
+
   const comparisonChartData =
     comparisonResults?.map((item) => ({
       name: item.title.replace("상환", ""),
@@ -1195,6 +1203,50 @@ export default function LoanCalculatorRedesign() {
                   </div>
                 </section>
 
+                {savingsAtLowerRate !== null && (
+                  <section className="rounded-[28px] border border-emerald-200 bg-gradient-to-br from-emerald-50 to-white p-6 shadow-md lg:p-8">
+                    <div className="space-y-5">
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                          현재 조건 기준
+                        </p>
+                        <p className="mt-2 text-sm text-slate-600">
+                          이 조건이면 총 이자는{" "}
+                          <span className="font-bold text-slate-900">
+                            {formatCurrency(result.totalInterest)}
+                          </span>
+                          입니다.
+                        </p>
+                      </div>
+
+                      <div className="rounded-2xl border border-emerald-200 bg-white p-5 shadow-sm">
+                        <p className="text-sm font-medium text-slate-500">
+                          금리가 1%p 낮아질 경우 절약 가능 금액
+                        </p>
+                        <p className="mt-2 text-4xl font-bold tracking-tight text-emerald-600 lg:text-5xl">
+                          약 {formatCurrency(savingsAtLowerRate)}
+                        </p>
+                        <p className="mt-2 text-xs text-slate-400">
+                          현재 {submittedInput.annualRate.toFixed(1)}% →{" "}
+                          {Math.max(0, submittedInput.annualRate - 1).toFixed(1)}% 적용 시 총 이자 차이
+                        </p>
+                      </div>
+
+                      <a
+                        href="/loan-compare"
+                        onClick={() => trackCtaClick("rate_compare_savings")}
+                        className="flex w-full items-center justify-center rounded-2xl bg-sky-600 py-4 text-base font-bold text-white shadow-lg shadow-sky-200 transition duration-150 hover:scale-[1.02] hover:bg-sky-500 hover:shadow-xl active:scale-[0.98]"
+                      >
+                        <span className="flex items-center gap-2 whitespace-nowrap">
+                          <span>🔥</span>
+                          <span>이 조건에서 얼마나 절약 가능한지 확인하기</span>
+                          <span>🔥</span>
+                        </span>
+                      </a>
+                    </div>
+                  </section>
+                )}
+
                 <section className="rounded-[28px] border border-slate-300 bg-slate-50 p-5 shadow-sm lg:p-6 transition duration-200 ease-out hover:shadow-xl hover:-translate-y-[4px]">
                   <div className="mb-5 flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
                     <div>
@@ -1728,7 +1780,7 @@ export default function LoanCalculatorRedesign() {
                       >
                         <span className="flex items-center gap-2 whitespace-nowrap">
                           <span>🔥</span>
-                          <span>지금 최저 금리 바로 확인하기</span>
+                          <span>월 이자 줄일 수 있는 방법 보기</span>
                           <span>🔥</span>
                         </span>
                       </a>
