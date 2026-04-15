@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useSeo } from "./useSeo";
 import {
   ResponsiveContainer,
   AreaChart,
@@ -496,6 +497,11 @@ const SCENARIO_CARD_THEMES = [
 ];
 
 export default function LoanCalculatorRedesign() {
+  useSeo(
+    "대출 이자 계산기 | 원리금균등·원금균등 비교 - LoanClock",
+    "대출 이자 계산기로 월 납입금, 총 이자, 상환방식을 한 번에 비교하세요. 금리 1% 차이로 절약 가능한 금액까지 바로 확인할 수 있습니다."
+  );
+
   const [bank, setBank] = useState("직접입력");
   const [principal, setPrincipal] = useState("");
   const [rate, setRate] = useState("");
@@ -817,7 +823,7 @@ export default function LoanCalculatorRedesign() {
       </div>
 
       <h1 className="text-3xl font-bold tracking-tight text-white lg:text-4xl leading-snug">
-        계산만 하지 말고,<br />
+        대출 이자 계산기<br />
         <span className="text-sky-400">조건별로 저장하고 비교하세요</span>
       </h1>
 
@@ -1099,7 +1105,7 @@ export default function LoanCalculatorRedesign() {
         <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-sky-50">
           <Calculator className="h-8 w-8 text-sky-600" />
         </div>
-        <h3 className="text-xl font-bold text-slate-900">계산 결과가 여기에 표시됩니다</h3>
+        <h2 className="text-xl font-bold text-slate-900">계산 결과가 여기에 표시됩니다</h2>
         <p className="mt-2 text-sm leading-6 text-slate-500">
           왼쪽에서 대출 조건을 입력한 뒤 <strong>계산하기</strong> 버튼을 눌러주세요.
         </p>
@@ -1431,7 +1437,7 @@ export default function LoanCalculatorRedesign() {
                 <section className="rounded-[28px] border border-slate-300 bg-slate-50 p-5 shadow-sm lg:p-6 transition duration-200 ease-out hover:shadow-xl hover:-translate-y-[4px]">
                   <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                     <div>
-                      <h3 className="text-lg font-bold text-slate-900">상환방식 비교</h3>
+                      <h2 className="text-lg font-bold text-slate-900">상환방식 비교</h2>
                       <p className="mt-1 text-sm text-slate-500">
                         총 이자 기준으로 어떤 방식이 더 유리한지 비교할 수 있어요.
                       </p>
@@ -1544,9 +1550,9 @@ export default function LoanCalculatorRedesign() {
                 </section>
 
 <section className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm">
-  <h3 className="text-xl font-bold text-slate-900 mb-4">
+  <h2 className="text-xl font-bold text-slate-900 mb-4">
     원리금균등 vs 원금균등, 뭐가 더 유리할까?
-  </h3>
+  </h2>
 
   <div className="grid gap-4 md:grid-cols-2">
     <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
@@ -1574,7 +1580,7 @@ export default function LoanCalculatorRedesign() {
                 <section className="rounded-[28px] border border-slate-300 bg-slate-50 p-5 shadow-sm lg:p-6 transition duration-200 ease-out hover:shadow-xl hover:-translate-y-[4px]">
                   <div className="mb-4 flex items-center justify-between gap-3">
                     <div>
-                      <h3 className="text-lg font-bold text-slate-900">저장한 비교안</h3>
+                      <h2 className="text-lg font-bold text-slate-900">저장한 비교안</h2>
                       <p className="mt-1 text-sm text-slate-500">
                         서로 다른 조건을 저장해 두고 월 상환금과 총 이자를 비교할 수 있어요.
                       </p>
@@ -1702,7 +1708,7 @@ export default function LoanCalculatorRedesign() {
 
                 <section className="rounded-[28px] border border-slate-300 bg-slate-50 p-5 shadow-sm lg:p-6 transition duration-200 ease-out hover:shadow-xl hover:-translate-y-[4px]">
                   <div className="mb-4">
-                    <h3 className="text-lg font-bold text-slate-900">상환 스케줄표</h3>
+                    <h2 className="text-lg font-bold text-slate-900">상환 스케줄표</h2>
                     <div className="mt-3 flex flex-wrap gap-2">
                       <span className="rounded-full bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700">
                         {getRepaymentLabel(submittedInput.repaymentType)}
@@ -1816,9 +1822,9 @@ export default function LoanCalculatorRedesign() {
                 </div>
 
                 <div className="mt-24 max-w-3xl mx-auto rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-  <h1 className="text-2xl font-bold text-slate-900 mb-6">
+  <h2 className="text-2xl font-bold text-slate-900 mb-6">
     대출 이자 계산기 | 원리금·원금균등 비교
-  </h1>
+  </h2>
 
   <p className="mb-6 text-slate-600">
     대출 이자 계산기는 대출 금액, 금리, 기간을 입력하면 월 상환금과 총 이자를 자동으로 계산해주는 도구입니다.
