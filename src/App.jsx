@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoanCalculatorRedesign from "./LoanCalculatorRedesign";
 import LoanComparePage from "./LoanComparePage";
+import RefinancePage from "./RefinancePage";
 import OutLoanPage from "./OutLoanPage";
 import PrivacyPage from "./PrivacyPage";
 import TermsPage from "./TermsPage";
@@ -22,6 +23,8 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/"             element={<Layout><LoanCalculatorRedesign /></Layout>} />
+        <Route path="/compare"      element={<Layout><LoanComparePage /></Layout>} />
+        <Route path="/refinance"    element={<Layout><RefinancePage /></Layout>} />
         <Route path="/loan-compare" element={<Layout><LoanComparePage /></Layout>} />
         <Route path="/privacy"      element={<Layout><PrivacyPage /></Layout>} />
         <Route path="/terms"        element={<Layout><TermsPage /></Layout>} />

@@ -849,18 +849,14 @@ export default function LoanCalculatorRedesign() {
           {/* 오른쪽: Hero CTA */}
           <div className="flex flex-col gap-3 xl:min-w-[300px]">
             <a
-              href="/out/loan?from=hero_rate"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/compare"
               onClick={() => trackCtaClick({ id: "hero_rate", label: "내 금리 손해 먼저 확인하기" })}
               className="flex h-14 items-center justify-center rounded-2xl bg-sky-500 px-6 text-sm font-bold text-white shadow-lg shadow-sky-900/40 transition duration-150 hover:scale-[1.03] hover:bg-sky-400 hover:shadow-sky-500/30 active:scale-[0.97]"
             >
               내 금리 손해 먼저 확인하기
             </a>
             <a
-              href="/out/loan?from=hero_refinance"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/refinance"
               onClick={() => trackCtaClick({ id: "hero_refinance", label: "대환 시 절약 가능성 보기" })}
               className="flex h-12 items-center justify-center rounded-2xl border border-slate-600 bg-white/5 px-6 text-sm font-semibold text-slate-300 transition duration-150 hover:scale-[1.02] hover:border-slate-400 hover:bg-white/10 hover:text-white active:scale-[0.97]"
             >
@@ -1153,18 +1149,14 @@ export default function LoanCalculatorRedesign() {
       </ul>
       <div className="flex flex-col gap-2">
         <a
-          href="/out/loan?from=precalc_rate"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/compare"
           onClick={() => trackCtaClick({ id: "precalc_rate", label: "내 금리 손해 먼저 확인하기" })}
           className="flex h-14 items-center justify-center rounded-2xl bg-sky-600 text-sm font-bold text-white shadow-lg shadow-sky-200 transition duration-150 hover:scale-[1.02] hover:bg-sky-500 hover:shadow-xl active:scale-[0.98]"
         >
           내 금리 손해 먼저 확인하기
         </a>
         <a
-          href="/out/loan?from=precalc_refinance"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/refinance"
           onClick={() => trackCtaClick({ id: "precalc_refinance", label: "대환하면 얼마나 아끼는지 보기" })}
           className="flex h-12 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-700 transition duration-150 hover:border-slate-300 hover:bg-white hover:shadow-md active:scale-[0.98]"
         >
@@ -1285,9 +1277,7 @@ export default function LoanCalculatorRedesign() {
                     </div>
 
                     <a
-                      href="/out/loan?from=aftercalc_savings"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="/refinance"
                       onClick={() => trackCtaClick({ id: "aftercalc_savings", label: "이 조건에서 얼마나 아낄 수 있는지 보기" })}
                       className="flex w-full items-center justify-center gap-2 rounded-2xl bg-emerald-600 py-4 text-sm font-bold text-white shadow-lg shadow-emerald-200 transition duration-150 hover:scale-[1.02] hover:bg-emerald-500 hover:shadow-xl active:scale-[0.98]"
                     >
@@ -1827,18 +1817,14 @@ export default function LoanCalculatorRedesign() {
                     </div>
                     <div className="flex flex-col gap-3 lg:min-w-[300px]">
                       <a
-                        href="/out/loan?from=aftercalc_rate"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        href="/compare"
                         onClick={() => trackCtaClick({ id: "aftercalc_rate", label: "월 이자 줄일 수 있는 방법 보기" })}
                         className="flex h-14 items-center justify-center rounded-2xl bg-sky-500 text-sm font-bold text-white shadow-lg shadow-sky-900/40 transition duration-150 hover:scale-[1.03] hover:bg-sky-400 hover:shadow-xl active:scale-[0.97]"
                       >
                         월 이자 줄일 수 있는 방법 보기
                       </a>
                       <a
-                        href="/out/loan?from=aftercalc_refinance"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        href="/refinance"
                         onClick={() => trackCtaClick({ id: "aftercalc_refinance", label: "대환 절약 금액 바로 보기" })}
                         className="flex h-12 items-center justify-center rounded-2xl border border-slate-600 bg-white/5 text-sm font-semibold text-slate-300 transition duration-150 hover:scale-[1.02] hover:border-slate-400 hover:bg-white/10 hover:text-white active:scale-[0.97]"
                       >
