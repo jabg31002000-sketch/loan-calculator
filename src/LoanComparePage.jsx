@@ -12,7 +12,7 @@ import {
 // ─── GA 추적 ───────────────────────────────────────────────
 function trackCtaClick(label) {
   if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-  window.gtag("event", "cta_click", { event_category: "engagement", event_label: label });
+  window.gtag("event", "cta_click", { event_category: "loan", event_label: label });
 }
 
 // ─── 계산 ──────────────────────────────────────────────────

@@ -59,7 +59,7 @@ function trackCtaClick(label) {
   }
 
   window.gtag("event", "cta_click", {
-    event_category: "engagement",
+    event_category: "loan",
     event_label: label,
   });
 }

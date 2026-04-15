@@ -4,7 +4,7 @@ import { useSeo } from "./useSeo";
 
 function trackCtaClick(label) {
   if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-  window.gtag("event", "cta_click", { event_category: "engagement", event_label: label });
+  window.gtag("event", "cta_click", { event_category: "loan", event_label: label });
 }
 
 const INQUIRY_TYPES = [
