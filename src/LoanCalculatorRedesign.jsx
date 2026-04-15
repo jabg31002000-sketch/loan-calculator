@@ -53,7 +53,7 @@ function trackSaveScenarioEvent() {
   });
 }
 
-function trackCtaClick(label) {
+function trackCtaClick({ id, label }) {
   if (typeof window === "undefined" || typeof window.gtag !== "function") {
     return;
   }
@@ -61,6 +61,7 @@ function trackCtaClick(label) {
   window.gtag("event", "cta_click", {
     event_category: "loan",
     event_label: label,
+    event_id: id,
   });
 }
 
@@ -1118,7 +1119,7 @@ export default function LoanCalculatorRedesign() {
             href="/out/loan?from=precalc_rate"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackCtaClick("precalc_rate")}
+            onClick={() => trackCtaClick({ id: "precalc_rate", label: "지금 최저 금리 바로 확인하기" })}
             className="flex h-14 items-center justify-center rounded-2xl bg-sky-600 text-sm font-bold text-white shadow-lg shadow-sky-200 transition duration-150 hover:scale-[1.02] hover:bg-sky-500 hover:shadow-xl active:scale-[0.98]"
           >
             <span className="flex items-center gap-2 whitespace-nowrap">
@@ -1131,7 +1132,7 @@ export default function LoanCalculatorRedesign() {
             href="/out/loan?from=precalc_refinance"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackCtaClick("precalc_refinance")}
+            onClick={() => trackCtaClick({ id: "precalc_refinance", label: "대환 절약 금액 바로 보기" })}
             className="flex h-12 items-center justify-center rounded-2xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 transition duration-150 hover:border-slate-300 hover:shadow-md active:scale-[0.98]"
           >
             <span className="flex items-center gap-2 whitespace-nowrap">
@@ -1240,7 +1241,7 @@ export default function LoanCalculatorRedesign() {
                         href="/out/loan?from=aftercalc_savings"
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={() => trackCtaClick("aftercalc_savings")}
+                        onClick={() => trackCtaClick({ id: "aftercalc_savings", label: "이 조건에서 얼마나 절약 가능한지 확인하기" })}
                         className="flex w-full items-center justify-center rounded-2xl bg-sky-600 py-4 text-base font-bold text-white shadow-lg shadow-sky-200 transition duration-150 hover:scale-[1.02] hover:bg-sky-500 hover:shadow-xl active:scale-[0.98]"
                       >
                         <span className="flex items-center gap-2 whitespace-nowrap">
@@ -1783,7 +1784,7 @@ export default function LoanCalculatorRedesign() {
                         href="/out/loan?from=aftercalc_rate"
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={() => trackCtaClick("aftercalc_rate")}
+                        onClick={() => trackCtaClick({ id: "aftercalc_rate", label: "월 이자 줄일 수 있는 방법 보기" })}
                         className="flex items-center justify-center rounded-2xl bg-sky-500 py-4 text-sm font-bold text-white shadow-lg shadow-sky-900/40 transition duration-150 hover:scale-[1.02] hover:bg-sky-400 hover:shadow-xl active:scale-[0.98]"
                       >
                         <span className="flex items-center gap-2 whitespace-nowrap">
@@ -1796,7 +1797,7 @@ export default function LoanCalculatorRedesign() {
                         href="/out/loan?from=aftercalc_refinance"
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={() => trackCtaClick("aftercalc_refinance")}
+                        onClick={() => trackCtaClick({ id: "aftercalc_refinance", label: "대환 절약 금액 바로 보기" })}
                         className="flex items-center justify-center rounded-2xl border border-slate-600 bg-white/5 py-4 text-sm font-semibold text-slate-200 transition duration-150 hover:border-slate-400 hover:bg-white/10 hover:text-white active:scale-[0.98]"
                       >
                         <span className="flex items-center gap-2 whitespace-nowrap">

@@ -10,9 +10,9 @@ import {
 } from "lucide-react";
 
 // ─── GA 추적 ───────────────────────────────────────────────
-function trackCtaClick(label) {
+function trackCtaClick({ id, label }) {
   if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-  window.gtag("event", "cta_click", { event_category: "loan", event_label: label });
+  window.gtag("event", "cta_click", { event_category: "loan", event_label: label, event_id: id });
 }
 
 // ─── 계산 ──────────────────────────────────────────────────
@@ -68,7 +68,7 @@ function CtaButton({ label, eventLabel, variant = "primary", className = "" }) {
       href={`/out/loan?from=${eventLabel}`}
       target="_blank"
       rel="noopener noreferrer"
-      onClick={() => trackCtaClick(eventLabel)}
+      onClick={() => trackCtaClick({ id: eventLabel, label })}
       className={`${base} ${styles} ${className}`}
     >
       <span className="flex items-center gap-2 whitespace-nowrap">

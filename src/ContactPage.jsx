@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { ChevronRight, Mail, Clock, MessageSquare, TrendingDown, RefreshCw } from "lucide-react";
 import { useSeo } from "./useSeo";
 
-function trackCtaClick(label) {
+function trackCtaClick({ id, label }) {
   if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-  window.gtag("event", "cta_click", { event_category: "loan", event_label: label });
+  window.gtag("event", "cta_click", { event_category: "loan", event_label: label, event_id: id });
 }
 
 const INQUIRY_TYPES = [
@@ -113,7 +113,7 @@ export default function ContactPage() {
                 href="/out/loan?from=contact_rate"
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => trackCtaClick("contact_rate")}
+                onClick={() => trackCtaClick({ id: "contact_rate", label: "최저 금리 지금 확인하기" })}
                 className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-sky-600 px-4 py-3 text-sm font-bold text-white shadow-sm transition hover:scale-[1.02] hover:bg-sky-700 active:scale-[0.98]"
               >
                 <TrendingDown className="h-4 w-4" />
@@ -123,7 +123,7 @@ export default function ContactPage() {
                 href="/out/loan?from=contact_refinance"
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => trackCtaClick("contact_refinance")}
+                onClick={() => trackCtaClick({ id: "contact_refinance", label: "대환대출 조건 비교하기" })}
                 className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-sky-300 bg-white px-4 py-3 text-sm font-bold text-sky-700 shadow-sm transition hover:scale-[1.02] hover:bg-sky-50 active:scale-[0.98]"
               >
                 <RefreshCw className="h-4 w-4" />
