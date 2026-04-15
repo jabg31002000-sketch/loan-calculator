@@ -1694,7 +1694,7 @@ export default function LoanCalculatorRedesign() {
                         맞춤 안내 영역
                       </div>
                       <h3 className="mt-3 text-2xl font-bold tracking-tight">
-                        🚀🔥지금 가능한 최저 금리 바로 확인하기🔥🚀
+                        🔥지금 가능한 최저 금리 바로 확인하기🔥
                       </h3>
                       <p className="mt-2 text-sm leading-6 text-slate-300">
                         현재 조건 기준으로 가능한 최저 금리를 확인하고, 대환 시 절약 금액까지 비교해보세요.
