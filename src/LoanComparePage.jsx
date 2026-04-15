@@ -65,7 +65,7 @@ function CtaButton({ label, eventLabel, variant = "primary", className = "" }) {
 
   return (
     <a
-      href="/out/loan"
+      href={`/out/loan?from=${eventLabel}`}
       target="_blank"
       rel="noopener noreferrer"
       onClick={() => trackCtaClick(eventLabel)}

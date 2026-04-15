@@ -1115,7 +1115,7 @@ export default function LoanCalculatorRedesign() {
         </p>
         <div className="flex flex-col gap-2">
           <a
-            href="/out/loan"
+            href="/out/loan?from=rate_compare_precalc"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackCtaClick("rate_compare_precalc")}
@@ -1128,7 +1128,9 @@ export default function LoanCalculatorRedesign() {
             </span>
           </a>
           <a
-            href="/refinance-guide"
+            href="/out/loan?from=refinance_precalc"
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => trackCtaClick("refinance_precalc")}
             className="flex h-12 items-center justify-center rounded-2xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 transition duration-150 hover:border-slate-300 hover:shadow-md active:scale-[0.98]"
           >
@@ -1235,7 +1237,7 @@ export default function LoanCalculatorRedesign() {
                       </div>
 
                       <a
-                        href="/out/loan"
+                        href="/out/loan?from=rate_compare_savings"
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => trackCtaClick("rate_compare_savings")}
@@ -1778,7 +1780,7 @@ export default function LoanCalculatorRedesign() {
                     </div>
                     <div className="flex flex-col gap-3 lg:min-w-[320px]">
                       <a
-                        href="/out/loan"
+                        href="/out/loan?from=rate_compare_postcalc"
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => trackCtaClick("rate_compare_postcalc")}
@@ -1791,7 +1793,9 @@ export default function LoanCalculatorRedesign() {
                         </span>
                       </a>
                       <a
-                        href="/refinance-guide"
+                        href="/out/loan?from=refinance_postcalc"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         onClick={() => trackCtaClick("refinance_postcalc")}
                         className="flex items-center justify-center rounded-2xl border border-slate-600 bg-white/5 py-4 text-sm font-semibold text-slate-200 transition duration-150 hover:border-slate-400 hover:bg-white/10 hover:text-white active:scale-[0.98]"
                       >
