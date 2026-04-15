@@ -43,11 +43,11 @@ export default function ContactPage() {
               아래 이메일로 문의 내용을 보내주시면 확인 후 답변 드리겠습니다.
             </p>
             <a
-              href="mailto:contact@loanclock.com"
-              className="inline-flex items-center gap-2 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-sm font-semibold text-sky-700 transition hover:bg-sky-100"
+              href="mailto:loanclock.official@gmail.com?subject=LoanClock%20%EB%AC%B8%EC%9D%98"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-sm font-semibold text-sky-700 transition hover:border-sky-300 hover:bg-sky-100 hover:text-sky-800 active:scale-[0.98]"
             >
               <Mail className="h-4 w-4" />
-              contact@loanclock.com
+              loanclock.official@gmail.com
             </a>
           </div>
 
