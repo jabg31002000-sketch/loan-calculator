@@ -65,11 +65,10 @@ function CtaButton({ label, eventLabel, variant = "primary", className = "" }) {
 
   return (
     <a
-      href="#"
-      onClick={(e) => {
-        e.preventDefault();
-        trackCtaClick(eventLabel);
-      }}
+      href="/out/loan"
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={() => trackCtaClick(eventLabel)}
       className={`${base} ${styles} ${className}`}
     >
       <span className="flex items-center gap-2 whitespace-nowrap">

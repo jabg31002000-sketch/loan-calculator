@@ -1115,7 +1115,9 @@ export default function LoanCalculatorRedesign() {
         </p>
         <div className="flex flex-col gap-2">
           <a
-            href="/loan-compare"
+            href="/out/loan"
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => trackCtaClick("rate_compare_precalc")}
             className="flex h-14 items-center justify-center rounded-2xl bg-sky-600 text-sm font-bold text-white shadow-lg shadow-sky-200 transition duration-150 hover:scale-[1.02] hover:bg-sky-500 hover:shadow-xl active:scale-[0.98]"
           >
@@ -1233,7 +1235,9 @@ export default function LoanCalculatorRedesign() {
                       </div>
 
                       <a
-                        href="/loan-compare"
+                        href="/out/loan"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         onClick={() => trackCtaClick("rate_compare_savings")}
                         className="flex w-full items-center justify-center rounded-2xl bg-sky-600 py-4 text-base font-bold text-white shadow-lg shadow-sky-200 transition duration-150 hover:scale-[1.02] hover:bg-sky-500 hover:shadow-xl active:scale-[0.98]"
                       >
@@ -1774,7 +1778,9 @@ export default function LoanCalculatorRedesign() {
                     </div>
                     <div className="flex flex-col gap-3 lg:min-w-[320px]">
                       <a
-                        href="/loan-compare"
+                        href="/out/loan"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         onClick={() => trackCtaClick("rate_compare_postcalc")}
                         className="flex items-center justify-center rounded-2xl bg-sky-500 py-4 text-sm font-bold text-white shadow-lg shadow-sky-900/40 transition duration-150 hover:scale-[1.02] hover:bg-sky-400 hover:shadow-xl active:scale-[0.98]"
                       >
