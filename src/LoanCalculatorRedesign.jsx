@@ -819,16 +819,16 @@ export default function LoanCalculatorRedesign() {
 
           {/* 왼쪽: 헤드라인 + 신뢰 포인트 */}
           <div className="max-w-2xl">
-            <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-amber-400/10 px-3 py-1 text-xs font-bold text-amber-300 ring-1 ring-amber-400/20">
-              지금 확인 안 하면 더 낼 수 있습니다
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-red-400/10 px-3 py-1 text-xs font-bold text-red-300 ring-1 ring-red-400/20">
+              지금 금리 그대로 두면 손해일 수 있습니다
             </div>
             <h1 className="text-3xl font-bold tracking-tight text-white lg:text-4xl leading-snug">
-              내 대출, 지금 조건이<br />
-              <span className="text-sky-400">정말 최선일까요?</span>
+              같은 대출인데<br />
+              <span className="text-sky-400">이자 차이가 수백만 원</span>날 수 있습니다
             </h1>
             <p className="mt-3 text-sm leading-7 text-slate-400 lg:text-base">
-              금리·상환방식·거치기간에 따라 월 부담과 총 이자가 크게 달라집니다.<br className="hidden lg:block" />
-              지금 바로 계산하고, 절약 가능성까지 한눈에 확인하세요.
+              지금 조건을 확인하지 않으면 <strong className="text-slate-200">계속 손해를 보고 있을 수 있습니다.</strong><br className="hidden lg:block" />
+              1분 안에 계산하고, 절약 가능성까지 바로 확인하세요.
             </p>
 
             {/* 신뢰 포인트 */}
@@ -853,7 +853,7 @@ export default function LoanCalculatorRedesign() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackCtaClick({ id: "hero_rate", label: "내 금리 손해 먼저 확인하기" })}
-              className="flex h-14 items-center justify-center rounded-2xl bg-sky-500 px-6 text-sm font-bold text-white shadow-lg shadow-sky-900/40 transition duration-150 hover:scale-[1.02] hover:bg-sky-400 active:scale-[0.98]"
+              className="flex h-14 items-center justify-center rounded-2xl bg-sky-500 px-6 text-sm font-bold text-white shadow-lg shadow-sky-900/40 transition duration-150 hover:scale-[1.03] hover:bg-sky-400 hover:shadow-sky-500/30 active:scale-[0.97]"
             >
               내 금리 손해 먼저 확인하기
             </a>
@@ -862,11 +862,13 @@ export default function LoanCalculatorRedesign() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackCtaClick({ id: "hero_refinance", label: "대환 시 절약 가능성 보기" })}
-              className="flex h-12 items-center justify-center rounded-2xl border border-slate-600 bg-white/5 px-6 text-sm font-semibold text-slate-300 transition duration-150 hover:border-slate-400 hover:bg-white/10 hover:text-white active:scale-[0.98]"
+              className="flex h-12 items-center justify-center rounded-2xl border border-slate-600 bg-white/5 px-6 text-sm font-semibold text-slate-300 transition duration-150 hover:scale-[1.02] hover:border-slate-400 hover:bg-white/10 hover:text-white active:scale-[0.97]"
             >
               대환 시 절약 가능성 보기
             </a>
-            <p className="text-center text-xs text-slate-600">1분 안에 확인 · 서류 불필요</p>
+            <p className="text-center text-xs text-slate-500">
+              지금 바로 확인 가능 · 1분 소요 · 조건 입력만으로 확인
+            </p>
           </div>
 
         </div>
@@ -1219,69 +1221,80 @@ export default function LoanCalculatorRedesign() {
 
                 <section className="space-y-3">
                   <div className="rounded-3xl bg-slate-900 p-6 shadow-lg lg:p-8">
-                    <p className="text-sm font-medium text-slate-400">월 납입금 (첫 회차 기준)</p>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">월 납입금 (첫 회차 기준)</p>
                     <p className="mt-2 text-5xl font-bold tracking-tight text-white lg:text-6xl">
                       {formatCurrency(result.monthlyPayment)}
                     </p>
                     <p className="mt-3 text-xs text-slate-500">
                       {getRepaymentLabel(submittedInput.repaymentType)} · {submittedInput.months}개월
                       {submittedInput.graceMonths > 0 ? ` · 거치 ${submittedInput.graceMonths}개월` : ""}
-                      {" · "}방식에 따라 이후 감소할 수 있어요.
                     </p>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     <StatCard label="총 이자" value={formatCurrency(result.totalInterest)} />
                     <StatCard label="총 상환액" value={formatCurrency(result.totalPayment)} />
                   </div>
+                  {/* 감정 문장 */}
+                  <div className="rounded-2xl border border-slate-200 bg-white px-5 py-4">
+                    <p className="text-sm leading-6 text-slate-600">
+                      현재 조건이면 총 이자로{" "}
+                      <strong className="text-slate-900">{formatCurrency(result.totalInterest)}</strong>을 부담하게 됩니다.
+                      금리 차이 1%만으로도 <strong className="text-slate-900">수십~수백만 원</strong>이 달라질 수 있습니다.
+                    </p>
+                  </div>
                 </section>
 
                 {savingsAtLowerRate !== null && (
-                  <section className="rounded-[28px] border border-amber-200 bg-amber-50 p-6 shadow-sm lg:p-8">
+                  <section className="rounded-[28px] border border-amber-200 bg-gradient-to-br from-amber-50 to-white p-6 shadow-md lg:p-8">
                     <p className="mb-1 text-xs font-bold uppercase tracking-widest text-amber-600">
-                      절약 가능성 분석
+                      지금 바꾸면 절약 가능
                     </p>
                     <p className="mb-5 text-base font-bold text-slate-900">
-                      금리가 조금만 낮아져도 부담이 크게 달라집니다
+                      이 상태 유지 시 손해 가능성이 있습니다
                     </p>
 
                     {/* Before / After 비교 */}
-                    <div className="mb-4 grid grid-cols-2 gap-3">
+                    <div className="mb-5 grid grid-cols-2 gap-3">
                       <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-                        <p className="text-xs font-semibold text-slate-400">현재 조건 총 이자</p>
-                        <p className="mt-1.5 text-xl font-bold text-slate-800">
+                        <p className="text-xs font-semibold text-slate-400">현재 총 이자 부담</p>
+                        <p className="mt-1.5 text-2xl font-bold text-slate-800">
                           {formatCurrency(result.totalInterest)}
                         </p>
                         <p className="mt-1 text-xs text-slate-400">
                           {submittedInput.annualRate.toFixed(1)}% 기준
                         </p>
                       </div>
-                      <div className="rounded-2xl border border-emerald-200 bg-white p-4 shadow-sm">
-                        <p className="text-xs font-semibold text-emerald-600">금리 1%p 낮추면</p>
-                        <p className="mt-1.5 text-xl font-bold text-emerald-600">
-                          약 {formatCurrency(savingsAtLowerRate)} 절약
+                      <div className="rounded-2xl border border-emerald-300 bg-emerald-50 p-4 shadow-sm">
+                        <p className="text-xs font-bold text-emerald-600">금리 1%p 낮추면</p>
+                        <p className="mt-1.5 text-2xl font-bold text-emerald-600">
+                          약 {formatCurrency(savingsAtLowerRate)}
                         </p>
-                        <p className="mt-1 text-xs text-slate-400">
-                          {Math.max(0, submittedInput.annualRate - 1).toFixed(1)}% 적용 기준
-                        </p>
+                        <p className="mt-1 text-xs font-semibold text-emerald-500">절약 가능</p>
                       </div>
                     </div>
 
-                    <p className="mb-4 text-sm leading-6 text-slate-600">
-                      지금 조건이면 총 이자로{" "}
-                      <span className="font-bold text-slate-900">{formatCurrency(result.totalInterest)}</span>을 부담하게 됩니다.
-                      실제 비교를 통해 더 나은 조건이 있는지 확인해보세요.
-                    </p>
+                    {/* 감정 압박 문구 */}
+                    <div className="mb-5 rounded-2xl border border-red-100 bg-red-50 px-4 py-3">
+                      <p className="text-sm font-semibold text-red-700">
+                        지금 조건이면 총 이자{" "}
+                        <span className="text-base font-bold">{formatCurrency(result.totalInterest)}</span>을 그대로 부담하게 됩니다.
+                      </p>
+                      <p className="mt-1 text-xs text-red-500">
+                        비교만 해도 줄일 수 있는 금액인지 확인해보세요.
+                      </p>
+                    </div>
 
                     <a
                       href="/out/loan?from=aftercalc_savings"
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => trackCtaClick({ id: "aftercalc_savings", label: "이 조건에서 얼마나 아낄 수 있는지 보기" })}
-                      className="flex w-full items-center justify-center gap-2 rounded-2xl bg-slate-900 py-4 text-sm font-bold text-white shadow-sm transition duration-150 hover:bg-slate-700 hover:shadow-lg active:scale-[0.98]"
+                      className="flex w-full items-center justify-center gap-2 rounded-2xl bg-emerald-600 py-4 text-sm font-bold text-white shadow-lg shadow-emerald-200 transition duration-150 hover:scale-[1.02] hover:bg-emerald-500 hover:shadow-xl active:scale-[0.98]"
                     >
                       이 조건에서 얼마나 아낄 수 있는지 보기
                       <ChevronRight className="h-4 w-4" />
                     </a>
+                    <p className="mt-2 text-center text-xs text-slate-400">지금 바로 확인 가능 · 1분 소요</p>
                   </section>
                 )}
 
@@ -1800,17 +1813,16 @@ export default function LoanCalculatorRedesign() {
                 <section className="rounded-[28px] border border-slate-700 bg-slate-900 px-6 py-8 shadow-xl lg:px-8 lg:py-10">
                   <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
                     <div className="max-w-lg">
-                      <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-slate-300 ring-1 ring-white/10">
-                        <BadgeDollarSign className="h-3.5 w-3.5 text-sky-400" />
-                        계산만 하지 말고, 실제 비교까지
+                      <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-red-400/10 px-3 py-1 text-xs font-bold text-red-300 ring-1 ring-red-400/20">
+                        계산만 하고 끝내면 손해일 수 있습니다
                       </div>
                       <h3 className="text-xl font-bold leading-snug tracking-tight text-white lg:text-2xl">
-                        같은 조건처럼 보여도<br />
-                        <span className="text-sky-400">실제 부담은 다를 수 있습니다</span>
+                        실제 조건 비교까지 해야<br />
+                        <span className="text-sky-400">의미 있는 계산입니다</span>
                       </h3>
                       <p className="mt-2 text-sm leading-6 text-slate-400">
-                        지금 가능한 선택지를 먼저 확인해보세요.
-                        비교만 해도 절약 가능성을 알 수 있습니다.
+                        지금 이 결과를 들고 실제 금융사 조건과 비교해보세요.
+                        <strong className="text-slate-300"> 비교만 해도 절약 가능성을 바로 알 수 있습니다.</strong>
                       </p>
                     </div>
                     <div className="flex flex-col gap-3 lg:min-w-[300px]">
@@ -1819,7 +1831,7 @@ export default function LoanCalculatorRedesign() {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => trackCtaClick({ id: "aftercalc_rate", label: "월 이자 줄일 수 있는 방법 보기" })}
-                        className="flex h-14 items-center justify-center rounded-2xl bg-sky-500 text-sm font-bold text-white shadow-lg shadow-sky-900/40 transition duration-150 hover:scale-[1.02] hover:bg-sky-400 hover:shadow-xl active:scale-[0.98]"
+                        className="flex h-14 items-center justify-center rounded-2xl bg-sky-500 text-sm font-bold text-white shadow-lg shadow-sky-900/40 transition duration-150 hover:scale-[1.03] hover:bg-sky-400 hover:shadow-xl active:scale-[0.97]"
                       >
                         월 이자 줄일 수 있는 방법 보기
                       </a>
@@ -1828,10 +1840,11 @@ export default function LoanCalculatorRedesign() {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => trackCtaClick({ id: "aftercalc_refinance", label: "대환 절약 금액 바로 보기" })}
-                        className="flex h-12 items-center justify-center rounded-2xl border border-slate-600 bg-white/5 text-sm font-semibold text-slate-300 transition duration-150 hover:border-slate-400 hover:bg-white/10 hover:text-white active:scale-[0.98]"
+                        className="flex h-12 items-center justify-center rounded-2xl border border-slate-600 bg-white/5 text-sm font-semibold text-slate-300 transition duration-150 hover:scale-[1.02] hover:border-slate-400 hover:bg-white/10 hover:text-white active:scale-[0.97]"
                       >
                         대환 절약 금액 바로 보기
                       </a>
+                      <p className="text-center text-xs text-slate-600">조건 입력만으로 확인 · 무료</p>
                     </div>
                   </div>
                 </section>
