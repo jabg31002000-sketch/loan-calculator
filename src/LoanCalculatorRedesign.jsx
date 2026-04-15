@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ResponsiveContainer,
   AreaChart,
@@ -509,6 +509,7 @@ export default function LoanCalculatorRedesign() {
   const [hasGracePeriod, setHasGracePeriod] = useState("no");
   const [savedScenarios, setSavedScenarios] = useState([]);
   const [copied, setCopied] = useState(false);
+  const resultRef = useRef(null);
 
   useEffect(() => {
     const savedInputs = localStorage.getItem("loanCalculatorInputsV4");
@@ -703,6 +704,12 @@ export default function LoanCalculatorRedesign() {
       graceMonths: parsedGraceMonths,
       repaymentType,
     });
+
+    if (window.innerWidth < 1280) {
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+    }
   };
 
   const handleReset = () => {
@@ -1013,19 +1020,18 @@ export default function LoanCalculatorRedesign() {
                     )}
                   </div>
 
-                  <div className="grid grid-cols-1 gap-3 pt-2 sm:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2">
+                  <div className="flex flex-col gap-2 pt-2">
                     <button
                       type="button"
                       onClick={handleCalculate}
-                      className="rounded-2xl bg-slate-900 px-4 py-3 text-base font-bold text-white shadow-sm transition duration-150 hover:bg-slate-800 hover:shadow-md active:scale-[0.98] active:translate-y-[1px]"
+                      className="w-full rounded-2xl bg-slate-900 px-4 py-4 text-base font-bold text-white shadow-md transition duration-150 hover:bg-slate-700 hover:shadow-lg active:scale-[0.98] active:translate-y-[1px]"
                     >
                       계산하기
                     </button>
-
                     <button
                       type="button"
                       onClick={handleReset}
-                      className="rounded-2xl border border-slate-300 bg-white px-4 py-3 text-base font-bold text-slate-700 transition duration-150 hover:bg-slate-50 hover:shadow-md active:scale-[0.98] active:translate-y-[1px]"
+                      className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-500 transition duration-150 hover:bg-slate-50 active:scale-[0.98]"
                     >
                       초기화
                     </button>
@@ -1076,7 +1082,7 @@ export default function LoanCalculatorRedesign() {
             </div>
           </aside>
 
-          <main className="space-y-6 xl:col-span-8">
+          <main ref={resultRef} className="space-y-6 xl:col-span-8">
             {!result || !submittedInput ? (
   <>
     <div className="flex min-h-[420px] items-center justify-center rounded-[28px] border border-dashed border-slate-300 bg-white/70 p-10 text-center shadow-sm">
@@ -1092,31 +1098,27 @@ export default function LoanCalculatorRedesign() {
     </div>
 
     <div className="mt-6">
-  <div className="w-full rounded-3xl border border-sky-200 bg-gradient-to-br from-sky-50 to-white p-5 shadow-sm">
-        <div className="mb-3 flex items-center justify-center gap-2">
-          <span className="inline-flex rounded-full bg-sky-600 px-2.5 py-1 text-[11px] font-bold text-white">
-            추천
-          </span>
-          <p className="text-sm font-semibold text-slate-900">
-            계산 전에 먼저 확인해보세요
-          </p>
-        </div>
-
-        <div className="grid gap-3">
+      <div className="w-full rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+        <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-400">
+          계산 전에 확인하면 유리해요
+        </p>
+        <p className="mb-4 text-sm font-bold text-slate-900">
+          지금 받을 수 있는 금리부터 먼저 확인해보세요
+        </p>
+        <div className="flex flex-col gap-2">
           <a
             href="/loan-compare"
             onClick={() => trackCtaClick("rate_compare_precalc")}
-            className="flex h-12 items-center justify-center rounded-2xl bg-slate-900 text-sm font-bold text-white"
+            className="flex h-12 items-center justify-center rounded-2xl bg-slate-900 text-sm font-bold text-white transition hover:bg-slate-700"
           >
-            💰💰 🔥 지금 가장 낮은 금리 확인하기 🔥🚀🚀
+            최저 금리 지금 확인하기
           </a>
-
           <a
             href="/refinance-guide"
             onClick={() => trackCtaClick("refinance_precalc")}
-            className="flex h-12 items-center justify-center rounded-2xl border border-slate-300 bg-white text-sm font-bold text-slate-700"
+            className="flex h-12 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
           >
-            📉📉 대환 시 최대 절약 금액 확인하기 📉📉
+            대환 시 절약 금액 계산하기
           </a>
         </div>
       </div>
@@ -1125,36 +1127,38 @@ export default function LoanCalculatorRedesign() {
 ) : (
   <>
                 {recommendation && (
-                  <section className="rounded-[28px] border border-emerald-300 bg-gradient-to-br from-emerald-100 to-white p-5 shadow-sm lg:p-6">
-                    <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                  <section className="rounded-[28px] border border-emerald-200 bg-white p-5 shadow-md lg:p-6">
+                    <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
                       <div>
-                        <div className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-xs font-semibold text-emerald-700 shadow-sm">
+                        <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700">
                           <CheckCircle2 className="h-3.5 w-3.5" />
-                          추천 결과
+                          AI 추천
                         </div>
-                        <h2 className="mt-3 text-2xl font-bold tracking-tight text-slate-900">
+                        <h2 className="mt-3 text-xl font-bold tracking-tight text-slate-900 lg:text-2xl">
                           {recommendation.best?.title ?? "-"}이 가장 유리해요
                         </h2>
                         <p className="mt-2 text-sm leading-6 text-slate-600">
-                          현재 조건 기준으로 가장 불리한 방식과 비교하면 총 이자를
-                          <strong className="mx-1 text-emerald-700">{formatCurrency(recommendation.saving)}</strong>
-                          줄일 수 있어요.
-                          {recommendation.shouldChange
-                            ? ` 지금 선택한 ${getRepaymentLabel(submittedInput.repaymentType)}보다 ${formatCurrency(
-                                recommendation.currentVsBest
-                              )} 절약됩니다.`
-                            : " 현재 선택한 방식이 이미 총 이자 기준 가장 유리합니다."}
+                          {recommendation.shouldChange ? (
+                            <>
+                              지금 선택한 방식 대비{" "}
+                              <strong className="text-emerald-600">
+                                총 이자 {formatCurrency(recommendation.currentVsBest)} 절약
+                              </strong>
+                              됩니다.
+                            </>
+                          ) : (
+                            "현재 선택한 방식이 이미 총 이자 기준 가장 유리합니다."
+                          )}
                         </p>
                       </div>
-
-                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:min-w-[360px]">
-                        <div className="rounded-2xl bg-white p-4 shadow-sm">
-                          <p className="text-xs font-medium text-slate-500">추천 방식 총 이자</p>
+                      <div className="grid grid-cols-2 gap-3 lg:min-w-[320px]">
+                        <div className="rounded-2xl bg-emerald-50 p-4">
+                          <p className="text-xs font-medium text-emerald-700">추천 방식 총 이자</p>
                           <p className="mt-1 text-lg font-bold text-slate-900">
                             {formatCurrency(recommendation.best?.data?.totalInterest ?? 0)}
                           </p>
                         </div>
-                        <div className="rounded-2xl bg-white p-4 shadow-sm">
+                        <div className="rounded-2xl bg-slate-50 p-4">
                           <p className="text-xs font-medium text-slate-500">현재 방식 총 이자</p>
                           <p className="mt-1 text-lg font-bold text-slate-900">
                             {formatCurrency(result.totalInterest)}
@@ -1165,15 +1169,22 @@ export default function LoanCalculatorRedesign() {
                   </section>
                 )}
 
-                <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                  <StatCard
-                    label="월 상환금"
-                    value={formatCurrency(result.monthlyPayment)}
-                    accent
-                    subValue="첫 기준 월 납입금입니다. 방식에 따라 이후 감소할 수 있어요."
-                  />
-                  <StatCard label="총 이자" value={formatCurrency(result.totalInterest)} />
-                  <StatCard label="총 상환액" value={formatCurrency(result.totalPayment)} />
+                <section className="space-y-3">
+                  <div className="rounded-3xl bg-slate-900 p-6 shadow-lg lg:p-8">
+                    <p className="text-sm font-medium text-slate-400">월 납입금 (첫 회차 기준)</p>
+                    <p className="mt-2 text-5xl font-bold tracking-tight text-white lg:text-6xl">
+                      {formatCurrency(result.monthlyPayment)}
+                    </p>
+                    <p className="mt-3 text-xs text-slate-500">
+                      {getRepaymentLabel(submittedInput.repaymentType)} · {submittedInput.months}개월
+                      {submittedInput.graceMonths > 0 ? ` · 거치 ${submittedInput.graceMonths}개월` : ""}
+                      {" · "}방식에 따라 이후 감소할 수 있어요.
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <StatCard label="총 이자" value={formatCurrency(result.totalInterest)} />
+                    <StatCard label="총 상환액" value={formatCurrency(result.totalPayment)} />
+                  </div>
                 </section>
 
                 <section className="rounded-[28px] border border-slate-300 bg-slate-50 p-5 shadow-sm lg:p-6 transition duration-200 ease-out hover:shadow-xl hover:-translate-y-[4px]">
@@ -1687,36 +1698,35 @@ export default function LoanCalculatorRedesign() {
                   </div>
                 </section>
 
-                <section className="rounded-[28px] border border-slate-200 bg-gradient-to-br from-slate-900 to-slate-800 p-5 text-white shadow-sm lg:p-6">
-                  <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-                    <div className="max-w-2xl">
-                      <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-sky-200">
+                <section className="rounded-[28px] border border-slate-800 bg-slate-900 p-6 shadow-sm lg:p-8">
+                  <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+                    <div className="max-w-xl">
+                      <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-slate-300">
                         <BadgeDollarSign className="h-3.5 w-3.5" />
-                        맞춤 안내 영역
+                        이 결과를 바탕으로
                       </div>
-                      <h3 className="mt-3 text-2xl font-bold tracking-tight">
-  {"🔥 지금 가능한 최저 금리 바로 확인하기 🔥"}
-</h3>
-                      <p className="mt-2 text-sm leading-6 text-slate-300">
-                        현재 조건 기준으로 가능한 최저 금리를 확인하고, 대환 시 절약 금액까지 비교해보세요.
+                      <h3 className="mt-3 text-xl font-bold tracking-tight text-white lg:text-2xl">
+                        지금 받을 수 있는 최저 금리를 확인해보세요
+                      </h3>
+                      <p className="mt-2 text-sm leading-6 text-slate-400">
+                        금리가 1%만 낮아져도 총 이자 부담이 크게 줄어듭니다.
                       </p>
                     </div>
-
-                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:min-w-[360px]">
+                    <div className="flex flex-col gap-3 lg:min-w-[320px]">
                       <a
-  href="/loan-compare"
-  onClick={() => trackCtaClick("rate_compare_postcalc")}
-  className="flex h-12 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 text-sm font-bold text-white shadow-md hover:shadow-lg active:scale-[0.98]"
->
-  지금 가장 낮은 금리 확인하기
-</a>
+                        href="/loan-compare"
+                        onClick={() => trackCtaClick("rate_compare_postcalc")}
+                        className="flex h-13 items-center justify-center rounded-2xl bg-white py-4 text-sm font-bold text-slate-900 shadow-sm transition hover:bg-slate-100 active:scale-[0.98]"
+                      >
+                        최저 금리 지금 확인하기
+                      </a>
                       <a
-  href="/refinance-guide"
-  onClick={() => trackCtaClick("refinance_postcalc")}
-  className="flex h-12 items-center justify-center gap-2 rounded-2xl border border-slate-300 bg-white text-sm font-bold text-slate-700 hover:bg-slate-50 active:scale-[0.98]"
->
-  대환 시 최대 절약 금액 확인하기
-</a>
+                        href="/refinance-guide"
+                        onClick={() => trackCtaClick("refinance_postcalc")}
+                        className="flex h-13 items-center justify-center rounded-2xl border border-slate-700 py-4 text-sm font-semibold text-slate-300 transition hover:border-slate-500 hover:text-white active:scale-[0.98]"
+                      >
+                        대환 시 절약 금액 계산하기
+                      </a>
                     </div>
                   </div>
                 </section>
