@@ -1115,10 +1115,10 @@ export default function LoanCalculatorRedesign() {
         </p>
         <div className="flex flex-col gap-2">
           <a
-            href="/out/loan?from=rate_compare_precalc"
+            href="/out/loan?from=precalc_rate"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackCtaClick("rate_compare_precalc")}
+            onClick={() => trackCtaClick("precalc_rate")}
             className="flex h-14 items-center justify-center rounded-2xl bg-sky-600 text-sm font-bold text-white shadow-lg shadow-sky-200 transition duration-150 hover:scale-[1.02] hover:bg-sky-500 hover:shadow-xl active:scale-[0.98]"
           >
             <span className="flex items-center gap-2 whitespace-nowrap">
@@ -1128,10 +1128,10 @@ export default function LoanCalculatorRedesign() {
             </span>
           </a>
           <a
-            href="/out/loan?from=refinance_precalc"
+            href="/out/loan?from=precalc_refinance"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackCtaClick("refinance_precalc")}
+            onClick={() => trackCtaClick("precalc_refinance")}
             className="flex h-12 items-center justify-center rounded-2xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 transition duration-150 hover:border-slate-300 hover:shadow-md active:scale-[0.98]"
           >
             <span className="flex items-center gap-2 whitespace-nowrap">
@@ -1237,10 +1237,10 @@ export default function LoanCalculatorRedesign() {
                       </div>
 
                       <a
-                        href="/out/loan?from=rate_compare_savings"
+                        href="/out/loan?from=aftercalc_savings"
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={() => trackCtaClick("rate_compare_savings")}
+                        onClick={() => trackCtaClick("aftercalc_savings")}
                         className="flex w-full items-center justify-center rounded-2xl bg-sky-600 py-4 text-base font-bold text-white shadow-lg shadow-sky-200 transition duration-150 hover:scale-[1.02] hover:bg-sky-500 hover:shadow-xl active:scale-[0.98]"
                       >
                         <span className="flex items-center gap-2 whitespace-nowrap">
@@ -1780,10 +1780,10 @@ export default function LoanCalculatorRedesign() {
                     </div>
                     <div className="flex flex-col gap-3 lg:min-w-[320px]">
                       <a
-                        href="/out/loan?from=rate_compare_postcalc"
+                        href="/out/loan?from=aftercalc_rate"
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={() => trackCtaClick("rate_compare_postcalc")}
+                        onClick={() => trackCtaClick("aftercalc_rate")}
                         className="flex items-center justify-center rounded-2xl bg-sky-500 py-4 text-sm font-bold text-white shadow-lg shadow-sky-900/40 transition duration-150 hover:scale-[1.02] hover:bg-sky-400 hover:shadow-xl active:scale-[0.98]"
                       >
                         <span className="flex items-center gap-2 whitespace-nowrap">
@@ -1793,10 +1793,10 @@ export default function LoanCalculatorRedesign() {
                         </span>
                       </a>
                       <a
-                        href="/out/loan?from=refinance_postcalc"
+                        href="/out/loan?from=aftercalc_refinance"
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={() => trackCtaClick("refinance_postcalc")}
+                        onClick={() => trackCtaClick("aftercalc_refinance")}
                         className="flex items-center justify-center rounded-2xl border border-slate-600 bg-white/5 py-4 text-sm font-semibold text-slate-200 transition duration-150 hover:border-slate-400 hover:bg-white/10 hover:text-white active:scale-[0.98]"
                       >
                         <span className="flex items-center gap-2 whitespace-nowrap">
