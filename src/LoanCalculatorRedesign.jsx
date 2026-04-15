@@ -1098,27 +1098,27 @@ export default function LoanCalculatorRedesign() {
     </div>
 
     <div className="mt-6">
-      <div className="w-full rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
-        <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-slate-400">
+      <div className="w-full rounded-3xl border border-sky-100 bg-gradient-to-br from-sky-50 to-white p-5 shadow-md">
+        <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-sky-500">
           계산 전에 확인하면 유리해요
         </p>
-        <p className="mb-4 text-sm font-bold text-slate-900">
+        <p className="mb-4 text-base font-bold text-slate-900">
           지금 받을 수 있는 금리부터 먼저 확인해보세요
         </p>
         <div className="flex flex-col gap-2">
           <a
             href="/loan-compare"
             onClick={() => trackCtaClick("rate_compare_precalc")}
-            className="flex h-12 items-center justify-center rounded-2xl bg-slate-900 text-sm font-bold text-white transition hover:bg-slate-700"
+            className="flex h-14 items-center justify-center gap-2 rounded-2xl bg-sky-600 text-sm font-bold text-white shadow-lg shadow-sky-200 transition duration-150 hover:scale-[1.02] hover:bg-sky-500 hover:shadow-xl active:scale-[0.98]"
           >
-            최저 금리 지금 확인하기
+            🔥 지금 최저 금리 바로 확인하기
           </a>
           <a
             href="/refinance-guide"
             onClick={() => trackCtaClick("refinance_precalc")}
-            className="flex h-12 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
+            className="flex h-12 items-center justify-center rounded-2xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 transition duration-150 hover:border-slate-300 hover:shadow-md active:scale-[0.98]"
           >
-            대환 시 절약 금액 계산하기
+            대환 절약 금액 바로 보기 →
           </a>
         </div>
       </div>
@@ -1716,16 +1716,16 @@ export default function LoanCalculatorRedesign() {
                       <a
                         href="/loan-compare"
                         onClick={() => trackCtaClick("rate_compare_postcalc")}
-                        className="flex h-13 items-center justify-center rounded-2xl bg-white py-4 text-sm font-bold text-slate-900 shadow-sm transition hover:bg-slate-100 active:scale-[0.98]"
+                        className="flex items-center justify-center gap-2 rounded-2xl bg-sky-500 py-4 text-sm font-bold text-white shadow-lg shadow-sky-900/40 transition duration-150 hover:scale-[1.02] hover:bg-sky-400 hover:shadow-xl active:scale-[0.98]"
                       >
-                        최저 금리 지금 확인하기
+                        🔥 지금 최저 금리 바로 확인하기
                       </a>
                       <a
                         href="/refinance-guide"
                         onClick={() => trackCtaClick("refinance_postcalc")}
-                        className="flex h-13 items-center justify-center rounded-2xl border border-slate-700 py-4 text-sm font-semibold text-slate-300 transition hover:border-slate-500 hover:text-white active:scale-[0.98]"
+                        className="flex items-center justify-center rounded-2xl border border-slate-600 bg-white/5 py-4 text-sm font-semibold text-slate-200 transition duration-150 hover:border-slate-400 hover:bg-white/10 hover:text-white active:scale-[0.98]"
                       >
-                        대환 시 절약 금액 계산하기
+                        대환 절약 금액 바로 보기 →
                       </a>
                     </div>
                   </div>
