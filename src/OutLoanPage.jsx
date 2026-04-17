@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
 // ✅ 실제 제휴 링크로 교체하세요
-const AFFILIATE_RATE_BASE = "https://affiliate-link.com/rate";
-const AFFILIATE_REFINANCE_BASE = "https://affiliate-link.com/refinance";
+const AFFILIATE_RATE_BASE = "https://www.google.com";
+const AFFILIATE_REFINANCE_BASE = "https://www.google.com";
 
 function buildAffiliateUrl(from) {
   const base = from.includes("refinance") ? AFFILIATE_REFINANCE_BASE : AFFILIATE_RATE_BASE;

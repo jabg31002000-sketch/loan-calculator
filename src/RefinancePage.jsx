@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   ChevronRight,
   TrendingDown,
@@ -8,6 +8,7 @@ import {
   RefreshCw,
   Clock,
   ShieldCheck,
+  Zap,
 } from "lucide-react";
 
 // ─── GA 추적 ───────────────────────────────────────────────────────────────
@@ -23,6 +24,23 @@ function trackCtaClick({ id, label }) {
 function trackBridgeView() {
   if (typeof window === "undefined" || typeof window.gtag !== "function") return;
   window.gtag("event", "bridge_view_refinance", { event_category: "bridge" });
+}
+
+// [신규] 최종 CTA 클릭 전용 이벤트
+function trackFinalCtaClick({ id, label }) {
+  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
+  window.gtag("event", "final_cta_click", {
+    event_category: "bridge",
+    event_label: label,
+    event_id: id,
+  });
+}
+
+// ─── 유틸 ────────────────────────────────────────────────────────────────
+function formatCurrency(value) {
+  const num = Number(value);
+  if (!Number.isFinite(num) || num <= 0) return null;
+  return `${Math.round(num).toLocaleString("ko-KR")}원`;
 }
 
 // ─── 데이터 ────────────────────────────────────────────────────────────────
@@ -86,7 +104,24 @@ const TRUST_ITEMS = [
 
 // ─── 메인 ──────────────────────────────────────────────────────────────────
 export default function RefinancePage() {
+  // [URL 파라미터] 계산기에서 전달받은 사용자 조건 데이터
+  const [searchParams] = useSearchParams();
+  const passedRate = searchParams.get("rate");
+  const passedInterest = searchParams.get("interest");
+  const passedSavings = searchParams.get("savings");
+
+  const hasUserData = !!passedInterest;
+  const interestFormatted = formatCurrency(passedInterest);
+  const savingsFormatted = formatCurrency(passedSavings);
+  const lowerRate = passedRate ? (Number(passedRate) - 1).toFixed(1) : null;
+
   useEffect(() => { trackBridgeView(); }, []);
+
+  // [최종 CTA 클릭] cta_click + final_cta_click 동시 추적
+  const handleFinalCta = (id) => {
+    trackCtaClick({ id, label: "지금 최저 금리 상품 확인하기" });
+    trackFinalCtaClick({ id, label: "지금 최저 금리 상품 확인하기" });
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100 text-slate-900">
@@ -107,14 +142,34 @@ export default function RefinancePage() {
             <AlertCircle className="h-3.5 w-3.5" />
             현재 조건 유지가 손해일 수 있습니다
           </div>
-          <h1 className="mt-3 text-2xl font-bold leading-snug tracking-tight text-white lg:text-3xl">
-            지금 대환하면<br />
-            <span className="text-emerald-400">얼마나 아낄 수 있는지</span> 확인해보세요
-          </h1>
-          <p className="mt-3 text-sm leading-7 text-slate-400">
-            금리 차이와 상환 구조에 따라 절약 가능성이 크게 달라질 수 있습니다.
-            먼저 실제 조건 비교로 <strong className="text-slate-300">대환 가능성을 확인</strong>해보세요.
-          </p>
+
+          {/* [개인화 헤드라인] URL 파라미터 있으면 실제 금액으로 표시 */}
+          {hasUserData && interestFormatted ? (
+            <>
+              <h1 className="mt-3 text-2xl font-bold leading-snug tracking-tight text-white lg:text-3xl">
+                지금 조건이면 최대<br />
+                <span className="text-red-400">{interestFormatted} 이자</span>를 더 낼 수 있습니다
+              </h1>
+              {savingsFormatted && (
+                <p className="mt-3 text-sm leading-7 text-slate-400">
+                  대환으로{" "}
+                  <strong className="text-emerald-400">약 {savingsFormatted} 절약</strong>이 가능할 수 있습니다.
+                  지금 대환 조건을 확인해보세요.
+                </p>
+              )}
+            </>
+          ) : (
+            <>
+              <h1 className="mt-3 text-2xl font-bold leading-snug tracking-tight text-white lg:text-3xl">
+                지금 대환하면<br />
+                <span className="text-emerald-400">얼마나 아낄 수 있는지</span> 확인해보세요
+              </h1>
+              <p className="mt-3 text-sm leading-7 text-slate-400">
+                금리 차이와 상환 구조에 따라 절약 가능성이 크게 달라질 수 있습니다.
+                먼저 실제 조건 비교로 <strong className="text-slate-300">대환 가능성을 확인</strong>해보세요.
+              </p>
+            </>
+          )}
 
           {/* 신뢰 포인트 */}
           <div className="mt-5 flex flex-wrap gap-2">
@@ -126,30 +181,70 @@ export default function RefinancePage() {
             ))}
           </div>
 
-          <div className="mt-6 flex flex-col gap-3">
+          {/* [통합 CTA] 단일 핵심 버튼 */}
+          <div className="mt-6">
             <a
               href="/out/loan?from=refinance_hero_primary"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackCtaClick({ id: "refinance_hero_primary", label: "대환 조건 비교하러 가기" })}
-              className="flex h-14 items-center justify-center rounded-2xl bg-emerald-500 text-sm font-bold text-white shadow-lg shadow-emerald-900/40 transition hover:scale-[1.03] hover:bg-emerald-400 active:scale-[0.97]"
+              onClick={() => handleFinalCta("refinance_hero_primary")}
+              className="flex h-14 items-center justify-center rounded-2xl bg-emerald-500 text-sm font-bold text-white shadow-lg shadow-emerald-900/40 transition hover:scale-[1.03] hover:bg-emerald-400 hover:shadow-emerald-500/30 active:scale-[0.97]"
             >
-              대환 조건 비교하러 가기
+              지금 최저 금리 상품 확인하기
             </a>
-            <a
-              href="/out/loan?from=refinance_hero_secondary"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackCtaClick({ id: "refinance_hero_secondary", label: "절약 가능성 확인하기" })}
-              className="flex h-12 items-center justify-center rounded-2xl border border-slate-600 bg-white/5 text-sm font-semibold text-slate-300 transition hover:scale-[1.02] hover:border-slate-400 hover:bg-white/10 hover:text-white active:scale-[0.97]"
-            >
-              절약 가능성 확인하기
-            </a>
-            <p className="text-center text-xs text-slate-600">지금 바로 확인 가능 · 1분 소요</p>
+            <p className="mt-2 text-center text-xs text-slate-600">금리 1%만 낮춰도 수백만 원 절약 가능합니다</p>
           </div>
         </section>
 
-        {/* ── 2. 손해 압박 박스 ── */}
+        {/* ── 2. Before/After 비교 박스 (URL 파라미터 있을 때 개인화 표시) ── */}
+        {hasUserData && (
+          <section className="mb-6 rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="mb-4 flex items-center gap-2">
+              <Zap className="h-4 w-4 text-amber-500" />
+              <h2 className="text-base font-bold text-slate-900">현재 조건 vs 대환 후 조건</h2>
+            </div>
+
+            {/* Before / After 비교 */}
+            <div className="grid grid-cols-2 gap-3">
+              <div className="rounded-2xl border border-red-100 bg-red-50 p-4">
+                <p className="text-xs font-semibold text-red-600">현재 조건</p>
+                {passedRate && (
+                  <p className="mt-1 text-lg font-bold text-slate-900">금리 {passedRate}%</p>
+                )}
+                {interestFormatted && (
+                  <>
+                    <p className="mt-1 text-base font-bold text-red-700">{interestFormatted}</p>
+                    <p className="mt-0.5 text-xs text-red-500">총 이자 부담</p>
+                  </>
+                )}
+              </div>
+              <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
+                <p className="text-xs font-semibold text-emerald-600">대환 후 (예상)</p>
+                {lowerRate && Number(lowerRate) > 0 && (
+                  <p className="mt-1 text-lg font-bold text-slate-900">금리 {lowerRate}%</p>
+                )}
+                {savingsFormatted ? (
+                  <>
+                    <p className="mt-1 text-base font-bold text-emerald-600">약 {savingsFormatted}</p>
+                    <p className="mt-0.5 text-xs text-emerald-500">절약 가능</p>
+                  </>
+                ) : (
+                  <p className="mt-2 text-sm font-semibold text-emerald-600">절약 가능성 있음</p>
+                )}
+              </div>
+            </div>
+
+            {/* 긴급성 문구 */}
+            <div className="mt-4 flex items-start gap-2 rounded-2xl border border-amber-100 bg-amber-50 px-4 py-3">
+              <AlertCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-500" />
+              <p className="text-sm font-semibold text-amber-700">
+                금리는 언제든 변동될 수 있습니다. 지금이 대환 조건을 확인하기 가장 좋은 시점입니다.
+              </p>
+            </div>
+          </section>
+        )}
+
+        {/* ── 3. 손해 압박 박스 ── */}
         <section className="mb-6 rounded-[28px] border border-red-100 bg-red-50 p-6">
           <div className="flex items-start gap-3">
             <AlertCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-500" />
@@ -163,7 +258,7 @@ export default function RefinancePage() {
           </div>
         </section>
 
-        {/* ── 3. 절약 가능성 카드 ── */}
+        {/* ── 4. 절약 가능성 카드 ── */}
         <section className="mb-6 space-y-4">
           <h2 className="text-base font-bold text-slate-900">대환으로 달라질 수 있는 것</h2>
           {SAVING_CARDS.map((card) => (
@@ -180,7 +275,7 @@ export default function RefinancePage() {
           ))}
         </section>
 
-        {/* ── 4. 현재 유지 vs 대환 비교 ── */}
+        {/* ── 5. 현재 유지 vs 대환 후 비교 ── */}
         <section className="mb-6">
           <h2 className="mb-4 text-base font-bold text-slate-900">현재 유지 vs 대환 후</h2>
           <div className="grid grid-cols-2 gap-3">
@@ -204,7 +299,7 @@ export default function RefinancePage() {
           </div>
         </section>
 
-        {/* ── 5. 프로세스 ── */}
+        {/* ── 6. 프로세스 ── */}
         <section className="mb-6 rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm">
           <div className="mb-4 flex items-center gap-2">
             <Clock className="h-4 w-4 text-emerald-600" />
@@ -228,39 +323,43 @@ export default function RefinancePage() {
           </div>
         </section>
 
-        {/* ── 6. 최종 CTA ── */}
+        {/* ── 7. 최종 CTA 섹션 ── */}
         <section className="mb-8 rounded-[28px] border border-slate-800 bg-slate-900 px-6 py-8 shadow-xl lg:px-8 lg:py-10">
           <div className="mb-2 flex items-center gap-2">
             <AlertCircle className="h-4 w-4 text-amber-400" />
             <p className="text-xs font-bold text-amber-400">지금 확인하지 않으면</p>
           </div>
-          <h2 className="mb-2 text-xl font-bold leading-snug text-white">
-            손해를 계속 보고 있을 수 있습니다
-          </h2>
+
+          {/* [개인화] 실제 금액 기반 헤드라인 */}
+          {hasUserData && interestFormatted ? (
+            <h2 className="mb-2 text-xl font-bold leading-snug text-white">
+              지금 조건이면{" "}
+              <span className="text-red-400">{interestFormatted}</span>{" "}
+              이자를<br />그대로 부담하게 됩니다
+            </h2>
+          ) : (
+            <h2 className="mb-2 text-xl font-bold leading-snug text-white">
+              손해를 계속 보고 있을 수 있습니다
+            </h2>
+          )}
+
           <p className="mb-6 text-sm leading-6 text-slate-400">
             대환 조건을 비교해보는 것만으로도 절약 여부를 확인할 수 있습니다.
+            <br />
+            <span className="font-semibold text-amber-300">금리는 언제든 변동될 수 있습니다.</span>
           </p>
-          <div className="flex flex-col gap-3">
-            <a
-              href="/out/loan?from=refinance_final_primary"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackCtaClick({ id: "refinance_final_primary", label: "대환 조건 비교하러 가기" })}
-              className="flex h-14 items-center justify-center rounded-2xl bg-emerald-500 text-sm font-bold text-white shadow-lg shadow-emerald-900/40 transition hover:scale-[1.03] hover:bg-emerald-400 active:scale-[0.97]"
-            >
-              대환 조건 비교하러 가기
-            </a>
-            <a
-              href="/out/loan?from=refinance_final_secondary"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackCtaClick({ id: "refinance_final_secondary", label: "절약 가능성 확인하기" })}
-              className="flex h-12 items-center justify-center rounded-2xl border border-slate-600 bg-white/5 text-sm font-semibold text-slate-300 transition hover:scale-[1.02] hover:border-slate-400 hover:bg-white/10 hover:text-white active:scale-[0.97]"
-            >
-              절약 가능성 확인하기
-            </a>
-            <p className="text-center text-xs text-slate-600">조건 입력만으로 확인 · 무료</p>
-          </div>
+
+          {/* [통합 CTA] 단일 최종 CTA */}
+          <a
+            href="/out/loan?from=refinance_final_primary"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => handleFinalCta("refinance_final_primary")}
+            className="flex h-14 items-center justify-center rounded-2xl bg-emerald-500 text-sm font-bold text-white shadow-lg shadow-emerald-900/40 transition hover:scale-[1.03] hover:bg-emerald-400 hover:shadow-emerald-500/30 active:scale-[0.97]"
+          >
+            지금 최저 금리 상품 확인하기
+          </a>
+          <p className="mt-2 text-center text-xs text-slate-600">조건 입력만으로 확인 · 무료</p>
         </section>
 
         {/* 면책 */}
