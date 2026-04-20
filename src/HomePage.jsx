@@ -280,7 +280,7 @@ export default function HomePage() {
 
           {/* ═══════════ HERO (navy zone) ═══════════ */}
           <div className="relative bg-[#10353F]">
-            <div className="mx-auto max-w-5xl px-5 pb-24 pt-20 sm:px-8 sm:pb-32 sm:pt-28">
+            <div className="mx-auto max-w-5xl px-5 pb-10 pt-20 sm:px-8 sm:pb-12 sm:pt-28">
               <div className="flex flex-col items-center text-center">
 
                 {/* Text */}
@@ -347,7 +347,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Illustration — below text */}
-                <div className="mt-16 flex justify-center overflow-visible">
+                <div className="mt-10 lg:mt-12 flex justify-center overflow-visible">
                   <HeroFinanceIllustration className="w-[320px] sm:w-[400px] md:w-[480px] lg:w-[580px] xl:w-[660px] 2xl:w-[720px] max-w-none" />
                 </div>
               </div>

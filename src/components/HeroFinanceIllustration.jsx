@@ -5,12 +5,12 @@ export default function HeroFinanceIllustration({ className = "" }) {
       aria-hidden="true"
     >
       <svg
-        viewBox="0 0 520 420"
+        viewBox="0 0 520 390"
         className="h-auto w-full"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <ellipse cx="262" cy="366" rx="190" ry="24" fill="rgba(10,22,40,0.16)" />
+        <ellipse cx="262" cy="342" rx="170" ry="20" fill="rgba(10,22,40,0.16)" />
 
         <rect x="54" y="112" width="118" height="118" rx="18" fill="#F4EBDD" />
         <circle cx="86" cy="145" r="15" stroke="#183153" strokeWidth="5" />
