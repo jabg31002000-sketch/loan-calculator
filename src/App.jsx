@@ -11,6 +11,9 @@ import Footer from "./Footer";
 import Header from "./components/Header";
 import { CalculatorPage, getConfig } from "./calculators";
 import IntroPage from "./calculators/IntroPage";
+import LoanInterestGuide from "./pages/guides/LoanInterestGuide";
+import RefinanceGuide from "./pages/guides/RefinanceGuide";
+import CreditScoreGuide from "./pages/guides/CreditScoreGuide";
 
 // OutLoanPage 를 제외한 모든 페이지에 Header + Footer 적용
 function Layout({ children }) {
@@ -70,6 +73,11 @@ export default function App() {
         <Route path="/compare"      element={<Layout><LoanComparePage /></Layout>} />
         <Route path="/refinance"    element={<Layout><RefinancePage /></Layout>} />
         <Route path="/loan-compare" element={<Layout><LoanComparePage /></Layout>} />
+
+        {/* 가이드 */}
+        <Route path="/guide/interest"  element={<Layout><LoanInterestGuide /></Layout>} />
+        <Route path="/guide/refinance" element={<Layout><RefinanceGuide /></Layout>} />
+        <Route path="/guide/credit"    element={<Layout><CreditScoreGuide /></Layout>} />
 
         {/* 기타 */}
         <Route path="/privacy"      element={<Layout><PrivacyPage /></Layout>} />
