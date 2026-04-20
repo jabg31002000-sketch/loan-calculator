@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#020810"/>
+      <stop offset="12%" stop-color="#061420"/>
+      <stop offset="30%" stop-color="#0b2530"/>
+      <stop offset="48%" stop-color="#10404a"/>
+      <stop offset="58%" stop-color="#165550"/>
+      <stop offset="68%" stop-color="#0f3a3e"/>
+      <stop offset="82%" stop-color="#081e28"/>
+      <stop offset="100%" stop-color="#030a12"/>
+    </linearGradient>
+
+    <!-- Large teal glow — upper left -->
+    <radialGradient id="glow-tl" cx="25%" cy="32%" r="35%">
+      <stop offset="0%" stop-color="#22a898" stop-opacity="0.5"/>
+      <stop offset="35%" stop-color="#167a6e" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Blue glow — upper right -->
+    <radialGradient id="glow-tr" cx="80%" cy="28%" r="28%">
+      <stop offset="0%" stop-color="#1e5888" stop-opacity="0.4"/>
+      <stop offset="40%" stop-color="#123860" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Bright horizon band -->
+    <radialGradient id="horizon" cx="42%" cy="57%" rx="50%" ry="12%">
+      <stop offset="0%" stop-color="#30c8b0" stop-opacity="0.5"/>
+      <stop offset="25%" stop-color="#22a890" stop-opacity="0.3"/>
+      <stop offset="55%" stop-color="#126a58" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Warm horizon accent right -->
+    <radialGradient id="horizon-warm" cx="68%" cy="55%" rx="22%" ry="9%">
+      <stop offset="0%" stop-color="#d89848" stop-opacity="0.3"/>
+      <stop offset="45%" stop-color="#a07030" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Central focal light -->
+    <radialGradient id="focal" cx="48%" cy="38%" r="32%">
+      <stop offset="0%" stop-color="#20a890" stop-opacity="0.35"/>
+      <stop offset="30%" stop-color="#148070" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Water darkening -->
+    <linearGradient id="water" x1="0" y1="0.6" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0c3030" stop-opacity="0.35"/>
+      <stop offset="35%" stop-color="#071c22" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#030a10" stop-opacity="0.9"/>
+    </linearGradient>
+
+    <!-- Vignette -->
+    <radialGradient id="vignette" cx="50%" cy="46%" r="55%">
+      <stop offset="0%" stop-color="transparent" stop-opacity="0"/>
+      <stop offset="65%" stop-color="#020810" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#020810" stop-opacity="0.6"/>
+    </radialGradient>
+
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="4" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix type="saturate" values="0" in="noise" result="mono"/>
+      <feBlend in="SourceGraphic" in2="mono" mode="soft-light"/>
+    </filter>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <!-- Focal light -->
+  <rect width="1200" height="800" fill="url(#focal)"/>
+  <!-- Upper-left teal -->
+  <rect width="1200" height="800" fill="url(#glow-tl)"/>
+  <!-- Upper-right blue -->
+  <rect width="1200" height="800" fill="url(#glow-tr)"/>
+  <!-- Horizon -->
+  <rect width="1200" height="800" fill="url(#horizon)"/>
+  <!-- Warm horizon -->
+  <rect width="1200" height="800" fill="url(#horizon-warm)"/>
+
+  <!-- Landmass silhouettes -->
+  <path d="M0,430 Q60,410 150,425 Q250,405 360,418 Q430,408 520,416 Q630,404 740,415 Q840,406 930,420 Q1040,410 1120,418 L1200,425 L1200,470 Q1000,458 800,464 Q600,455 400,466 Q200,458 0,464 Z" fill="#081e22" opacity="0.75"/>
+  <path d="M0,448 Q100,438 220,444 Q370,432 500,440 Q620,434 760,442 Q880,436 1020,443 L1200,446 L1200,488 Q900,476 600,482 Q300,474 0,484 Z" fill="#051418" opacity="0.7"/>
+
+  <!-- Water -->
+  <rect y="455" width="1200" height="345" fill="url(#water)"/>
+
+  <!-- Horizon point lights — prominent -->
+  <circle cx="120" cy="428" r="7" fill="#35c8a8" opacity="0.25"/>
+  <circle cx="240" cy="420" r="5" fill="#2ab898" opacity="0.22"/>
+  <circle cx="360" cy="424" r="4" fill="#e8a850" opacity="0.16"/>
+  <circle cx="440" cy="416" r="8" fill="#28b898" opacity="0.28"/>
+  <circle cx="560" cy="420" r="5" fill="#22a0b0" opacity="0.2"/>
+  <circle cx="680" cy="416" r="7" fill="#1e98b0" opacity="0.22"/>
+  <circle cx="790" cy="422" r="4" fill="#e0a048" opacity="0.14"/>
+  <circle cx="900" cy="418" r="6" fill="#2ab090" opacity="0.2"/>
+  <circle cx="1020" cy="424" r="5" fill="#1e90a8" opacity="0.18"/>
+  <circle cx="1120" cy="420" r="4" fill="#30b8a0" opacity="0.15"/>
+
+  <!-- Water reflections -->
+  <ellipse cx="440" cy="475" rx="30" ry="5" fill="#1ea880" opacity="0.14"/>
+  <ellipse cx="680" cy="470" rx="22" ry="4" fill="#1888a0" opacity="0.1"/>
+  <ellipse cx="240" cy="472" rx="18" ry="3.5" fill="#22a898" opacity="0.09"/>
+  <ellipse cx="900" cy="468" rx="20" ry="3" fill="#20a088" opacity="0.08"/>
+
+  <!-- Vignette -->
+  <rect width="1200" height="800" fill="url(#vignette)"/>
+  <!-- Grain -->
+  <rect width="1200" height="800" fill="transparent" filter="url(#grain)" opacity="0.3"/>
+</svg>

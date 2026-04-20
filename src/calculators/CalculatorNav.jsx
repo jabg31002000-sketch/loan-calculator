@@ -5,29 +5,28 @@ export default function CalculatorNav() {
   const location = useLocation();
 
   return (
-    <nav className="mb-6">
+    <nav className="mb-8">
       <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
         {CALCULATOR_NAV.map((calc) => {
-          // intro 페이지와 calculator 하위 페이지 모두 active 처리
           const active = location.pathname === calc.path || location.pathname.startsWith(calc.path + "/");
           const Icon = calc.icon;
           return (
             <Link
               key={calc.id}
               to={calc.path}
-              className={`group flex shrink-0 flex-col items-start gap-0.5 rounded-2xl border px-4 py-3 transition sm:items-center sm:text-center ${
+              className={`group flex shrink-0 flex-col items-start gap-0.5 rounded-2xl border px-4 py-3 transition-all duration-200 sm:items-center sm:text-center ${
                 active
-                  ? "border-emerald-500/40 bg-emerald-50 shadow-sm shadow-emerald-100"
-                  : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-sm"
+                  ? "border-[#10353F]/20 bg-[#10353F]/5 shadow-sm"
+                  : "border-[#E5E1DA] bg-white shadow-sm hover:border-[#10353F]/15 hover:shadow-md hover:-translate-y-0.5"
               }`}
             >
               <span className="flex items-center gap-1.5">
-                <Icon className={`h-3.5 w-3.5 ${active ? "text-emerald-600" : "text-slate-400 group-hover:text-slate-500"}`} />
-                <span className={`text-[13px] font-bold ${active ? "text-emerald-700" : "text-slate-700"}`}>
+                <Icon className={`h-3.5 w-3.5 ${active ? "text-[#10353F]" : "text-[#5E6E73] group-hover:text-[#10353F]"}`} />
+                <span className={`text-[13px] font-bold ${active ? "text-[#10353F]" : "text-[#0E2A3A]"}`}>
                   {calc.name}
                 </span>
               </span>
-              <span className={`text-[11px] leading-tight ${active ? "text-emerald-600/70" : "text-slate-400"}`}>
+              <span className={`text-[11px] leading-tight ${active ? "text-[#10353F]/70" : "text-[#7A868B]"}`}>
                 {calc.description}
               </span>
             </Link>

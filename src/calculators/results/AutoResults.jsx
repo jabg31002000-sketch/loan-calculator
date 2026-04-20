@@ -4,10 +4,10 @@ import ResultCard from "../../components/shared/ResultCard";
 
 function MetricBox({ label, value, sub, highlight }) {
   return (
-    <div className={`rounded-xl p-4 ${highlight ? "bg-emerald-50" : "bg-slate-50"}`}>
-      <p className={`text-xs font-medium ${highlight ? "text-emerald-600" : "text-slate-500"}`}>{label}</p>
-      <p className={`mt-1 text-lg font-bold ${highlight ? "text-emerald-700" : "text-slate-900"}`}>{value}</p>
-      {sub && <p className={`mt-0.5 text-xs ${highlight ? "text-emerald-500" : "text-slate-400"}`}>{sub}</p>}
+    <div className={`rounded-xl p-4 ${highlight ? "bg-[#10353F]/5" : "bg-[#F6F1EB]"}`}>
+      <p className={`text-xs font-medium ${highlight ? "text-[#10353F]" : "text-[#5E6E73]"}`}>{label}</p>
+      <p className={`mt-1 text-lg font-bold ${highlight ? "text-[#10353F]" : "text-[#0E2A3A]"}`}>{value}</p>
+      {sub && <p className={`mt-0.5 text-xs ${highlight ? "text-[#10353F]/70" : "text-[#5E6E73]"}`}>{sub}</p>}
     </div>
   );
 }
@@ -37,15 +37,15 @@ export default function AutoResults({
   return (
     <>
       {/* 핵심 요약 */}
-      <section className="rounded-3xl bg-slate-900 p-6 shadow-lg text-center">
-        <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">
+      <section className="rounded-2xl bg-[#10353F] p-6 shadow-sm text-center">
+        <p className="text-xs font-semibold uppercase tracking-widest text-[#E6D3BE]/60">
           {hasLoan ? "월 할부금" : "대출 불필요"}
         </p>
-        <p className="mt-2 text-4xl font-bold tracking-tight text-emerald-400 sm:text-5xl">
+        <p className="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl">
           {hasLoan ? `월 ${formatCurrency(monthlyPayment)}` : "전액 현금 구매"}
         </p>
         {hasLoan && (
-          <p className="mt-2 text-xs text-slate-500">
+          <p className="mt-2 text-xs text-[#E6D3BE]/60">
             {input.months}개월 · 금리 {input.annualRate}% · {getRepaymentLabel(input.repaymentType)}
           </p>
         )}

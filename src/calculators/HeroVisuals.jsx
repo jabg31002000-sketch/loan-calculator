@@ -10,10 +10,10 @@
  */
 
 const C = {
-  em600: "#059669", em500: "#10b981", em400: "#34d399",
-  em300: "#6ee7b7", em200: "#a7f3d0", em100: "#d1fae5", em50: "#ecfdf5",
-  sl700: "#334155", sl500: "#64748b", sl400: "#94a3b8",
-  sl300: "#cbd5e1", sl200: "#e2e8f0", sl100: "#f1f5f9", sl50: "#f8fafc",
+  em600: "#10353F", em500: "#10353F", em400: "#10353F",
+  em300: "#E6D3BE", em200: "#E5E1DA", em100: "#F6F1EB", em50: "#F6F1EB",
+  sl700: "#0E2A3A", sl500: "#5E6E73", sl400: "#5E6E73",
+  sl300: "#E5E1DA", sl200: "#E5E1DA", sl100: "#F6F1EB", sl50: "#F6F1EB",
   white: "#ffffff",
 };
 

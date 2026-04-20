@@ -88,7 +88,7 @@ export default function CreditLoanResults({
         <button
           type="button"
           onClick={onSaveScenario}
-          className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-semibold text-slate-600 transition hover:bg-slate-50"
+          className="inline-flex items-center gap-1.5 rounded-xl border border-[#E5E1DA] bg-white px-4 py-2.5 text-xs font-semibold text-[#5E6E73] transition hover:bg-[#F6F1EB]"
         >
           <Bookmark className="h-3.5 w-3.5" />
           비교안 저장
@@ -96,7 +96,7 @@ export default function CreditLoanResults({
         <button
           type="button"
           onClick={handleCopySummary}
-          className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-semibold text-slate-600 transition hover:bg-slate-50"
+          className="inline-flex items-center gap-1.5 rounded-xl border border-[#E5E1DA] bg-white px-4 py-2.5 text-xs font-semibold text-[#5E6E73] transition hover:bg-[#F6F1EB]"
         >
           <Copy className="h-3.5 w-3.5" />
           {copied ? "복사 완료" : "요약 복사"}

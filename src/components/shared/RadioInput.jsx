@@ -1,7 +1,7 @@
 export default function RadioInput({ label, value, onChange, options }) {
   return (
     <div>
-      <label className="mb-1.5 block text-sm font-semibold text-slate-700">{label}</label>
+      <label className="mb-1.5 block text-sm font-semibold text-[#0E2A3A]">{label}</label>
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
         {options.map((option) => {
           const active = value === option.value;
@@ -12,15 +12,15 @@ export default function RadioInput({ label, value, onChange, options }) {
               onClick={() => onChange(option.value)}
               className={`rounded-xl border px-4 py-3 text-left transition ${
                 active
-                  ? "border-emerald-500 bg-emerald-50"
-                  : "border-slate-200 bg-white hover:border-slate-300"
+                  ? "border-[#10353F] bg-[#10353F]/5"
+                  : "border-[#E5E1DA] bg-white hover:border-[#10353F]/30"
               }`}
             >
-              <span className={`block text-sm font-semibold ${active ? "text-emerald-700" : "text-slate-800"}`}>
+              <span className={`block text-sm font-semibold ${active ? "text-[#10353F]" : "text-[#0E2A3A]"}`}>
                 {option.label}
               </span>
               {option.description && (
-                <span className="block text-xs text-slate-500 mt-0.5">{option.description}</span>
+                <span className="block text-xs text-[#5E6E73] mt-0.5">{option.description}</span>
               )}
             </button>
           );

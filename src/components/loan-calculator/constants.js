@@ -77,10 +77,10 @@ export const FAQ_ITEMS = [
 export const REPAYMENT_COLORS = ["#0f172a", "#334155", "#64748b"];
 
 export const SCENARIO_CARD_THEMES = [
-  { accent: "#334155", ring: "border-slate-300", badgeBg: "bg-slate-700/10", badgeText: "text-slate-700", link: "text-slate-700 hover:text-slate-900" },
+  { accent: "#10353F", ring: "border-[#E5E1DA]", badgeBg: "bg-[#10353F]/10", badgeText: "text-[#10353F]", link: "text-[#10353F] hover:text-[#0E2A3A]" },
   { accent: "#7c3aed", ring: "border-violet-200", badgeBg: "bg-violet-500/10", badgeText: "text-violet-700", link: "text-violet-700 hover:text-violet-800" },
   { accent: "#d97706", ring: "border-amber-200", badgeBg: "bg-amber-500/10", badgeText: "text-amber-700", link: "text-amber-700 hover:text-amber-800" },
   { accent: "#0f766e", ring: "border-teal-200", badgeBg: "bg-teal-500/10", badgeText: "text-teal-700", link: "text-teal-700 hover:text-teal-800" },
-  { accent: "#475569", ring: "border-slate-300", badgeBg: "bg-slate-500/10", badgeText: "text-slate-700", link: "text-slate-700 hover:text-slate-900" },
-  { accent: "#1e293b", ring: "border-slate-300", badgeBg: "bg-slate-800/10", badgeText: "text-slate-800", link: "text-slate-800 hover:text-slate-950" },
+  { accent: "#10353F", ring: "border-[#E5E1DA]", badgeBg: "bg-[#10353F]/8", badgeText: "text-[#10353F]", link: "text-[#10353F] hover:text-[#0E2A3A]" },
+  { accent: "#0E2A3A", ring: "border-[#E5E1DA]", badgeBg: "bg-[#0E2A3A]/10", badgeText: "text-[#0E2A3A]", link: "text-[#0E2A3A] hover:text-[#10353F]" },
 ];

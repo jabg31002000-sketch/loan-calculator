@@ -3,10 +3,10 @@ import PrimaryCta from "../../components/shared/PrimaryCta";
 import ResultCard from "../../components/shared/ResultCard";
 
 function MetricBox({ label, value, sub, highlight, warn }) {
-  const bg = warn ? "bg-red-50" : highlight ? "bg-emerald-50" : "bg-slate-50";
-  const labelColor = warn ? "text-red-600" : highlight ? "text-emerald-600" : "text-slate-500";
-  const valueColor = warn ? "text-red-700" : highlight ? "text-emerald-700" : "text-slate-900";
-  const subColor = warn ? "text-red-500" : highlight ? "text-emerald-500" : "text-slate-400";
+  const bg = warn ? "bg-red-50" : highlight ? "bg-[#10353F]/5" : "bg-[#F6F1EB]";
+  const labelColor = warn ? "text-red-600" : highlight ? "text-[#10353F]" : "text-[#5E6E73]";
+  const valueColor = warn ? "text-red-700" : highlight ? "text-[#10353F]" : "text-[#0E2A3A]";
+  const subColor = warn ? "text-red-500" : highlight ? "text-[#10353F]/70" : "text-[#5E6E73]";
   return (
     <div className={`rounded-xl p-4 ${bg}`}>
       <p className={`text-xs font-medium ${labelColor}`}>{label}</p>
@@ -25,22 +25,22 @@ function PriceRangeBar({ propertyPrice, comfortableMax, standardMax }) {
 
   return (
     <div className="space-y-3">
-      <div className="relative h-8 w-full rounded-full bg-slate-100 overflow-hidden">
+      <div className="relative h-8 w-full rounded-full bg-[#F6F1EB] overflow-hidden">
         {/* 여유 구간 */}
         <div className="absolute h-full bg-emerald-200 rounded-l-full" style={{ width: `${comfortPct}%` }} />
         {/* 가능 구간 */}
         <div className="absolute h-full bg-amber-200" style={{ left: `${comfortPct}%`, width: `${Math.max(0, standardPct - comfortPct)}%` }} />
         {/* 현재 위치 마커 */}
         <div
-          className="absolute top-0 h-full w-0.5 bg-slate-800"
+          className="absolute top-0 h-full w-0.5 bg-[#0E2A3A]"
           style={{ left: `${currentPct}%` }}
         >
-          <div className="absolute -top-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-slate-800 px-1.5 py-0.5 text-[10px] font-bold text-white">
+          <div className="absolute -top-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-[#0E2A3A] px-1.5 py-0.5 text-[10px] font-bold text-white">
             현재
           </div>
         </div>
       </div>
-      <div className="flex justify-between text-[11px] text-slate-500">
+      <div className="flex justify-between text-[11px] text-[#5E6E73]">
         <span>0</span>
         <span className="text-emerald-600 font-medium">여유 ~{formatCurrency(comfortableMax)}</span>
         <span className="text-amber-600 font-medium">가능 ~{formatCurrency(standardMax)}</span>
@@ -78,27 +78,27 @@ export default function FirstHomeResults({
   return (
     <>
       {/* 핵심: 집값 구간 중심 */}
-      <section className="rounded-3xl bg-slate-900 p-6 shadow-lg text-center">
-        <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">
+      <section className="rounded-2xl bg-[#10353F] p-6 shadow-sm text-center">
+        <p className="text-xs font-semibold uppercase tracking-widest text-[#E6D3BE]/60">
           첫 집 예산 진단
         </p>
         {hasPriceRange ? (
           <>
             <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-              {priceRange.priceVerdict === "comfortable" && <span className="text-emerald-400">여유 있는 구간</span>}
+              {priceRange.priceVerdict === "comfortable" && <span className="text-white">여유 있는 구간</span>}
               {priceRange.priceVerdict === "stretched" && <span className="text-amber-400">가능하지만 부담</span>}
               {priceRange.priceVerdict === "over_budget" && <span className="text-red-400">예산 초과</span>}
             </p>
-            <p className="mt-2 text-xs text-slate-500">
+            <p className="mt-2 text-xs text-[#E6D3BE]/60">
               {formatCurrency(propertyPrice)} 주택 · 자기자본 {formatCurrency(priceRange.availableCash)}
             </p>
           </>
         ) : (
           <>
-            <p className="mt-2 text-4xl font-bold tracking-tight text-emerald-400 sm:text-5xl">
+            <p className="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl">
               {hasLoan ? formatCurrency(maxLoanAmount) : "대출 불가"}
             </p>
-            <p className="mt-2 text-xs text-slate-500">
+            <p className="mt-2 text-xs text-[#E6D3BE]/60">
               자기자본 {formatCurrency(selfFund)} 필요
             </p>
           </>
@@ -153,7 +153,7 @@ export default function FirstHomeResults({
             </p>
           )}
           {priceRange.cashShortfall === 0 && (
-            <p className="mt-3 text-xs text-emerald-600 font-medium">
+            <p className="mt-3 text-xs text-[#10353F] font-medium">
               자기자본이 충분합니다. 여유분 {formatCurrency(priceRange.availableCash - selfFund)}은 취득세·이사비 등에 활용하세요.
             </p>
           )}
@@ -193,7 +193,7 @@ export default function FirstHomeResults({
 
       {/* 첫 집 구매 해석 */}
       <ResultCard title="첫 집 구매 판단">
-        <p className="text-sm text-slate-600 leading-relaxed">
+        <p className="text-sm text-[#5E6E73] leading-relaxed">
           {hasPriceRange && priceRange.priceVerdict === "comfortable" && (
             <>현재 자금 {formatCurrency(priceRange.availableCash)}과 소득 기준으로 {formatCurrency(propertyPrice)} 주택은 무리 없이 감당 가능합니다. 월 상환금 {formatCurrency(loan?.monthlyPayment || 0)}을 꾸준히 납부할 수 있고, 취득세·이사비 등 부대비용도 커버할 여력이 있습니다.</>
           )}

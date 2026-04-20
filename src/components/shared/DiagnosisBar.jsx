@@ -11,11 +11,11 @@ const TONE_CONFIG = {
   },
   caution: {
     icon: AlertCircle,
-    border: "border-slate-200",
-    bg: "bg-slate-50",
-    iconColor: "text-slate-500",
-    textColor: "text-slate-800",
-    detailColor: "text-slate-500",
+    border: "border-[#E5E1DA]",
+    bg: "bg-[#F6F1EB]",
+    iconColor: "text-[#5E6E73]",
+    textColor: "text-[#0E2A3A]",
+    detailColor: "text-[#5E6E73]",
   },
   info: {
     icon: Info,

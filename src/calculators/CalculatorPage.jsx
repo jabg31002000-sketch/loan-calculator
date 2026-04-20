@@ -193,7 +193,7 @@ export default function CalculatorPage({ config }) {
   const ResultComponent = config.ResultComponent;
 
   return (
-    <div className={`min-h-screen bg-gradient-to-b from-slate-50 to-white text-slate-900 ${hasResult ? "pb-28 lg:pb-10" : ""}`}>
+    <div className={`min-h-screen bg-[#F6F1EB] text-[#0E2A3A] ${hasResult ? "pb-28 lg:pb-10" : ""}`}>
       <div className="mx-auto w-full max-w-3xl px-4 py-6 sm:px-6 lg:py-10">
 
         <CalculatorNav />
@@ -205,7 +205,7 @@ export default function CalculatorPage({ config }) {
         />
 
         {config.infoParagraph && (
-          <p className="mb-6 rounded-2xl border border-slate-100 bg-slate-50/50 px-5 py-4 text-[13px] leading-relaxed text-slate-500">
+          <p className="mb-10 rounded-2xl border border-[#E5E1DA] bg-white px-6 py-5 text-[14px] leading-relaxed text-[#5E6E73] shadow-sm">
             {config.infoParagraph}
           </p>
         )}
@@ -263,9 +263,9 @@ export default function CalculatorPage({ config }) {
         />
 
         {/* Trust Note */}
-        <section className="mb-8 rounded-2xl border border-slate-100 bg-slate-50/50 px-5 py-4">
-          <p className="text-[11px] font-medium text-slate-400">안내</p>
-          <ul className="mt-1.5 space-y-1 text-[11px] leading-relaxed text-slate-400">
+        <section className="mb-8 mt-14 rounded-2xl border border-[#E5E1DA] bg-white px-6 py-5 shadow-sm">
+          <p className="text-xs font-semibold text-[#7A868B]">안내</p>
+          <ul className="mt-2 space-y-1 text-xs leading-relaxed text-[#7A868B]">
             <li>본 계산 결과는 참고용이며, 실제 대출 조건은 금융기관별 심사 기준에 따라 달라질 수 있습니다.</li>
             <li>금리, 한도, 상환 조건 등은 개인 신용 및 담보 상황에 따라 변동됩니다.</li>
             <li>LoanClock은 특정 금융 상품을 판매하거나 중개하지 않습니다.</li>

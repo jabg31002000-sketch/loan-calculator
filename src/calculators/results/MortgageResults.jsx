@@ -4,10 +4,10 @@ import ResultCard from "../../components/shared/ResultCard";
 
 function MetricBox({ label, value, sub, highlight }) {
   return (
-    <div className={`rounded-xl p-4 ${highlight ? "bg-emerald-50" : "bg-slate-50"}`}>
-      <p className={`text-xs font-medium ${highlight ? "text-emerald-600" : "text-slate-500"}`}>{label}</p>
-      <p className={`mt-1 text-lg font-bold ${highlight ? "text-emerald-700" : "text-slate-900"}`}>{value}</p>
-      {sub && <p className={`mt-0.5 text-xs ${highlight ? "text-emerald-500" : "text-slate-400"}`}>{sub}</p>}
+    <div className={`rounded-xl p-4 ${highlight ? "bg-[#10353F]/5" : "bg-[#F6F1EB]"}`}>
+      <p className={`text-xs font-medium ${highlight ? "text-[#10353F]" : "text-[#5E6E73]"}`}>{label}</p>
+      <p className={`mt-1 text-lg font-bold ${highlight ? "text-[#10353F]" : "text-[#0E2A3A]"}`}>{value}</p>
+      {sub && <p className={`mt-0.5 text-xs ${highlight ? "text-[#10353F]/70" : "text-[#5E6E73]"}`}>{sub}</p>}
     </div>
   );
 }
@@ -19,18 +19,18 @@ function FundBar({ propertyPrice, maxLoanAmount, selfFund }) {
   return (
     <div className="space-y-2">
       <div className="flex items-end justify-between text-sm">
-        <span className="font-semibold text-slate-700">자금 구성</span>
-        <span className="text-xs text-slate-400">주택 가격 {formatCurrency(propertyPrice)}</span>
+        <span className="font-semibold text-[#0E2A3A]">자금 구성</span>
+        <span className="text-xs text-[#5E6E73]">주택 가격 {formatCurrency(propertyPrice)}</span>
       </div>
       <div className="flex h-8 w-full overflow-hidden rounded-full">
         <div
-          className="flex items-center justify-center bg-emerald-500 text-xs font-bold text-white"
+          className="flex items-center justify-center bg-[#10353F] text-xs font-bold text-white"
           style={{ width: `${Math.max(loanPercent, 10)}%` }}
         >
           대출 {loanPercent.toFixed(0)}%
         </div>
         <div
-          className="flex items-center justify-center bg-slate-300 text-xs font-bold text-slate-700"
+          className="flex items-center justify-center bg-[#E5E1DA] text-xs font-bold text-[#0E2A3A]"
           style={{ width: `${Math.max(selfPercent, 10)}%` }}
         >
           자기자본 {selfPercent.toFixed(0)}%
@@ -64,15 +64,15 @@ export default function MortgageResults({
   return (
     <>
       {/* 핵심 요약 */}
-      <section className="rounded-3xl bg-slate-900 p-6 shadow-lg text-center">
-        <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">
+      <section className="rounded-2xl bg-[#10353F] p-6 shadow-sm text-center">
+        <p className="text-xs font-semibold uppercase tracking-widest text-[#E6D3BE]/60">
           대출 가능 금액
         </p>
-        <p className="mt-2 text-4xl font-bold tracking-tight text-emerald-400 sm:text-5xl">
+        <p className="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl">
           {hasLoan ? formatCurrency(maxLoanAmount) : "대출 불가"}
         </p>
         {hasLoan && (
-          <p className="mt-2 text-xs text-slate-500">
+          <p className="mt-2 text-xs text-[#E6D3BE]/60">
             {limitingFactor} 기준 · 자기자본 {formatCurrency(selfFund)} 필요
           </p>
         )}

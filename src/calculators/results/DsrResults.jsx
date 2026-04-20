@@ -4,10 +4,10 @@ import ResultCard from "../../components/shared/ResultCard";
 
 function MetricBox({ label, value, sub, highlight }) {
   return (
-    <div className={`rounded-xl p-4 ${highlight ? "bg-emerald-50" : "bg-slate-50"}`}>
-      <p className={`text-xs font-medium ${highlight ? "text-emerald-600" : "text-slate-500"}`}>{label}</p>
-      <p className={`mt-1 text-lg font-bold ${highlight ? "text-emerald-700" : "text-slate-900"}`}>{value}</p>
-      {sub && <p className={`mt-0.5 text-xs ${highlight ? "text-emerald-500" : "text-slate-400"}`}>{sub}</p>}
+    <div className={`rounded-xl p-4 ${highlight ? "bg-[#10353F]/5" : "bg-[#F6F1EB]"}`}>
+      <p className={`text-xs font-medium ${highlight ? "text-[#10353F]" : "text-[#5E6E73]"}`}>{label}</p>
+      <p className={`mt-1 text-lg font-bold ${highlight ? "text-[#10353F]" : "text-[#0E2A3A]"}`}>{value}</p>
+      {sub && <p className={`mt-0.5 text-xs ${highlight ? "text-[#10353F]/70" : "text-[#5E6E73]"}`}>{sub}</p>}
     </div>
   );
 }
@@ -23,25 +23,25 @@ function DsrGauge({ currentDsr, dsrLimit }) {
   return (
     <div className="space-y-2">
       <div className="flex items-end justify-between">
-        <span className="text-sm font-semibold text-slate-700">현재 DSR</span>
+        <span className="text-sm font-semibold text-[#0E2A3A]">현재 DSR</span>
         <span className={`text-2xl font-bold ${percent >= limitPercent ? "text-rose-600" : percent >= limitPercent * 0.8 ? "text-amber-600" : "text-emerald-600"}`}>
           {percent.toFixed(1)}%
         </span>
       </div>
-      <div className="relative h-3 w-full rounded-full bg-slate-200">
+      <div className="relative h-3 w-full rounded-full bg-[#E5E1DA]">
         <div
           className={`h-full rounded-full transition-all duration-500 ${barColor}`}
           style={{ width: `${Math.min(percent, 100)}%` }}
         />
         {/* 한도선 */}
         <div
-          className="absolute top-0 h-full w-0.5 bg-slate-600"
+          className="absolute top-0 h-full w-0.5 bg-[#5E6E73]"
           style={{ left: `${Math.min(limitPercent, 100)}%` }}
         />
       </div>
-      <div className="flex justify-between text-xs text-slate-400">
+      <div className="flex justify-between text-xs text-[#5E6E73]">
         <span>0%</span>
-        <span className="font-semibold text-slate-600">한도 {limitPercent.toFixed(0)}%</span>
+        <span className="font-semibold text-[#5E6E73]">한도 {limitPercent.toFixed(0)}%</span>
         <span>100%</span>
       </div>
     </div>
@@ -72,15 +72,15 @@ export default function DsrResults({
   return (
     <>
       {/* DSR 게이지 */}
-      <section className="rounded-3xl bg-slate-900 p-6 shadow-lg">
-        <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-slate-500">
+      <section className="rounded-2xl bg-[#10353F] p-6 shadow-sm">
+        <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[#E6D3BE]/60">
           DSR 분석 결과
         </p>
         <div className="rounded-2xl bg-white p-5">
           <DsrGauge currentDsr={currentDsr} dsrLimit={dsrLimit} />
         </div>
         {hasCapacity && (
-          <p className="mt-4 text-center text-lg font-bold text-emerald-400">
+          <p className="mt-4 text-center text-lg font-bold text-white">
             추가 대출 가능: 최대 약 {formatCurrency(maxLoanAmount)}
           </p>
         )}
@@ -115,14 +115,14 @@ export default function DsrResults({
         <ResultCard title="기존 대출 내역">
           <div className="space-y-2">
             {parsedDebts.map((debt, i) => (
-              <div key={i} className="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3">
+              <div key={i} className="flex items-center justify-between rounded-xl bg-[#F6F1EB] px-4 py-3">
                 <div>
-                  <p className="text-sm font-semibold text-slate-700">{debt.name}</p>
-                  <p className="text-xs text-slate-400">잔액 {formatCurrency(debt.balance)} · 금리 {debt.rate}%</p>
+                  <p className="text-sm font-semibold text-[#0E2A3A]">{debt.name}</p>
+                  <p className="text-xs text-[#5E6E73]">잔액 {formatCurrency(debt.balance)} · 금리 {debt.rate}%</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-sm font-bold text-slate-900">월 {formatCurrency(debt.monthlyPayment)}</p>
-                  <p className="text-xs text-slate-400">연 {formatCurrency(debt.annualPayment)}</p>
+                  <p className="text-sm font-bold text-[#0E2A3A]">월 {formatCurrency(debt.monthlyPayment)}</p>
+                  <p className="text-xs text-[#5E6E73]">연 {formatCurrency(debt.annualPayment)}</p>
                 </div>
               </div>
             ))}

@@ -23,17 +23,17 @@ export default function DebtListInput({ label, value, onChange, hint }) {
 
   return (
     <div>
-      <label className="mb-1.5 block text-sm font-semibold text-slate-700">{label}</label>
+      <label className="mb-1.5 block text-sm font-semibold text-[#0E2A3A]">{label}</label>
       <div className="space-y-3">
         {debts.map((debt, index) => (
-          <div key={index} className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+          <div key={index} className="rounded-xl border border-[#E5E1DA] bg-[#F6F1EB]/50 p-3">
             <div className="mb-2 flex items-center justify-between">
-              <span className="text-xs font-semibold text-slate-500">대출 {index + 1}</span>
+              <span className="text-xs font-semibold text-[#5E6E73]">대출 {index + 1}</span>
               {debts.length > 1 && (
                 <button
                   type="button"
                   onClick={() => removeDebt(index)}
-                  className="rounded-lg p-1 text-slate-400 transition hover:bg-slate-200 hover:text-slate-600"
+                  className="rounded-lg p-1 text-[#5E6E73] transition hover:bg-[#E5E1DA] hover:text-[#0E2A3A]"
                 >
                   <Trash2 className="h-3.5 w-3.5" />
                 </button>
@@ -45,7 +45,7 @@ export default function DebtListInput({ label, value, onChange, hint }) {
                 value={debt.name}
                 onChange={(e) => updateDebt(index, "name", e.target.value)}
                 placeholder="대출명 (예: 신용대출)"
-                className="col-span-2 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-100"
+                className="col-span-2 rounded-lg border border-[#E5E1DA] bg-white px-3 py-2 text-sm text-[#0E2A3A] outline-none placeholder:text-[#5E6E73] focus:border-[#10353F] focus:ring-1 focus:ring-[#10353F]/10"
               />
               <div className="relative">
                 <input
@@ -58,9 +58,9 @@ export default function DebtListInput({ label, value, onChange, hint }) {
                     updateDebt(index, "balance", raw === "" ? "" : formatInputNumber(raw));
                   }}
                   placeholder="잔액"
-                  className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 pr-8 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-100"
+                  className="w-full rounded-lg border border-[#E5E1DA] bg-white px-3 py-2 pr-8 text-sm text-[#0E2A3A] outline-none placeholder:text-[#5E6E73] focus:border-[#10353F] focus:ring-1 focus:ring-[#10353F]/10"
                 />
-                <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-xs text-slate-400">원</span>
+                <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-xs text-[#5E6E73]">원</span>
               </div>
               <input
                 type="number"
@@ -68,7 +68,7 @@ export default function DebtListInput({ label, value, onChange, hint }) {
                 value={debt.rate}
                 onChange={(e) => updateDebt(index, "rate", e.target.value)}
                 placeholder="금리 (%)"
-                className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-100"
+                className="rounded-lg border border-[#E5E1DA] bg-white px-3 py-2 text-sm text-[#0E2A3A] outline-none placeholder:text-[#5E6E73] focus:border-[#10353F] focus:ring-1 focus:ring-[#10353F]/10"
               />
               <div className="relative col-span-2">
                 <input
@@ -81,9 +81,9 @@ export default function DebtListInput({ label, value, onChange, hint }) {
                     updateDebt(index, "monthlyPayment", raw === "" ? "" : formatInputNumber(raw));
                   }}
                   placeholder="월 상환액"
-                  className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 pr-8 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-100"
+                  className="w-full rounded-lg border border-[#E5E1DA] bg-white px-3 py-2 pr-8 text-sm text-[#0E2A3A] outline-none placeholder:text-[#5E6E73] focus:border-[#10353F] focus:ring-1 focus:ring-[#10353F]/10"
                 />
-                <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-xs text-slate-400">원</span>
+                <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-xs text-[#5E6E73]">원</span>
               </div>
             </div>
           </div>
@@ -93,13 +93,13 @@ export default function DebtListInput({ label, value, onChange, hint }) {
         <button
           type="button"
           onClick={addDebt}
-          className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-emerald-600 hover:text-emerald-700"
+          className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-[#D97852] hover:text-[#C96543]"
         >
           <Plus className="h-3.5 w-3.5" />
           대출 추가
         </button>
       )}
-      {hint && <p className="mt-1.5 text-xs text-slate-400">{hint}</p>}
+      {hint && <p className="mt-1.5 text-xs text-[#5E6E73]">{hint}</p>}
     </div>
   );
 }

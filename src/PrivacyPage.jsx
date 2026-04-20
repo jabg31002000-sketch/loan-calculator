@@ -4,9 +4,9 @@ import { useSeo } from "./useSeo";
 
 function Section({ title, children }) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <h2 className="mb-4 text-base font-bold text-slate-900">{title}</h2>
-      <div className="space-y-3 text-sm leading-7 text-slate-600">{children}</div>
+    <div className="rounded-3xl border border-[#E5E1DA] bg-white p-6 shadow-sm sm:p-8">
+      <h2 className="mb-4 text-base font-bold text-[#0E2A3A]">{title}</h2>
+      <div className="space-y-3 text-[14px] leading-7 text-[#5E6E73]">{children}</div>
     </div>
   );
 }
@@ -18,25 +18,25 @@ export default function PrivacyPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100">
-      <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:py-14">
+    <div className="min-h-screen bg-[#F6F1EB]">
+      <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
 
         <Link
           to="/"
-          className="mb-8 inline-flex items-center gap-1.5 text-sm font-semibold text-slate-400 hover:text-slate-700"
+          className="mb-8 inline-flex items-center gap-1.5 text-sm font-semibold text-[#5E6E73] transition hover:text-[#0E2A3A]"
         >
           <ChevronRight className="h-4 w-4 rotate-180" />
           메인으로 돌아가기
         </Link>
 
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 lg:text-3xl">
+        <div className="mb-10">
+          <h1 className="text-[1.75rem] font-bold tracking-[-0.02em] text-[#0E2A3A] sm:text-[2rem] lg:text-[2.25rem]">
             개인정보처리방침
           </h1>
-          <p className="mt-2 text-sm text-slate-500">최종 업데이트: 2025년 1월 1일</p>
+          <p className="mt-3 text-[14px] text-[#7A868B]">최종 업데이트: 2025년 1월 1일</p>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-5">
 
           <Section title="1. 서비스 소개">
             <p>
@@ -86,7 +86,7 @@ export default function PrivacyPage() {
                 href="https://policies.google.com/technologies/ads"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sky-600 underline hover:text-sky-700"
+                className="text-[#D97852] underline hover:text-[#C96543]"
               >
                 Google 광고 정책
               </a>
@@ -98,7 +98,7 @@ export default function PrivacyPage() {
                 href="https://www.google.com/settings/ads"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sky-600 underline hover:text-sky-700"
+                className="text-[#D97852] underline hover:text-[#C96543]"
               >
                 Google 광고 설정
               </a>
@@ -145,7 +145,7 @@ export default function PrivacyPage() {
           <Section title="9. 문의">
             <p>
               개인정보 처리에 관한 문의는{" "}
-              <Link to="/contact" className="text-sky-600 underline hover:text-sky-700">
+              <Link to="/contact" className="text-[#D97852] underline hover:text-[#C96543]">
                 문의하기 페이지
               </Link>
               를 통해 연락해 주세요.

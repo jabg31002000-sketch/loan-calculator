@@ -8,27 +8,27 @@ const TRUST_ITEMS = [
 
 export default function HeroSection({ title, subtitle, badge }) {
   return (
-    <section className="mb-8 text-center">
+    <section className="mb-10 py-8 text-center sm:py-12">
       {badge && (
-        <div className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3.5 py-1.5 text-xs font-semibold text-emerald-700 ring-1 ring-inset ring-emerald-200/60">
+        <div className="mb-5 inline-flex items-center gap-1.5 rounded-full bg-[#10353F]/8 px-4 py-2 text-xs font-semibold text-[#10353F] ring-1 ring-inset ring-[#10353F]/15">
           {badge}
         </div>
       )}
 
-      <h1 className="text-[1.6rem] font-extrabold leading-[1.35] tracking-tight text-slate-900 sm:text-3xl lg:text-[2.1rem]  whitespace-pre-line">
+      <h1 className="text-[1.75rem] font-bold leading-[1.25] tracking-[-0.03em] text-[#0E2A3A] sm:text-[2.25rem] lg:text-[2.5rem] whitespace-pre-line">
         {title}
       </h1>
 
       {subtitle && (
-        <p className="mx-auto mt-3 max-w-md text-[0.9rem] leading-relaxed text-slate-500">
+        <p className="mx-auto mt-5 max-w-md text-[17px] leading-relaxed text-[#5E6E73]">
           {subtitle}
         </p>
       )}
 
-      <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+      <div className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
         {TRUST_ITEMS.map(({ icon: Icon, text }) => (
-          <span key={text} className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500">
-            <Icon className="h-3.5 w-3.5 text-emerald-500" />
+          <span key={text} className="inline-flex items-center gap-2 text-sm font-medium text-[#5E6E73]">
+            <Icon className="h-4 w-4 text-[#10353F]" />
             {text}
           </span>
         ))}

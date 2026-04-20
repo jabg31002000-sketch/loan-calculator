@@ -161,9 +161,9 @@ export default function DynamicForm({
   };
 
   return (
-    <section ref={inputRef} className="mb-6 rounded-3xl border border-slate-200/80 bg-white p-5 shadow-sm sm:p-6">
-      <h2 className="mb-0.5 text-base font-bold text-slate-900">{formTitle}</h2>
-      <p className="mb-5 text-[13px] text-slate-400">
+    <section ref={inputRef} className="mb-8 rounded-3xl border border-[#E5E1DA] bg-white p-6 shadow-md sm:p-8">
+      <h2 className="mb-1 text-lg font-semibold text-[#0E2A3A]">{formTitle}</h2>
+      <p className="mb-6 text-[14px] text-[#5E6E73]">
         {formSubtitle || "필요한 정보만 입력하면 바로 계산됩니다."}
       </p>
 
@@ -176,7 +176,7 @@ export default function DynamicForm({
             <button
               type="button"
               onClick={() => setShowAdvanced((prev) => !prev)}
-              className="flex items-center gap-1.5 text-[13px] font-semibold text-slate-400 transition hover:text-slate-600"
+              className="flex items-center gap-1.5 text-[13px] font-semibold text-[#5E6E73] transition hover:text-[#0E2A3A]"
             >
               <Settings className="h-3.5 w-3.5" />
               {showAdvanced ? "고급 설정 닫기" : "고급 설정"}
@@ -184,7 +184,7 @@ export default function DynamicForm({
             </button>
 
             {showAdvanced && (
-              <div className="space-y-4 rounded-2xl border border-slate-100 bg-slate-50/50 p-4">
+              <div className="space-y-4 rounded-2xl border border-[#E5E1DA] bg-[#F6F1EB]/50 p-4">
                 {renderFieldGroup(advancedFields)}
               </div>
             )}
@@ -196,7 +196,7 @@ export default function DynamicForm({
           <button
             type="button"
             onClick={onSubmit}
-            className="w-full rounded-2xl bg-emerald-600 px-4 py-4 text-[0.95rem] font-bold text-white shadow-lg shadow-emerald-600/20 transition duration-150 hover:bg-emerald-500 hover:shadow-xl active:scale-[0.98]"
+            className="w-full rounded-xl bg-[#D97852] px-8 py-[18px] text-base font-semibold text-white shadow-lg transition-all duration-200 hover:bg-[#C96543] hover:scale-[1.03] hover:shadow-xl active:scale-[0.98]"
           >
             {submitLabel}
           </button>
@@ -204,7 +204,7 @@ export default function DynamicForm({
             <button
               type="button"
               onClick={onReset}
-              className="flex items-center justify-center gap-1.5 rounded-xl px-4 py-2.5 text-[13px] font-semibold text-slate-400 transition hover:text-slate-600"
+              className="flex items-center justify-center gap-1.5 rounded-xl px-4 py-2.5 text-[13px] font-semibold text-[#5E6E73] transition hover:text-[#0E2A3A]"
             >
               <RotateCcw className="h-3.5 w-3.5" />
               초기화

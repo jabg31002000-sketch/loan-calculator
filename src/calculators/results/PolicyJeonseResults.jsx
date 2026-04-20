@@ -4,10 +4,10 @@ import ResultCard from "../../components/shared/ResultCard";
 
 function MetricBox({ label, value, sub, highlight }) {
   return (
-    <div className={`rounded-xl p-4 ${highlight ? "bg-emerald-50" : "bg-slate-50"}`}>
-      <p className={`text-xs font-medium ${highlight ? "text-emerald-600" : "text-slate-500"}`}>{label}</p>
-      <p className={`mt-1 text-lg font-bold ${highlight ? "text-emerald-700" : "text-slate-900"}`}>{value}</p>
-      {sub && <p className={`mt-0.5 text-xs ${highlight ? "text-emerald-500" : "text-slate-400"}`}>{sub}</p>}
+    <div className={`rounded-xl p-4 ${highlight ? "bg-[#10353F]/5" : "bg-[#F6F1EB]"}`}>
+      <p className={`text-xs font-medium ${highlight ? "text-[#10353F]" : "text-[#5E6E73]"}`}>{label}</p>
+      <p className={`mt-1 text-lg font-bold ${highlight ? "text-[#10353F]" : "text-[#0E2A3A]"}`}>{value}</p>
+      {sub && <p className={`mt-0.5 text-xs ${highlight ? "text-[#10353F]/70" : "text-[#5E6E73]"}`}>{sub}</p>}
     </div>
   );
 }
@@ -52,12 +52,12 @@ export default function PolicyJeonseResults({
   if (mode === "jeonseInterest") {
     return (
       <>
-        <section className="rounded-3xl bg-slate-900 p-6 shadow-lg text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">전세대출 이자</p>
-          <p className="mt-2 text-4xl font-bold tracking-tight text-emerald-400 sm:text-5xl">
+        <section className="rounded-2xl bg-[#10353F] p-6 shadow-sm text-center">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#E6D3BE]/60">전세대출 이자</p>
+          <p className="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl">
             월 {formatCurrency(monthlyInterest)}
           </p>
-          <p className="mt-2 text-xs text-slate-500">
+          <p className="mt-2 text-xs text-[#E6D3BE]/60">
             대출원금 {formatCurrency(loanAmount)} · {months}개월
           </p>
         </section>
@@ -87,12 +87,12 @@ export default function PolicyJeonseResults({
     const { monthlyRent, monthlyHousingCost, affordabilityLevel, annualIncome, wasCapped, ratioWasClamped, rule } = result;
     return (
       <>
-        <section className="rounded-3xl bg-slate-900 p-6 shadow-lg text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">월 주거비 총액</p>
-          <p className="mt-2 text-4xl font-bold tracking-tight text-emerald-400 sm:text-5xl">
+        <section className="rounded-2xl bg-[#10353F] p-6 shadow-sm text-center">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#E6D3BE]/60">월 주거비 총액</p>
+          <p className="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl">
             {formatCurrency(monthlyHousingCost)}
           </p>
-          <p className="mt-2 text-xs text-slate-500">
+          <p className="mt-2 text-xs text-[#E6D3BE]/60">
             월세 {formatCurrency(monthlyRent)} + 대출이자 {formatCurrency(monthlyInterest)}
           </p>
           <div className="mt-3">
@@ -126,20 +126,20 @@ export default function PolicyJeonseResults({
         {annualIncome > 0 && (
           <ResultCard title="소득 대비 주거비 비율">
             <div className="flex items-center gap-3">
-              <div className="h-3 flex-1 overflow-hidden rounded-full bg-slate-100">
+              <div className="h-3 flex-1 overflow-hidden rounded-full bg-[#F6F1EB]">
                 <div
                   className={`h-full rounded-full ${
-                    affordabilityLevel === "comfortable" ? "bg-emerald-500" :
+                    affordabilityLevel === "comfortable" ? "bg-[#10353F]" :
                     affordabilityLevel === "moderate" ? "bg-amber-500" : "bg-red-500"
                   }`}
                   style={{ width: `${Math.min(result.affordabilityRatio * 100, 100)}%` }}
                 />
               </div>
-              <span className="text-sm font-bold text-slate-700">
+              <span className="text-sm font-bold text-[#0E2A3A]">
                 {(result.affordabilityRatio * 100).toFixed(1)}%
               </span>
             </div>
-            <p className="mt-2 text-xs text-slate-500">
+            <p className="mt-2 text-xs text-[#5E6E73]">
               월 소득 {formatCurrency(annualIncome / 12)} 기준 · 주거비(월세+이자) {formatCurrency(monthlyHousingCost)}
             </p>
           </ResultCard>
@@ -161,14 +161,14 @@ export default function PolicyJeonseResults({
   return (
     <>
       {/* 핵심: 대출 가능액 + 자기자금 */}
-      <section className="rounded-3xl bg-slate-900 p-6 shadow-lg text-center">
-        <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">
+      <section className="rounded-2xl bg-[#10353F] p-6 shadow-sm text-center">
+        <p className="text-xs font-semibold uppercase tracking-widest text-[#E6D3BE]/60">
           {rule?.label || ""} 예상 대출금
         </p>
-        <p className="mt-2 text-4xl font-bold tracking-tight text-emerald-400 sm:text-5xl">
+        <p className="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl">
           {formatCurrency(loanAmount)}
         </p>
-        <p className="mt-2 text-xs text-slate-500">
+        <p className="mt-2 text-xs text-[#E6D3BE]/60">
           자기자금 {formatCurrency(selfFund)} 필요 (보증금의 {(selfFundRatio * 100).toFixed(0)}%)
         </p>
         <div className="mt-3">
@@ -196,20 +196,20 @@ export default function PolicyJeonseResults({
       {annualIncome > 0 && (
         <ResultCard title="소득 대비 부담률">
           <div className="flex items-center gap-3">
-            <div className="h-3 flex-1 overflow-hidden rounded-full bg-slate-100">
+            <div className="h-3 flex-1 overflow-hidden rounded-full bg-[#F6F1EB]">
               <div
                 className={`h-full rounded-full ${
-                  affordabilityLevel === "comfortable" ? "bg-emerald-500" :
+                  affordabilityLevel === "comfortable" ? "bg-[#10353F]" :
                   affordabilityLevel === "moderate" ? "bg-amber-500" : "bg-red-500"
                 }`}
                 style={{ width: `${Math.min(result.affordabilityRatio * 100, 100)}%` }}
               />
             </div>
-            <span className="text-sm font-bold text-slate-700">
+            <span className="text-sm font-bold text-[#0E2A3A]">
               {(result.affordabilityRatio * 100).toFixed(1)}%
             </span>
           </div>
-          <p className="mt-2 text-xs text-slate-500">
+          <p className="mt-2 text-xs text-[#5E6E73]">
             월 소득 {formatCurrency(annualIncome / 12)} 기준 · 월 부담금 {formatCurrency(monthlyPayment)}
           </p>
         </ResultCard>
