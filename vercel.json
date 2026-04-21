@@ -4,8 +4,10 @@
       "source": "/:path(.*)",
       "has": [{ "type": "host", "value": "www.loanclock.com" }],
       "destination": "https://loanclock.com/:path",
-      "permanent": true
+      "statusCode": 301
     }
   ],
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }
