@@ -11,6 +11,7 @@ import Footer from "./Footer";
 import Header from "./components/Header";
 import { CalculatorPage, getConfig } from "./calculators";
 import IntroPage from "./calculators/IntroPage";
+import CalculatorHub from "./pages/CalculatorHub";
 import LoanInterestGuide from "./pages/guides/LoanInterestGuide";
 import RefinanceGuide from "./pages/guides/RefinanceGuide";
 import CreditScoreGuide from "./pages/guides/CreditScoreGuide";
@@ -46,6 +47,9 @@ export default function App() {
         <Route path="/bogeumjari"           element={<Layout><IntroPage key="intro-bogeumjari" config={getConfig("bogeumjari")} /></Layout>} />
         <Route path="/monthly-rent-loan"    element={<Layout><IntroPage key="intro-monthly-rent" config={getConfig("monthlyRentLoan")} /></Layout>} />
         <Route path="/first-home"           element={<Layout><IntroPage key="intro-first-home" config={getConfig("firstHome")} /></Layout>} />
+
+        {/* 계산기 허브 */}
+        <Route path="/calculator" element={<Layout><CalculatorHub /></Layout>} />
 
         {/* 계산기 페이지 (Calculator) */}
         <Route path="/credit-loan/calculator"    element={<Layout><CalculatorPage key="credit" config={getConfig("credit")} /></Layout>} />
