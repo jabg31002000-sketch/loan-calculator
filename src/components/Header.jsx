@@ -4,9 +4,9 @@ import { ChevronDown, BookOpen, ArrowRight } from "lucide-react";
 import { CALCULATOR_NAV } from "../calculators/registry";
 
 const GUIDE_ITEMS = [
-  { title: "대출 이자 계산 방법", desc: "상환 방식별 이자 차이와 비교 기준", path: "/guide/interest" },
-  { title: "대출 갈아타기", desc: "갈아타기 타이밍과 절약 조건 정리", path: "/guide/refinance" },
-  { title: "신용점수 가이드", desc: "신용점수가 금리와 한도에 미치는 영향", path: "/guide/credit" },
+  { title: "대출 이자 계산 방법", desc: "상환 방식별 이자 차이와 비교 기준", path: "/guides/loan-interest-calculation" },
+  { title: "대출 갈아타기", desc: "갈아타기 타이밍과 절약 조건 정리", path: "/guides/refinance-timing" },
+  { title: "신용점수 가이드", desc: "신용점수가 금리와 한도에 미치는 영향", path: "/guides/credit-score-guide" },
   { title: "DSR이란?", desc: "대출 한도를 결정하는 핵심 기준", path: "/dsr" },
   { title: "상환방식 비교", desc: "원리금균등 vs 원금균등 vs 만기일시", path: "/credit-loan" },
   { title: "전세와 월세 차이", desc: "기회비용까지 반영한 비교 기준", path: "/jeonse-vs-rent" },

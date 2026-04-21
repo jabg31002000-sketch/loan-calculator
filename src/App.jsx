@@ -12,9 +12,8 @@ import Header from "./components/Header";
 import { CalculatorPage, getConfig } from "./calculators";
 import IntroPage from "./calculators/IntroPage";
 import CalculatorHub from "./pages/CalculatorHub";
-import LoanInterestGuide from "./pages/guides/LoanInterestGuide";
-import RefinanceGuide from "./pages/guides/RefinanceGuide";
-import CreditScoreGuide from "./pages/guides/CreditScoreGuide";
+import GuideList from "./pages/guides/GuideList";
+import GuideLayout from "./pages/guides/GuideLayout";
 
 // OutLoanPage 를 제외한 모든 페이지에 Header + Footer 적용
 function Layout({ children }) {
@@ -79,9 +78,13 @@ export default function App() {
         <Route path="/loan-compare" element={<Layout><LoanComparePage /></Layout>} />
 
         {/* 가이드 */}
-        <Route path="/guide/interest"  element={<Layout><LoanInterestGuide /></Layout>} />
-        <Route path="/guide/refinance" element={<Layout><RefinanceGuide /></Layout>} />
-        <Route path="/guide/credit"    element={<Layout><CreditScoreGuide /></Layout>} />
+        <Route path="/guides"       element={<Layout><GuideList /></Layout>} />
+        <Route path="/guides/:slug" element={<Layout><GuideLayout /></Layout>} />
+
+        {/* 기존 가이드 URL 리다이렉트 */}
+        <Route path="/guide/interest"  element={<Navigate to="/guides/loan-interest-calculation" replace />} />
+        <Route path="/guide/refinance" element={<Navigate to="/guides/refinance-timing" replace />} />
+        <Route path="/guide/credit"    element={<Navigate to="/guides/credit-score-guide" replace />} />
 
         {/* 기타 */}
         <Route path="/privacy"      element={<Layout><PrivacyPage /></Layout>} />

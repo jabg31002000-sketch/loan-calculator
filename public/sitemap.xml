@@ -17,6 +17,9 @@
   <url><loc>https://loanclock.com/monthly-rent-loan</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://loanclock.com/first-home</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
+  <!-- 계산기 허브 -->
+  <url><loc>https://loanclock.com/calculator</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+
   <!-- 계산기 페이지 (Calculator) -->
   <url><loc>https://loanclock.com/credit-loan/calculator</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://loanclock.com/refinance-loan/calculator</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
@@ -36,9 +39,10 @@
   <url><loc>https://loanclock.com/refinance</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
   <!-- 가이드 -->
-  <url><loc>https://loanclock.com/guide/interest</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://loanclock.com/guide/refinance</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://loanclock.com/guide/credit</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://loanclock.com/guides</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://loanclock.com/guides/loan-interest-calculation</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://loanclock.com/guides/refinance-timing</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://loanclock.com/guides/credit-score-guide</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
   <!-- 기타 -->
   <url><loc>https://loanclock.com/privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>

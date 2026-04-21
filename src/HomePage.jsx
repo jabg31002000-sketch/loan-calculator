@@ -5,9 +5,11 @@ import {
   Shield, Zap, Eye, ArrowRight, CheckCircle2, ChevronRight,
   Landmark, Percent, Building, Lock, DollarSign, Heart,
   TrendingDown, Clock, UserCheck, Search, BarChart3, FileCheck,
+  BookOpen,
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import HeroFinanceIllustration from "./components/HeroFinanceIllustration";
+import guides from "./pages/guides/registry";
 
 /* ─────────────────── Data ─────────────────── */
 
@@ -477,6 +479,62 @@ export default function HomePage() {
                   })}
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* ═══════════ GUIDES (white zone) ═══════════ */}
+          <div className="border-t border-[#E5E1DA]/60 bg-white">
+            <div className="mx-auto max-w-5xl px-5 py-20 sm:px-8 sm:py-28">
+              <FadeInSection>
+                <div className="text-center">
+                  <span className="text-xs font-bold uppercase tracking-widest text-[#0E2A3A]/40">Guides</span>
+                  <h2 className="mt-3 text-[1.75rem] font-bold tracking-[-0.02em] text-[#0E2A3A] sm:text-[2rem] lg:text-[2.25rem]">
+                    대출 전 꼭 읽어야 할 가이드
+                  </h2>
+                  <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-[#5E6E73]">
+                    이자 계산, 갈아타기, 신용점수 관리까지 — 핵심 정보를 쉽게 정리했습니다.
+                  </p>
+                </div>
+              </FadeInSection>
+
+              <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                {guides.map((guide, i) => (
+                  <FadeInSection key={guide.slug} delay={i * 80}>
+                    <Link
+                      to={`/guides/${guide.slug}`}
+                      className="group flex h-full flex-col justify-between rounded-3xl border border-[#E5E1DA] bg-[#F6F1EB]/40 p-7 shadow-sm transition-all duration-300 hover:bg-white hover:border-[#D5D0C8] hover:shadow-xl hover:-translate-y-2 active:scale-[0.98] sm:p-8"
+                    >
+                      <div>
+                        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[#10353F]/8 transition-colors duration-300 group-hover:bg-[#10353F] group-hover:shadow-md">
+                          <BookOpen className="h-5 w-5 text-[#10353F] transition-colors group-hover:text-white" />
+                        </div>
+                        <h3 className="text-base font-semibold text-[#0E2A3A] transition-colors group-hover:text-[#10353F] sm:text-lg leading-snug">
+                          {guide.title}
+                        </h3>
+                        <p className="mt-2 text-[14px] leading-relaxed text-[#5E6E73]">
+                          {guide.summary}
+                        </p>
+                      </div>
+                      <div className="mt-5 flex items-center gap-1 text-[13px] font-semibold text-[#C4BFB6] transition-colors group-hover:text-[#D97852]">
+                        읽어보기
+                        <ChevronRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                      </div>
+                    </Link>
+                  </FadeInSection>
+                ))}
+              </div>
+
+              <FadeInSection delay={300}>
+                <div className="mt-10 text-center">
+                  <Link
+                    to="/guides"
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-[#5E6E73] transition-colors hover:text-[#0E2A3A]"
+                  >
+                    가이드 전체 보기
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
+              </FadeInSection>
             </div>
           </div>
 
