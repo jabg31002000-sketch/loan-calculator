@@ -1,12 +1,4 @@
 {
-  "redirects": [
-    {
-      "source": "/:path(.*)",
-      "has": [{ "type": "host", "value": "www.loanclock.com" }],
-      "destination": "https://loanclock.com/:path",
-      "statusCode": 301
-    }
-  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
