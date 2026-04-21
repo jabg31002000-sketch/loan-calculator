@@ -20,9 +20,20 @@ export function useSeo(title, description) {
     }
     meta.content = description;
 
+    // canonical URL 동적 설정
+    let canonical = document.querySelector('link[rel="canonical"]');
+    const prevCanonical = canonical ? canonical.href : "";
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      document.head.appendChild(canonical);
+    }
+    canonical.href = `https://loanclock.com${window.location.pathname}`;
+
     return () => {
       document.title = prevTitle;
       if (meta) meta.content = prevDesc;
+      if (canonical) canonical.href = prevCanonical;
     };
   }, [title, description]);
 }

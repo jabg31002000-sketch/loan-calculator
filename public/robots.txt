@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.loanclock.com/sitemap.xml
+Sitemap: https://loanclock.com/sitemap.xml
