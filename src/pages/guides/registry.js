@@ -7,10 +7,10 @@ import { lazy } from "react";
 const guides = [
   {
     slug: "loan-interest-calculation",
-    title: "대출 이자 계산 방법, 직접 해봐야 손해를 줄일 수 있습니다",
-    summary: "상환 방식별 이자 차이와 비교할 때 꼭 봐야 할 4가지 기준을 정리했습니다.",
-    seoTitle: "대출 이자 계산 방법 | LoanClock",
-    seoDesc: "대출 이자를 직접 계산해야 손해를 줄일 수 있습니다. 상환 방식 차이, 비교 기준 4가지를 알아보세요.",
+    title: "대출 이자 계산, 1억 빌리면 실제로 얼마나 차이 날까? (최대 800만원 차이)",
+    summary: "같은 1억 대출인데도 상환 방식만 바꾸면 총이자가 800만원 이상 차이 날 수 있습니다.",
+    seoTitle: "대출 이자 계산, 1억 빌리면 실제로 얼마나 차이 날까? | LoanClock",
+    seoDesc: "같은 1억 대출인데도 상환 방식만 바꾸면 총이자가 800만원 이상 차이 납니다. 원리금균등, 원금균등, 만기일시 비교와 실제 계산 예시를 확인하세요.",
     relatedCalc: { label: "신용대출 이자 계산기", path: "/credit-loan/calculator" },
     relatedSlugs: ["refinance-timing", "credit-score-guide"],
     component: lazy(() => import("./content/LoanInterestContent")),
