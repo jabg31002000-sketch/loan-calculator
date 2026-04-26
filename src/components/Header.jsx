@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { ChevronDown, BookOpen, ArrowRight } from "lucide-react";
+import { ChevronDown, BookOpen, ArrowRight, MessageSquare } from "lucide-react";
 import { CALCULATOR_NAV } from "../calculators/registry";
 
 const GUIDE_ITEMS = [
@@ -139,7 +139,19 @@ function MobileMenu({ onNavigate, onClose }) {
           </div>
         </div>
 
-        <div className="border-t border-[#E5E1DA] px-5 pb-8 pt-4">
+        <div className="border-t border-[#E5E1DA] px-5 pb-8 pt-4 space-y-3">
+          <button
+            onClick={() => { onNavigate("/feedback"); onClose(); }}
+            className="flex w-full items-center gap-3 rounded-xl p-3 text-left transition hover:bg-[#F6F1EB]"
+          >
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#10353F]/8">
+              <MessageSquare className="h-4 w-4 text-[#10353F]" />
+            </span>
+            <span>
+              <span className="block text-sm font-semibold text-[#0E2A3A]">문의/기능요청</span>
+              <span className="block text-xs text-[#5E6E73]">오류 신고, 기능 제안, 제휴 문의</span>
+            </span>
+          </button>
           <button
             onClick={() => { onNavigate("/compare"); onClose(); }}
             className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#D97852] px-4 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#C96543]"
@@ -244,6 +256,17 @@ export default function Header() {
               </button>
               {open === "guide" && <GuideDropdown onNavigate={handleNavigate} />}
             </div>
+
+            <button
+              onClick={() => handleNavigate("/feedback")}
+              className={`rounded-lg px-3 py-1.5 text-[13px] font-medium transition ${
+                isHome
+                  ? "text-[#E6D3BE]/80 hover:bg-white/10 hover:text-white"
+                  : "text-[#5E6E73] hover:bg-[#10353F]/5 hover:text-[#0E2A3A]"
+              }`}
+            >
+              문의/기능요청
+            </button>
           </nav>
 
           {/* 우측: CTA + 모바일 햄버거 */}

@@ -14,6 +14,7 @@ import IntroPage from "./calculators/IntroPage";
 import CalculatorHub from "./pages/CalculatorHub";
 import GuideList from "./pages/guides/GuideList";
 import GuideLayout from "./pages/guides/GuideLayout";
+import FeedbackPage from "./pages/FeedbackPage";
 
 // OutLoanPage 를 제외한 모든 페이지에 Header + Footer 적용
 function Layout({ children }) {
@@ -91,6 +92,7 @@ export default function App() {
         <Route path="/privacy"      element={<Layout><PrivacyPage /></Layout>} />
         <Route path="/terms"        element={<Layout><TermsPage /></Layout>} />
         <Route path="/contact"      element={<Layout><ContactPage /></Layout>} />
+        <Route path="/feedback"     element={<Layout><FeedbackPage /></Layout>} />
         <Route path="/out/loan"     element={<OutLoanPage />} />
       </Routes>
     </BrowserRouter>

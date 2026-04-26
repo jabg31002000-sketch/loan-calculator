@@ -18,6 +18,7 @@ export default function Footer() {
             <Link to="/privacy" className="text-[13px] font-medium text-[#5E6E73] transition hover:text-[#0E2A3A]">개인정보처리방침</Link>
             <Link to="/terms" className="text-[13px] font-medium text-[#5E6E73] transition hover:text-[#0E2A3A]">이용약관</Link>
             <Link to="/contact" className="text-[13px] font-medium text-[#5E6E73] transition hover:text-[#0E2A3A]">문의하기</Link>
+            <Link to="/feedback" className="text-[13px] font-medium text-[#5E6E73] transition hover:text-[#0E2A3A]">문의/기능요청</Link>
           </div>
         </div>
 
