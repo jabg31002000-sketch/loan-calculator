@@ -8,6 +8,7 @@ import SelectInput from "./SelectInput";
 import ToggleInput from "./ToggleInput";
 import RadioInput from "./RadioInput";
 import DebtListInput from "./DebtListInput";
+import DsrPresetInput from "./DsrPresetInput";
 
 function renderField(field, values, onFieldChange, bankState) {
   // 조건부 렌더링
@@ -101,6 +102,16 @@ function renderField(field, values, onFieldChange, bankState) {
     case "debtList":
       return (
         <DebtListInput
+          key={field.key}
+          label={field.label}
+          value={val}
+          onChange={(v) => onFieldChange(field.key, v)}
+          hint={field.hint}
+        />
+      );
+    case "dsrPreset":
+      return (
+        <DsrPresetInput
           key={field.key}
           label={field.label}
           value={val}

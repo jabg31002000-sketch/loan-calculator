@@ -2,6 +2,7 @@ import { REPAYMENT_OPTIONS } from "../../components/loan-calculator/constants";
 import { formatInputNumber, buildCompareUrl, formatCurrency } from "../../components/loan-calculator/utils";
 import { trackCtaClick } from "../../components/loan-calculator/ga";
 import { HelpCircle, ShieldAlert, Calculator } from "lucide-react";
+import { parsePresetValue } from "../../components/shared/DsrPresetInput";
 import dsrEngine from "../engines/dsrEngine";
 import dsrInterpreter from "../interpreters/dsrInterpreter";
 import DsrResults from "../results/DsrResults";
@@ -141,8 +142,9 @@ const dsrConfig = {
       options: REPAYMENT_OPTIONS,
     },
     {
-      key: "dsrLimit", type: "number", label: "DSR 한도 (%)", placeholder: "40",
-      group: "advanced", suffix: "%", hint: "은행권 40%, 2금융권 50%", step: 5,
+      key: "dsrLimit", type: "dsrPreset", label: "DSR 적용 기준",
+      group: "advanced",
+      hint: "일반적으로 차주 단위 DSR은 은행권 40%, 제2금융권 50% 기준을 참고합니다. 다만 실제 대출 가능 여부와 한도는 대출 종류, 총대출액, 기존 부채, 소득, 금융사 심사 기준, 스트레스 DSR 적용 여부에 따라 달라질 수 있습니다.",
     },
   ],
 
@@ -152,7 +154,7 @@ const dsrConfig = {
     desiredRate: "",
     desiredMonths: "",
     repaymentType: "equal_payment",
-    dsrLimit: "40",
+    dsrLimit: "bank",
   },
 
   sideEffects: [],
@@ -163,13 +165,14 @@ const dsrConfig = {
     desiredRate: Number(values.desiredRate),
     desiredMonths: Number(values.desiredMonths),
     repaymentType: values.repaymentType ?? "equal_payment",
-    dsrLimit: Number(values.dsrLimit) || 40,
+    dsrLimit: parsePresetValue(values.dsrLimit).dsrValue || 40,
   }),
 
   validate: (parsed) => {
     if (!parsed.annualIncome || parsed.annualIncome <= 0) return "연 소득을 입력해주세요.";
     if (!Number.isFinite(parsed.desiredRate) || parsed.desiredRate < 0) return "희망 금리를 올바르게 입력해주세요.";
     if (!parsed.desiredMonths || parsed.desiredMonths <= 0) return "희망 대출기간을 입력해주세요.";
+    if (!parsed.dsrLimit || parsed.dsrLimit < 1 || parsed.dsrLimit > 100) return "DSR 기준은 1~100 사이의 숫자로 입력해주세요.";
     return null;
   },
 
@@ -179,7 +182,7 @@ const dsrConfig = {
     desiredRate: String(input.desiredRate),
     desiredMonths: String(input.desiredMonths),
     repaymentType: input.repaymentType,
-    dsrLimit: String(input.dsrLimit),
+    dsrLimit: input.dsrLimit === 40 ? "bank" : input.dsrLimit === 50 ? "secondary" : `custom:${input.dsrLimit}`,
   }),
 
   engine: dsrEngine,
@@ -194,10 +197,10 @@ const dsrConfig = {
       null,
     );
   },
-  getCtaLabel: (result) => result?.maxLoanAmount > 0 ? "내 한도에 맞는 상품 보기" : "대출 상품 확인하기",
+  getCtaLabel: (result) => result?.maxLoanAmount > 0 ? "내 조건에 맞는 상품 보기" : "대출 상품 확인하기",
   getCtaSubtext: (input, result) => {
     if (!result || !result.maxLoanAmount) return null;
-    return `지금 조건으로 최대 약 ${formatCurrency(result.maxLoanAmount)} 가능해요`;
+    return `참고용 예상 한도 최대 약 ${formatCurrency(result.maxLoanAmount)}`;
   },
 
   trackCalculate: trackDsrCalculate,
