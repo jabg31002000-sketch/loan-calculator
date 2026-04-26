@@ -85,6 +85,7 @@ export default function App() {
         <Route path="/guide/interest"  element={<Navigate to="/guides/loan-interest-calculation" replace />} />
         <Route path="/guide/refinance" element={<Navigate to="/guides/refinance-timing" replace />} />
         <Route path="/guide/credit"    element={<Navigate to="/guides/credit-score-guide" replace />} />
+        <Route path="/guide/early-repayment-good-or-bad" element={<Navigate to="/guides/early-repayment-good-or-bad" replace />} />
 
         {/* 기타 */}
         <Route path="/privacy"      element={<Layout><PrivacyPage /></Layout>} />

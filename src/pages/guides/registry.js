@@ -35,6 +35,16 @@ const guides = [
     relatedSlugs: ["loan-interest-calculation", "refinance-timing"],
     component: lazy(() => import("./content/CreditScoreContent")),
   },
+  {
+    slug: "early-repayment-good-or-bad",
+    title: "조기상환이 유리한 경우와 아닌 경우, 이자 차이 계산해보니",
+    summary: "조기상환이 항상 유리한 것은 아닙니다. 남은 기간, 금리, 수수료에 따라 실제 이자 절감액이 달라집니다.",
+    seoTitle: "조기상환이 유리한 경우와 아닌 경우 | 이자 차이 계산",
+    seoDesc: "조기상환이 항상 유리한 것은 아닙니다. 남은 기간, 금리, 중도상환수수료, 상환 방식에 따라 실제 이자 절감액이 어떻게 달라지는지 계산 예시로 정리했습니다.",
+    relatedCalc: { label: "대출 이자 계산기", path: "/credit-loan/calculator" },
+    relatedSlugs: ["loan-interest-calculation", "refinance-timing"],
+    component: lazy(() => import("./content/EarlyRepaymentContent")),
+  },
 ];
 
 export default guides;
