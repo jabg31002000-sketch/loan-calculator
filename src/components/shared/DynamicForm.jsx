@@ -9,6 +9,7 @@ import ToggleInput from "./ToggleInput";
 import RadioInput from "./RadioInput";
 import DebtListInput from "./DebtListInput";
 import DsrPresetInput from "./DsrPresetInput";
+import DsrDebtListInput from "./DsrDebtListInput";
 
 function renderField(field, values, onFieldChange, bankState) {
   // 조건부 렌더링
@@ -109,6 +110,16 @@ function renderField(field, values, onFieldChange, bankState) {
           hint={field.hint}
         />
       );
+    case "dsrDebtList":
+      return (
+        <DsrDebtListInput
+          key={field.key}
+          label={field.label}
+          value={val}
+          onChange={(v) => onFieldChange(field.key, v)}
+          hint={field.hint}
+        />
+      );
     case "dsrPreset":
       return (
         <DsrPresetInput
@@ -137,11 +148,13 @@ export default function DynamicForm({
   formTitle = "기본 정보 입력",
   formSubtitle,
   submitLabel = "계산하기",
+  advancedSubtitle,
 }) {
   const [showAdvanced, setShowAdvanced] = useState(false);
 
   const basicFields = fields.filter((f) => f.group === "basic");
   const advancedFields = fields.filter((f) => f.group === "advanced");
+  const debtFields = fields.filter((f) => f.group === "debt");
 
   // grid 레이아웃: 필드에 gridCol 지정 시 같은 행에 배치
   const renderFieldGroup = (fieldList) => {
@@ -196,10 +209,20 @@ export default function DynamicForm({
 
             {showAdvanced && (
               <div className="space-y-4 rounded-2xl border border-[#E5E1DA] bg-[#F6F1EB]/50 p-4">
+                {advancedSubtitle && (
+                  <p className="text-[13px] text-[#5E6E73] -mt-1 mb-1">{advancedSubtitle}</p>
+                )}
                 {renderFieldGroup(advancedFields)}
               </div>
             )}
           </>
+        )}
+
+        {/* 부채 섹션 */}
+        {debtFields.length > 0 && (
+          <div className="space-y-4">
+            {renderFieldGroup(debtFields)}
+          </div>
         )}
 
         {/* 계산하기 + 초기화 */}

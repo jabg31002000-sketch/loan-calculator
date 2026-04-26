@@ -223,6 +223,7 @@ export default function CalculatorPage({ config }) {
           formTitle={config.formTitle}
           formSubtitle={config.formSubtitle}
           submitLabel={config.submitLabel}
+          advancedSubtitle={config.advancedSubtitle}
         />
 
         <div ref={resultRef}>

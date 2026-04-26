@@ -3,6 +3,7 @@ import { formatInputNumber, buildCompareUrl, formatCurrency } from "../../compon
 import { trackCtaClick } from "../../components/loan-calculator/ga";
 import { HelpCircle, ShieldAlert, Calculator } from "lucide-react";
 import { parsePresetValue } from "../../components/shared/DsrPresetInput";
+import { computeAnnualPayment } from "../../components/shared/DsrDebtListInput";
 import dsrEngine from "../engines/dsrEngine";
 import dsrInterpreter from "../interpreters/dsrInterpreter";
 import DsrResults from "../results/DsrResults";
@@ -132,11 +133,12 @@ const dsrConfig = {
   emptyStateMessage: "위에 소득과 대출 정보를 입력해주세요",
   emptyStateHint: "연 소득과 기존 대출만 넣으면 됩니다.",
 
+  advancedSubtitle: "새로 받으려는 대출 조건을 입력하면 DSR 기준상 예상 상환 여력을 계산할 수 있습니다.",
+
   fields: [
     { key: "annualIncome", type: "currency", label: "연 소득 (세전)", placeholder: "예: 50,000,000", group: "basic", suffix: "원" },
-    { key: "existingDebts", type: "debtList", label: "기존 대출 목록", group: "basic", hint: "현재 상환 중인 대출을 모두 입력하세요." },
-    { key: "desiredRate", type: "rate", label: "희망 대출 금리 (연 %)", placeholder: "예: 4.5", group: "basic", bankPreset: true, gridCol: 1 },
-    { key: "desiredMonths", type: "months", label: "희망 대출기간 (개월)", placeholder: "예: 360", group: "basic", gridCol: 1 },
+    { key: "desiredRate", type: "rate", label: "희망 대출 금리 (연 %)", placeholder: "예: 4.5", group: "advanced", bankPreset: true, gridCol: 1 },
+    { key: "desiredMonths", type: "months", label: "희망 대출기간 (개월)", placeholder: "예: 360", group: "advanced", gridCol: 1 },
     {
       key: "repaymentType", type: "select", label: "상환방식", group: "advanced",
       options: REPAYMENT_OPTIONS,
@@ -146,11 +148,12 @@ const dsrConfig = {
       group: "advanced",
       hint: "일반적으로 차주 단위 DSR은 은행권 40%, 제2금융권 50% 기준을 참고합니다. 다만 실제 대출 가능 여부와 한도는 대출 종류, 총대출액, 기존 부채, 소득, 금융사 심사 기준, 스트레스 DSR 적용 여부에 따라 달라질 수 있습니다.",
     },
+    { key: "existingDebts", type: "dsrDebtList", label: "기존 대출 목록", group: "debt", hint: "현재 상환 중인 대출이 있다면 추가해주세요. 기존 대출이 없다면 추가하지 않아도 됩니다." },
   ],
 
   defaults: {
     annualIncome: "",
-    existingDebts: [{ name: "", balance: "", rate: "", monthlyPayment: "" }],
+    existingDebts: [],
     desiredRate: "",
     desiredMonths: "",
     repaymentType: "equal_payment",
