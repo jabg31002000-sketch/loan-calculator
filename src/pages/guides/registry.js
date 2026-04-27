@@ -45,6 +45,16 @@ const guides = [
     relatedSlugs: ["loan-interest-calculation", "refinance-timing"],
     component: lazy(() => import("./content/EarlyRepaymentContent")),
   },
+  {
+    slug: "mortgage-monthly-payment-100million",
+    title: "주택담보대출 1억원 월 상환액 계산, 20년·30년 총이자 비교",
+    summary: "주택담보대출 1억원 기준 월 상환액을 금리 4%, 5%, 6%와 20년·30년 기간별로 비교했습니다.",
+    seoTitle: "주택담보대출 1억원 월 상환액 계산, 20년·30년 총이자 비교 | LoanClock",
+    seoDesc: "주택담보대출 1억원 기준 월 상환액을 금리 4%, 5%, 6%와 20년·30년 기간별로 비교했습니다. 원리금균등, 원금균등 차이와 총이자까지 쉽게 확인해보세요.",
+    relatedCalc: { label: "주택담보대출 계산기", path: "/mortgage/calculator" },
+    relatedSlugs: ["loan-interest-calculation", "early-repayment-good-or-bad"],
+    component: lazy(() => import("./content/MortgageMonthlyPaymentContent")),
+  },
 ];
 
 export default guides;
