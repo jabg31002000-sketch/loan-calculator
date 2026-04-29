@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { ChevronDown, BookOpen, ArrowRight, MessageSquare } from "lucide-react";
+import { ChevronDown, BookOpen, ArrowRight, MessageSquare, Menu, X } from "lucide-react";
 import { CALCULATOR_NAV } from "../calculators/registry";
 
 const GUIDE_ITEMS = [
@@ -280,16 +280,14 @@ export default function Header() {
 
             {/* 모바일 햄버거 */}
             <button
-              onClick={() => setMobileOpen(true)}
-              aria-label="메뉴 열기"
+              onClick={() => setMobileOpen((v) => !v)}
+              aria-label={mobileOpen ? "메뉴 닫기" : "메뉴 열기"}
               aria-expanded={mobileOpen}
-              className={`flex h-8 w-8 items-center justify-center rounded-lg transition md:hidden ${
-                isHome ? "text-[#E6D3BE]/80 hover:bg-white/10" : "text-[#5E6E73] hover:bg-[#10353F]/8"
+              className={`relative z-50 flex h-10 w-10 items-center justify-center rounded-xl transition md:hidden ${
+                isHome ? "text-white hover:bg-white/15" : "text-[#0E2A3A] hover:bg-[#10353F]/10"
               }`}
             >
-              <svg className="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-              </svg>
+              {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
