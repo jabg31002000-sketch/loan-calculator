@@ -281,6 +281,8 @@ export default function Header() {
             {/* 모바일 햄버거 */}
             <button
               onClick={() => setMobileOpen(true)}
+              aria-label="메뉴 열기"
+              aria-expanded={mobileOpen}
               className={`flex h-8 w-8 items-center justify-center rounded-lg transition md:hidden ${
                 isHome ? "text-[#E6D3BE]/80 hover:bg-white/10" : "text-[#5E6E73] hover:bg-[#10353F]/8"
               }`}
