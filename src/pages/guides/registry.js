@@ -55,6 +55,16 @@ const guides = [
     relatedSlugs: ["loan-interest-calculation", "early-repayment-good-or-bad"],
     component: lazy(() => import("./content/MortgageMonthlyPaymentContent")),
   },
+  {
+    slug: "credit-loan-limit-50000000-income",
+    title: "신용대출 한도 계산, 연봉 5,000만원이면 얼마까지 가능할까?",
+    summary: "연봉 5,000만원 기준 신용대출 한도가 왜 사람마다 달라지는지 기존대출, DSR, 금리, 상환기간 기준으로 쉽게 계산해봅니다.",
+    seoTitle: "신용대출 한도 계산, 연봉 5,000만원이면 얼마까지 가능할까?",
+    seoDesc: "연봉 5,000만원 기준 신용대출 한도가 왜 사람마다 달라지는지 기존대출, DSR, 금리, 상환기간 기준으로 쉽게 계산해봅니다.",
+    relatedCalc: { label: "DSR / 대출한도 계산기", path: "/dsr/calculator" },
+    relatedSlugs: ["loan-interest-calculation", "credit-score-guide"],
+    component: lazy(() => import("./content/CreditLoanLimitContent")),
+  },
 ];
 
 export default guides;
