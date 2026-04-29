@@ -28,7 +28,7 @@ export function useSeo(title, description) {
       canonical.rel = "canonical";
       document.head.appendChild(canonical);
     }
-    canonical.href = `https://loanclock.com${window.location.pathname}`;
+    canonical.href = `https://www.loanclock.com${window.location.pathname}`;
 
     return () => {
       document.title = prevTitle;

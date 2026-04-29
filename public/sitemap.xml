@@ -1,52 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- 메인 -->
-  <url><loc>https://loanclock.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.loanclock.com/</loc><lastmod>2026-04-29</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
 
   <!-- 설명 페이지 (Intro) -->
-  <url><loc>https://loanclock.com/credit-loan</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://loanclock.com/refinance-loan</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://loanclock.com/jeonse-vs-rent</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://loanclock.com/dsr</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://loanclock.com/mortgage</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://loanclock.com/auto-loan</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://loanclock.com/beotimmok-jeonse</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://loanclock.com/jeonse-loan-interest</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://loanclock.com/didimdol</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://loanclock.com/bogeumjari</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://loanclock.com/monthly-rent-loan</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://loanclock.com/first-home</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.loanclock.com/credit-loan</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.loanclock.com/refinance-loan</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.loanclock.com/jeonse-vs-rent</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.loanclock.com/dsr</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.loanclock.com/mortgage</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.loanclock.com/auto-loan</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.loanclock.com/beotimmok-jeonse</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.loanclock.com/jeonse-loan-interest</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.loanclock.com/didimdol</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.loanclock.com/bogeumjari</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.loanclock.com/monthly-rent-loan</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.loanclock.com/first-home</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
   <!-- 계산기 허브 -->
-  <url><loc>https://loanclock.com/calculator</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.loanclock.com/calculator</loc><lastmod>2026-04-29</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
 
   <!-- 계산기 페이지 (Calculator) -->
-  <url><loc>https://loanclock.com/credit-loan/calculator</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://loanclock.com/refinance-loan/calculator</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://loanclock.com/jeonse-vs-rent/calculator</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://loanclock.com/dsr/calculator</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://loanclock.com/mortgage/calculator</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://loanclock.com/auto-loan/calculator</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://loanclock.com/beotimmok-jeonse/calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://loanclock.com/jeonse-loan-interest/calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://loanclock.com/didimdol/calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://loanclock.com/bogeumjari/calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://loanclock.com/monthly-rent-loan/calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://loanclock.com/first-home/calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.loanclock.com/credit-loan/calculator</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.loanclock.com/refinance-loan/calculator</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.loanclock.com/jeonse-vs-rent/calculator</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.loanclock.com/dsr/calculator</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.loanclock.com/mortgage/calculator</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.loanclock.com/auto-loan/calculator</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.loanclock.com/beotimmok-jeonse/calculator</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.loanclock.com/jeonse-loan-interest/calculator</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.loanclock.com/didimdol/calculator</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.loanclock.com/bogeumjari/calculator</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.loanclock.com/monthly-rent-loan/calculator</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.loanclock.com/first-home/calculator</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
   <!-- 브릿지 페이지 -->
-  <url><loc>https://loanclock.com/compare</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://loanclock.com/refinance</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.loanclock.com/compare</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.loanclock.com/refinance</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
   <!-- 가이드 -->
-  <url><loc>https://loanclock.com/guides</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://loanclock.com/guides/loan-interest-calculation</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://loanclock.com/guides/refinance-timing</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://loanclock.com/guides/credit-score-guide</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://loanclock.com/guides/early-repayment-good-or-bad</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.loanclock.com/guides</loc><lastmod>2026-04-29</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.loanclock.com/guides/loan-interest-calculation</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.loanclock.com/guides/refinance-timing</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.loanclock.com/guides/credit-score-guide</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.loanclock.com/guides/early-repayment-good-or-bad</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.loanclock.com/guides/mortgage-monthly-payment-100million</loc><lastmod>2026-04-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.loanclock.com/guides/credit-loan-limit-50000000-income</loc><lastmod>2026-04-29</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- 문의 -->
+  <url><loc>https://www.loanclock.com/feedback</loc><lastmod>2026-04-26</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
 
   <!-- 기타 -->
-  <url><loc>https://loanclock.com/privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://loanclock.com/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://loanclock.com/contact</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://www.loanclock.com/privacy</loc><lastmod>2026-04-29</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.loanclock.com/terms</loc><lastmod>2026-04-29</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.loanclock.com/contact</loc><lastmod>2026-04-29</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
 </urlset>
