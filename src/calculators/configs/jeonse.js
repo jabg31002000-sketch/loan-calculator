@@ -1,19 +1,9 @@
 import { formatInputNumber, buildCompareUrl, formatCurrency } from "../../components/loan-calculator/utils";
-import { trackCtaClick } from "../../components/loan-calculator/ga";
+import { trackCalculateEvent, trackCtaClick } from "../../components/loan-calculator/ga";
 import { HelpCircle, Wallet, BarChart3, Home as HomeIcon, Banknote } from "lucide-react";
 import jeonseEngine from "../engines/jeonseEngine";
 import jeonseInterpreter from "../interpreters/jeonseInterpreter";
 import JeonseResults from "../results/JeonseResults";
-
-function trackJeonseCalculate(parsed) {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-  window.gtag("event", "loan_calculate", {
-    event_category: "jeonse_calculator",
-    event_label: "jeonse_vs_rent",
-    jeonse_deposit: parsed.jeonseDeposit,
-    monthly_rent: parsed.monthlyRent,
-  });
-}
 
 const JEONSE_FAQ = [
   {
@@ -211,7 +201,13 @@ const jeonseConfig = {
       : "대출 전 확인하면 실수할 확률이 줄어들어요";
   },
 
-  trackCalculate: trackJeonseCalculate,
+  trackCalculate: (parsed) => trackCalculateEvent({
+    calculatorType: "jeonse",
+    loanAmount: parsed.jeonseDeposit,
+    annualRate: parsed.jeonseRate,
+    months: parsed.periodMonths,
+    graceMonths: 0,
+  }),
   trackSaveScenario: () => {},
   trackCtaClick,
 

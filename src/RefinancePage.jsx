@@ -12,28 +12,20 @@ import {
 } from "lucide-react";
 
 // ─── GA 추적 ───────────────────────────────────────────────────────────────
-function trackCtaClick({ id, label }) {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-  window.gtag("event", "cta_click", {
-    event_category: "loan",
-    event_label: label,
-    event_id: id,
-  });
+function gtagSafe(...args) {
+  if (typeof window !== "undefined" && typeof window.gtag === "function") window.gtag(...args);
+}
+
+function trackRefinanceCtaClick({ ctaLabel, ctaLocation, destinationUrl }) {
+  gtagSafe("event", "refinance_cta_click", { cta_label: ctaLabel, cta_location: ctaLocation, destination_url: destinationUrl });
 }
 
 function trackBridgeView() {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-  window.gtag("event", "bridge_view_refinance", { event_category: "bridge" });
+  gtagSafe("event", "bridge_view_refinance", { event_category: "bridge" });
 }
 
-// [신규] 최종 CTA 클릭 전용 이벤트
-function trackFinalCtaClick({ id, label }) {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-  window.gtag("event", "final_cta_click", {
-    event_category: "bridge",
-    event_label: label,
-    event_id: id,
-  });
+function trackFinalCtaClick({ ctaLabel, ctaLocation, destinationUrl }) {
+  gtagSafe("event", "final_cta_click", { cta_label: ctaLabel, cta_location: ctaLocation, destination_url: destinationUrl });
 }
 
 // ─── 유틸 ────────────────────────────────────────────────────────────────
@@ -117,10 +109,11 @@ export default function RefinancePage() {
 
   useEffect(() => { trackBridgeView(); }, []);
 
-  // [최종 CTA 클릭] cta_click + final_cta_click 동시 추적
+  // [최종 CTA 클릭] refinance_cta_click + final_cta_click 동시 추적
   const handleFinalCta = (id) => {
-    trackCtaClick({ id, label: "지금 최저 금리 상품 확인하기" });
-    trackFinalCtaClick({ id, label: "지금 최저 금리 상품 확인하기" });
+    const payload = { ctaLabel: "지금 최저 금리 상품 확인하기", ctaLocation: id, destinationUrl: "/out-loan?from=refinance" };
+    trackRefinanceCtaClick(payload);
+    trackFinalCtaClick(payload);
   };
 
   return (

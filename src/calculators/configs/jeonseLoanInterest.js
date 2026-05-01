@@ -1,17 +1,9 @@
 import { formatInputNumber, buildCompareUrl, formatCurrency } from "../../components/loan-calculator/utils";
-import { trackCtaClick } from "../../components/loan-calculator/ga";
+import { trackCalculateEvent, trackCtaClick } from "../../components/loan-calculator/ga";
 import { HelpCircle, Wallet, Calculator } from "lucide-react";
 import policyJeonseEngine from "../engines/policyJeonseEngine";
 import policyJeonseInterpreter from "../interpreters/policyJeonseInterpreter";
 import PolicyJeonseResults from "../results/PolicyJeonseResults";
-
-function trackJeonseLoanInterestCalculate(parsed) {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-  window.gtag("event", "loan_calculate", {
-    event_category: "jeonse_loan_interest_calculator",
-    deposit: parsed.deposit,
-  });
-}
 
 const JEONSE_INTEREST_FAQ = [
   {
@@ -152,7 +144,13 @@ const jeonseLoanInterestConfig = {
     return `월 이자 약 ${formatCurrency(result.monthlyInterest)} · 정책형 전세대출 비교`;
   },
 
-  trackCalculate: trackJeonseLoanInterestCalculate,
+  trackCalculate: (parsed) => trackCalculateEvent({
+    calculatorType: "jeonse-loan-interest",
+    loanAmount: parsed.deposit,
+    annualRate: parsed.annualRate,
+    months: parsed.months,
+    graceMonths: 0,
+  }),
   trackSaveScenario: () => {},
   trackCtaClick,
 

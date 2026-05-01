@@ -1,19 +1,10 @@
 import { REPAYMENT_OPTIONS } from "../../components/loan-calculator/constants";
 import { formatInputNumber, buildCompareUrl, formatCurrency } from "../../components/loan-calculator/utils";
-import { trackCtaClick } from "../../components/loan-calculator/ga";
+import { trackCalculateEvent, trackCtaClick } from "../../components/loan-calculator/ga";
 import { HelpCircle, ShieldCheck, Building, Banknote } from "lucide-react";
 import policyHomePurchaseEngine from "../engines/policyHomePurchaseEngine";
 import policyHomePurchaseInterpreter from "../interpreters/policyHomePurchaseInterpreter";
 import PolicyHomePurchaseResults from "../results/PolicyHomePurchaseResults";
-
-function trackDidimdolCalculate(parsed) {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-  window.gtag("event", "loan_calculate", {
-    event_category: "didimdol_calculator",
-    event_label: parsed.productType,
-    property_price: parsed.propertyPrice,
-  });
-}
 
 const DIDIMDOL_FAQ = [
   {
@@ -226,7 +217,13 @@ const didimdolConfig = {
     return `${label}최대 약 ${formatCurrency(result.maxLoanAmount)} 대출 가능`;
   },
 
-  trackCalculate: trackDidimdolCalculate,
+  trackCalculate: (parsed) => trackCalculateEvent({
+    calculatorType: "didimdol",
+    loanAmount: parsed.propertyPrice,
+    annualRate: parsed.annualRate,
+    months: parsed.months,
+    graceMonths: 0,
+  }),
   trackSaveScenario: () => {},
   trackCtaClick,
 

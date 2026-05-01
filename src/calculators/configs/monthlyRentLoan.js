@@ -1,18 +1,9 @@
 import { formatInputNumber, buildCompareUrl, formatCurrency } from "../../components/loan-calculator/utils";
-import { trackCtaClick } from "../../components/loan-calculator/ga";
+import { trackCalculateEvent, trackCtaClick } from "../../components/loan-calculator/ga";
 import { HelpCircle, Wallet, Home as HomeIcon, Banknote } from "lucide-react";
 import policyJeonseEngine from "../engines/policyJeonseEngine";
 import policyJeonseInterpreter from "../interpreters/policyJeonseInterpreter";
 import PolicyJeonseResults from "../results/PolicyJeonseResults";
-
-function trackMonthlyRentCalculate(parsed) {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-  window.gtag("event", "loan_calculate", {
-    event_category: "monthly_rent_loan_calculator",
-    event_label: parsed.productType,
-    deposit: parsed.deposit,
-  });
-}
 
 const MONTHLY_RENT_FAQ = [
   {
@@ -192,7 +183,13 @@ const monthlyRentLoanConfig = {
     return tag;
   },
 
-  trackCalculate: trackMonthlyRentCalculate,
+  trackCalculate: (parsed) => trackCalculateEvent({
+    calculatorType: "monthly-rent-loan",
+    loanAmount: parsed.deposit,
+    annualRate: parsed.annualRate,
+    months: parsed.months,
+    graceMonths: 0,
+  }),
   trackSaveScenario: () => {},
   trackCtaClick,
 

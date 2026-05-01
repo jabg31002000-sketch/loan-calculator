@@ -180,12 +180,12 @@ export default function CalculatorPage({ config }) {
   }, []);
 
   const handlePrimaryCtaClick = useCallback(() => {
-    config.trackCtaClick?.({ id: "result_primary", label: ctaLabel });
+    config.trackCtaClick?.({ ctaLabel, ctaLocation: "result_primary", destinationUrl: ctaUrl });
     navigate(ctaUrl);
   }, [ctaUrl, ctaLabel, navigate, config]);
 
   const handleStickyCtaClick = useCallback(() => {
-    config.trackCtaClick?.({ id: "sticky_mobile", label: ctaLabel });
+    config.trackCtaClick?.({ ctaLabel, ctaLocation: "sticky_mobile", destinationUrl: ctaUrl });
     navigate(ctaUrl);
   }, [ctaUrl, ctaLabel, navigate, config]);
 

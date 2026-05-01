@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { ChevronRight, Mail, Clock, MessageSquare, TrendingDown, RefreshCw } from "lucide-react";
 import { useSeo } from "./useSeo";
 
-function trackCtaClick({ id, label }) {
+function trackCtaClick({ ctaLabel, ctaLocation, destinationUrl }) {
   if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-  window.gtag("event", "cta_click", { event_category: "loan", event_label: label, event_id: id });
+  window.gtag("event", "cta_click", { cta_label: ctaLabel, cta_location: ctaLocation, destination_url: destinationUrl });
 }
 
 const INQUIRY_TYPES = [
@@ -113,7 +113,7 @@ export default function ContactPage() {
                 href="/out/loan?from=contact_rate"
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => trackCtaClick({ id: "contact_rate", label: "최저 금리 지금 확인하기" })}
+                onClick={() => trackCtaClick({ ctaLabel: "최저 금리 지금 확인하기", ctaLocation: "contact_rate", destinationUrl: "/out/loan?from=contact_rate" })}
                 className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#D97852] px-4 py-3 text-sm font-bold text-white shadow-sm transition hover:scale-[1.02] hover:bg-[#C96543] active:scale-[0.98]"
               >
                 <TrendingDown className="h-4 w-4" />
@@ -123,7 +123,7 @@ export default function ContactPage() {
                 href="/out/loan?from=contact_refinance"
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => trackCtaClick({ id: "contact_refinance", label: "대환대출 조건 비교하기" })}
+                onClick={() => trackCtaClick({ ctaLabel: "대환대출 조건 비교하기", ctaLocation: "contact_refinance", destinationUrl: "/out/loan?from=contact_refinance" })}
                 className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-[#D97852]/30 bg-white px-4 py-3 text-sm font-bold text-[#D97852] shadow-sm transition hover:scale-[1.02] hover:bg-[#D97852]/5 active:scale-[0.98]"
               >
                 <RefreshCw className="h-4 w-4" />

@@ -1,20 +1,10 @@
 import { REPAYMENT_OPTIONS } from "../../components/loan-calculator/constants";
 import { formatInputNumber, buildCompareUrl, formatCurrency } from "../../components/loan-calculator/utils";
-import { trackCtaClick } from "../../components/loan-calculator/ga";
+import { trackCalculateEvent, trackCtaClick } from "../../components/loan-calculator/ga";
 import { HelpCircle, Building, ShieldCheck } from "lucide-react";
 import mortgageEngine from "../engines/mortgageEngine";
 import mortgageInterpreter from "../interpreters/mortgageInterpreter";
 import MortgageResults from "../results/MortgageResults";
-
-function trackMortgageCalculate(parsed) {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-  window.gtag("event", "loan_calculate", {
-    event_category: "mortgage_calculator",
-    event_label: parsed.repaymentType,
-    property_price: parsed.propertyPrice,
-    ltv: parsed.ltv,
-  });
-}
 
 const MORTGAGE_FAQ = [
   {
@@ -217,7 +207,13 @@ const mortgageConfig = {
     return `지금 조건으로 최대 약 ${formatCurrency(result.maxLoanAmount)} 가능해요`;
   },
 
-  trackCalculate: trackMortgageCalculate,
+  trackCalculate: (parsed) => trackCalculateEvent({
+    calculatorType: "mortgage",
+    loanAmount: parsed.propertyPrice,
+    annualRate: parsed.annualRate,
+    months: parsed.months,
+    graceMonths: parsed.graceMonths,
+  }),
   trackSaveScenario: () => {},
   trackCtaClick,
 

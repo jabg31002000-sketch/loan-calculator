@@ -1,19 +1,10 @@
 import { REPAYMENT_OPTIONS } from "../../components/loan-calculator/constants";
 import { formatInputNumber, buildCompareUrl, formatCurrency } from "../../components/loan-calculator/utils";
-import { trackCtaClick } from "../../components/loan-calculator/ga";
+import { trackCalculateEvent, trackCtaClick } from "../../components/loan-calculator/ga";
 import { HelpCircle, Banknote, Receipt, Car, Building2 } from "lucide-react";
 import autoEngine from "../engines/autoEngine";
 import autoInterpreter from "../interpreters/autoInterpreter";
 import AutoResults from "../results/AutoResults";
-
-function trackAutoCalculate(parsed) {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-  window.gtag("event", "loan_calculate", {
-    event_category: "auto_calculator",
-    event_label: parsed.repaymentType,
-    vehicle_price: parsed.vehiclePrice,
-  });
-}
 
 const AUTO_FAQ = [
   {
@@ -203,7 +194,13 @@ const autoConfig = {
     return `비교는 1분이면 끝나요 — 월 ${formatCurrency(result.monthlyPayment)} 상환`;
   },
 
-  trackCalculate: trackAutoCalculate,
+  trackCalculate: (parsed) => trackCalculateEvent({
+    calculatorType: "auto",
+    loanAmount: parsed.vehiclePrice,
+    annualRate: parsed.annualRate,
+    months: parsed.months,
+    graceMonths: 0,
+  }),
   trackSaveScenario: () => {},
   trackCtaClick,
 

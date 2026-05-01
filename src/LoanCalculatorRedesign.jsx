@@ -192,7 +192,7 @@ export default function LoanCalculatorRedesign() {
     if (parsedGraceMonths > parsedMonths) { setError("거치기간은 전체 대출기간보다 클 수 없습니다."); return; }
 
     setError("");
-    trackCalculateEvent({ repaymentType, months: parsedMonths, graceMonths: parsedGraceMonths });
+    trackCalculateEvent({ calculatorType: "credit-legacy", loanAmount: parsedPrincipal, annualRate: parsedRate, months: parsedMonths, graceMonths: parsedGraceMonths });
 
     setSubmittedInput({
       principal: parsedPrincipal,
@@ -261,12 +261,12 @@ export default function LoanCalculatorRedesign() {
     : "내 상황에 맞는 조건 확인하기";
 
   const handlePrimaryCtaClick = () => {
-    trackCtaClick({ id: "result_primary", label: ctaLabel });
+    trackCtaClick({ ctaLabel, ctaLocation: "result_primary", destinationUrl: ctaUrl });
     navigate(ctaUrl);
   };
 
   const handleStickyCtaClick = () => {
-    trackCtaClick({ id: "sticky_mobile", label: ctaLabel });
+    trackCtaClick({ ctaLabel, ctaLocation: "sticky_mobile", destinationUrl: ctaUrl });
     navigate(ctaUrl);
   };
 

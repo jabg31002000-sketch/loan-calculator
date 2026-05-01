@@ -174,7 +174,9 @@ const creditConfig = {
   },
 
   trackCalculate: (parsed) => trackCalculateEvent({
-    repaymentType: parsed.repaymentType,
+    calculatorType: "credit",
+    loanAmount: parsed.principal,
+    annualRate: parsed.annualRate,
     months: parsed.months,
     graceMonths: parsed.graceMonths,
   }),

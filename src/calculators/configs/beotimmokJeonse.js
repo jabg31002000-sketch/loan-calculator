@@ -1,18 +1,9 @@
 import { formatInputNumber, buildCompareUrl, formatCurrency } from "../../components/loan-calculator/utils";
-import { trackCtaClick } from "../../components/loan-calculator/ga";
+import { trackCalculateEvent, trackCtaClick } from "../../components/loan-calculator/ga";
 import { HelpCircle, Wallet, ShieldCheck, Banknote } from "lucide-react";
 import policyJeonseEngine from "../engines/policyJeonseEngine";
 import policyJeonseInterpreter from "../interpreters/policyJeonseInterpreter";
 import PolicyJeonseResults from "../results/PolicyJeonseResults";
-
-function trackBeotimmokCalculate(parsed) {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-  window.gtag("event", "loan_calculate", {
-    event_category: "beotimmok_calculator",
-    event_label: parsed.productType,
-    deposit: parsed.deposit,
-  });
-}
 
 const BEOTIMMOK_FAQ = [
   {
@@ -198,7 +189,13 @@ const beotimmokJeonseConfig = {
     return `자기자금 ${formatCurrency(result.selfFund)} · 대출 ${formatCurrency(result.loanAmount)}`;
   },
 
-  trackCalculate: trackBeotimmokCalculate,
+  trackCalculate: (parsed) => trackCalculateEvent({
+    calculatorType: "beotimmok-jeonse",
+    loanAmount: parsed.deposit,
+    annualRate: parsed.annualRate,
+    months: parsed.months,
+    graceMonths: parsed.graceMonths,
+  }),
   trackSaveScenario: () => {},
   trackCtaClick,
 

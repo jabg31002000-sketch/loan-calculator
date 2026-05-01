@@ -1,22 +1,12 @@
 import { REPAYMENT_OPTIONS } from "../../components/loan-calculator/constants";
 import { formatInputNumber, buildCompareUrl, formatCurrency } from "../../components/loan-calculator/utils";
-import { trackCtaClick } from "../../components/loan-calculator/ga";
+import { trackCalculateEvent, trackCtaClick } from "../../components/loan-calculator/ga";
 import { HelpCircle, ShieldAlert, Calculator } from "lucide-react";
 import { parsePresetValue } from "../../components/shared/DsrPresetInput";
 import { computeAnnualPayment } from "../../components/shared/DsrDebtListInput";
 import dsrEngine from "../engines/dsrEngine";
 import dsrInterpreter from "../interpreters/dsrInterpreter";
 import DsrResults from "../results/DsrResults";
-
-function trackDsrCalculate(parsed) {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-  window.gtag("event", "loan_calculate", {
-    event_category: "dsr_calculator",
-    event_label: parsed.repaymentType,
-    annual_income: parsed.annualIncome,
-    debt_count: parsed.existingDebts?.length ?? 0,
-  });
-}
 
 const DSR_FAQ = [
   {
@@ -206,7 +196,13 @@ const dsrConfig = {
     return `참고용 예상 한도 최대 약 ${formatCurrency(result.maxLoanAmount)}`;
   },
 
-  trackCalculate: trackDsrCalculate,
+  trackCalculate: (parsed) => trackCalculateEvent({
+    calculatorType: "dsr",
+    loanAmount: parsed.annualIncome,
+    annualRate: parsed.desiredRate,
+    months: parsed.desiredMonths,
+    graceMonths: 0,
+  }),
   trackSaveScenario: () => {},
   trackCtaClick,
 

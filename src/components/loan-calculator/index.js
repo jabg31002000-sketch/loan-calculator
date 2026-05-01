@@ -11,7 +11,7 @@ export {
 } from "./constants";
 
 // GA tracking
-export { trackCalculateEvent, trackSaveScenarioEvent, trackCtaClick } from "./ga";
+export { trackCalculateEvent, trackSaveScenarioEvent, trackCtaClick, trackRefinanceCtaClick } from "./ga";
 
 // Utilities & calculations
 export {

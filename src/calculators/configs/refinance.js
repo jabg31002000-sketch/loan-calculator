@@ -1,20 +1,10 @@
 import { REPAYMENT_OPTIONS } from "../../components/loan-calculator/constants";
 import { formatInputNumber, buildCompareUrl, formatCurrency } from "../../components/loan-calculator/utils";
-import { trackCtaClick } from "../../components/loan-calculator/ga";
+import { trackCalculateEvent, trackCtaClick } from "../../components/loan-calculator/ga";
 import { HelpCircle, TrendingDown, AlertTriangle } from "lucide-react";
 import refinanceEngine from "../engines/refinanceEngine";
 import refinanceInterpreter from "../interpreters/refinanceInterpreter";
 import RefinanceResults from "../results/RefinanceResults";
-
-function trackRefinanceCalculate(parsed) {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-  window.gtag("event", "loan_calculate", {
-    event_category: "refinance_calculator",
-    event_label: parsed.currentRepayment,
-    current_rate: parsed.currentRate,
-    new_rate: parsed.newRate,
-  });
-}
 
 const REFINANCE_FAQ = [
   {
@@ -217,7 +207,13 @@ const refinanceConfig = {
       : "더 유리한 조건이 있을 수 있어요";
   },
 
-  trackCalculate: trackRefinanceCalculate,
+  trackCalculate: (parsed) => trackCalculateEvent({
+    calculatorType: "refinance",
+    loanAmount: parsed.currentBalance,
+    annualRate: parsed.currentRate,
+    months: parsed.remainingMonths,
+    graceMonths: 0,
+  }),
   trackSaveScenario: () => {},
   trackCtaClick,
 
