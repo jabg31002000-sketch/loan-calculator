@@ -407,23 +407,23 @@ export default function HomePage() {
                 </div>
               </FadeInSection>
 
-              <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="mt-14 grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 {STEPS.map((step, i) => {
                   const Icon = step.icon;
                   return (
-                    <FadeInSection key={step.num} delay={i * 100}>
-                      <div className="relative rounded-3xl border border-[#E5E1DA] bg-[#F6F1EB]/40 p-8 shadow-sm transition-all duration-200 hover:bg-white hover:shadow-lg hover:-translate-y-1">
+                    <FadeInSection key={step.num} delay={i * 100} className="h-full">
+                      <div className="relative flex h-full flex-col rounded-3xl border border-[#E5E1DA] bg-[#F6F1EB]/40 p-8 shadow-sm transition-all duration-200 hover:bg-white hover:shadow-lg hover:-translate-y-1">
                         {i < STEPS.length - 1 && (
                           <div className="pointer-events-none absolute -right-3 top-1/2 hidden h-px w-6 bg-[#E5E1DA] lg:block" />
                         )}
-                        <div className="mb-4 flex items-center justify-between">
+                        <div className="mb-4 flex min-h-[44px] items-center justify-between">
                           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#10353F]/8">
                             <Icon className="h-5 w-5 text-[#10353F]" />
                           </div>
                           <span className="text-3xl font-bold text-[#E5E1DA]/80">{step.num}</span>
                         </div>
                         <h3 className="text-base font-semibold text-[#0E2A3A]">{step.title}</h3>
-                        <p className="mt-2 text-[14px] leading-relaxed text-[#5E6E73]">{step.desc}</p>
+                        <p className="mt-2 flex-1 text-[14px] leading-relaxed text-[#5E6E73]">{step.desc}</p>
                       </div>
                     </FadeInSection>
                   );
