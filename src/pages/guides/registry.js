@@ -65,6 +65,16 @@ const guides = [
     relatedSlugs: ["loan-interest-calculation", "credit-score-guide"],
     component: lazy(() => import("./content/CreditLoanLimitContent")),
   },
+  {
+    slug: "grace-period-calculation",
+    title: "대출 거치기간 계산, 2년 거치하면 월 상환액이 얼마나 오를까?",
+    summary: "거치기간은 이자를 줄이는 기간이 아니라 원금 상환을 미루는 구조입니다. 3,000만원 기준으로 거치 유무에 따른 월 납입액과 총이자 차이를 계산합니다.",
+    seoTitle: "대출 거치기간 계산, 2년 거치하면 월 상환액이 얼마나 오를까?",
+    seoDesc: "대출 거치기간은 이자를 줄이는 기간이 아니라 원금 상환을 미루는 구조입니다. 3,000만원, 연 5%, 20년 기준으로 거치기간 유무에 따른 월 납입액과 총이자 차이를 계산해봅니다.",
+    relatedCalc: { label: "대출 이자 계산기", path: "/credit-loan/calculator" },
+    relatedSlugs: ["loan-interest-calculation", "early-repayment-good-or-bad"],
+    component: lazy(() => import("./content/GracePeriodContent")),
+  },
 ];
 
 export default guides;
