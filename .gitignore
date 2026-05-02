@@ -3,3 +3,8 @@ dist
 .env
 .env.local
 .vercel
+
+# backup files
+*.backup
+*.backup2
+*.backup.jsx

@@ -86,7 +86,7 @@ export default function LoanComparePage() {
 
   // [최종 CTA 클릭] cta_click + final_cta_click 동시 추적
   const handleFinalCta = (id) => {
-    const payload = { ctaLabel: "지금 최저 금리 상품 확인하기", ctaLocation: id, destinationUrl: "/out-loan?from=compare" };
+    const payload = { ctaLabel: "대출 이자 계산하기", ctaLocation: id, destinationUrl: "/calculator" };
     trackCtaClick(payload);
     trackFinalCtaClick(payload);
   };
@@ -151,16 +151,14 @@ export default function LoanComparePage() {
 
           {/* [통합 CTA] 단일 핵심 버튼 */}
           <div className="mt-8">
-            <a
-              href="/out/loan?from=compare_hero_primary"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/credit-loan/calculator"
               onClick={() => handleFinalCta("compare_hero_primary")}
               className="flex h-14 items-center justify-center rounded-xl bg-[#D97852] text-base font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.03] hover:bg-[#C96543] hover:shadow-xl active:scale-[0.98]"
             >
-              지금 최저 금리 상품 확인하기
-            </a>
-            <p className="mt-2.5 text-center text-xs text-[#E6D3BE]/50">금리 1%만 낮춰도 수백만 원 절약 가능합니다</p>
+              대출 이자 계산하기
+            </Link>
+            <p className="mt-2.5 text-center text-xs text-[#E6D3BE]/50">내 조건으로 월 납입액과 총이자를 확인할 수 있습니다</p>
           </div>
         </section>
 
@@ -313,15 +311,13 @@ export default function LoanComparePage() {
           </p>
 
           {/* [통합 CTA] 단일 최종 CTA */}
-          <a
-            href="/out/loan?from=compare_final_primary"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to="/credit-loan/calculator"
             onClick={() => handleFinalCta("compare_final_primary")}
             className="flex h-14 items-center justify-center rounded-xl bg-[#D97852] text-base font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.03] hover:bg-[#C96543] hover:shadow-xl active:scale-[0.98]"
           >
-            지금 최저 금리 상품 확인하기
-          </a>
+            내 조건으로 계산해보기
+          </Link>
           <p className="mt-2.5 text-center text-xs text-[#E6D3BE]/50">조건 입력만으로 확인 · 무료</p>
         </section>
 
