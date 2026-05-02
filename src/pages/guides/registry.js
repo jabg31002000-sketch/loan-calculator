@@ -75,6 +75,16 @@ const guides = [
     relatedSlugs: ["loan-interest-calculation", "early-repayment-good-or-bad"],
     component: lazy(() => import("./content/GracePeriodContent")),
   },
+  {
+    slug: "loan-repayment-ratio",
+    title: "월급 대비 대출 상환액 적정 비율, 내 월급에서 얼마까지 괜찮을까?",
+    summary: "실수령 월급 기준 대출 상환액 적정 비율을 계산해봅니다. 월급 250만~400만원 기준 20%와 35% 차이, 대출 상환액이 생활비와 현금흐름에 미치는 영향을 정리했습니다.",
+    seoTitle: "월급 대비 대출 상환액 적정 비율, 내 월급에서 얼마까지 괜찮을까? | LoanClock",
+    seoDesc: "실수령 월급 기준 대출 상환액 적정 비율을 계산해봅니다. 월급 250만~400만원 기준 20%와 35% 차이, 대출 상환액이 생활비와 현금흐름에 미치는 영향을 정리했습니다.",
+    relatedCalc: { label: "신용대출 이자 계산기", path: "/credit-loan/calculator" },
+    relatedSlugs: ["loan-interest-calculation", "credit-loan-limit-50000000-income"],
+    component: lazy(() => import("./content/LoanRepaymentRatioContent")),
+  },
 ];
 
 export default guides;
